@@ -1,0 +1,27 @@
+{
+  "name": "yyl-hander",
+  "version": "0.1.0",
+  "description": "",
+  "main": "lib/yh.js",
+  "types": "lib/yh.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jackness1208/yyl-hander.git"
+  },
+  "keywords": [
+    "yyl",
+    "handler"
+  ],
+  "author": "jackness",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jackness1208/yyl-hander/issues"
+  },
+  "homepage": "https://github.com/jackness1208/yyl-hander#readme",
+  "engines": {
+    "node": ">= 8.0.0"
+  }
+}
