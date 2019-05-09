@@ -26,6 +26,8 @@
   },
   "dependencies": {
     "chalk": "^2.4.2",
+    "concat-with-sourcemaps": "^1.1.0",
+    "yyl-file-replacer": "^0.4.1",
     "yyl-util": "^2.2.0"
   },
   "devDependencies": {
