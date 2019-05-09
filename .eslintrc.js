@@ -2,8 +2,8 @@ module.exports = {
     "env": {
       "node": true,
       "es6": true,
-    	"amd": true,
-      "mocha": true
+      "amd": true,
+      "jest": true
     },
     "plugins": ["node"],
     "extends": ["eslint:recommended", "plugin:node/recommended"],

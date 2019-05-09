@@ -1,0 +1,70 @@
+{
+  "workflow": "webpack-vue2",
+  "name": "1",
+  "version": "3.4.10",
+  "platform": "mobile",
+  "proxy": {
+    "port": 8887,
+    "localRemote": {
+      "http://web.yy.com/": "http://127.0.0.1:5000/",
+      "http://www.yy.com/web/1": "http://127.0.0.1:5000/project/1/mobile/html",
+      "http://www.yy.com/api/mock": "http://127.0.0.1:5000/api/mock"
+    },
+    "homePage": "http://www.yy.com/web/1/"
+  },
+  "localserver": {
+    "root": "./dist",
+    "port": 5000
+  },
+  "dest": {
+    "basePath": "/project/1/mobile",
+    "jsPath": "js",
+    "jslibPath": "js/lib",
+    "cssPath": "css",
+    "htmlPath": "html",
+    "imagesPath": "images",
+    "tplPath": "tpl",
+    "revPath": "assets"
+  },
+  "commit": {
+    "type": "gitlab-ci",
+    "revAddr": "http://web.yystatic.com/project/1/mobile/assets/rev-manifest.json",
+    "hostname": "//web.yystatic.com",
+    "staticHost": "//web.yystatic.com",
+    "mainHost": "//www.yy.com/web"
+  },
+  "concat": {
+    "F:/github/yyl-hander/test/case/case-parse-config/dist/project/1/mobile/js/vendors.js": [
+      "F:/github/yyl-hander/test/case/case-parse-config/src/js/lib/a.js",
+      "F:/github/yyl-hander/test/case/case-parse-config/src/js/lib/b.js"
+    ]
+  },
+  "resource": {
+    "F:/github/yyl-hander/test/case/case-parse-config/src/pc/svga": "F:/github/yyl-hander/test/case/case-parse-config/dist/project/1/mobile/tpl"
+  },
+  "plugins": [
+    "yyl-flexlayout",
+    "yyl-flexlayout"
+  ],
+  "webpackConfigPath": "F:/github/yyl-hander/test/case/case-parse-config/webpack.config.js",
+  "alias": {
+    "root": "F:/github/yyl-hander/test/case/case-parse-config/dist/project/1/mobile",
+    "revRoot": "F:/github/yyl-hander/test/case/case-parse-config/dist/project/1/mobile",
+    "destRoot": "F:/github/yyl-hander/test/case/case-parse-config/dist",
+    "srcRoot": "F:/github/yyl-hander/test/case/case-parse-config/src",
+    "dirname": "F:/github/yyl-hander/test/case/case-parse-config",
+    "commons": "F:/github/yyl-hander/test/case/commons",
+    "globalcomponents": "F:/github/yyl-hander/test/case/commons/components",
+    "globallib": "F:/github/yyl-hander/test/case/commons/lib",
+    "jsDest": "F:/github/yyl-hander/test/case/case-parse-config/dist/project/1/mobile/js",
+    "jslibDest": "F:/github/yyl-hander/test/case/case-parse-config/dist/project/1/mobile/js/lib",
+    "htmlDest": "F:/github/yyl-hander/test/case/case-parse-config/dist/project/1/mobile/html",
+    "cssDest": "F:/github/yyl-hander/test/case/case-parse-config/dist/project/1/mobile/css",
+    "imagesDest": "F:/github/yyl-hander/test/case/case-parse-config/dist/project/1/mobile/images",
+    "revDest": "F:/github/yyl-hander/test/case/case-parse-config/dist/project/1/mobile/assets",
+    "tplDest": "F:/github/yyl-hander/test/case/case-parse-config/dist/project/1/mobile/tpl",
+    "@": "F:/github/yyl-hander/test/case/case-parse-config/src",
+    "~@": "F:/github/yyl-hander/test/case/case-parse-config/src/components"
+  },
+  "resolveModule": "C:/Users/Administrator/.yyl/plugins/webpack-vue2/node_modules"
+}
