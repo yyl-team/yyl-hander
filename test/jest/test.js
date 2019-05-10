@@ -6,10 +6,11 @@ const util = require('yyl-util');
 const Handler = require('../../lib/yh');
 
 const TEST_CTRL = {
-  SET_VARS: true,
-  HIDE_PROTOCOL: true,
-  SUGAR_REPLACE: true,
-  PARSE_CONFIG: true
+  // SET_VARS: true,
+  // HIDE_PROTOCOL: true,
+  // SUGAR_REPLACE: true,
+  // PARSE_CONFIG: true,
+  OPTIMIZE: true
 };
 
 const FRAG_PATH = path.join(__dirname, '../__frag');
@@ -162,5 +163,43 @@ if (TEST_CTRL.PARSE_CONFIG) {
 
     expectResult.resource[`${configDir}/src/pc/svga`] = `${configDir}/dist/project/1/mobile/tpl`;
     expect(r).toEqual(expectResult);
+  });
+}
+
+if (TEST_CTRL.OPTIMIZE) {
+  test('yh.optimize.afterTask(): Promise<any>', async () => {
+    // 准备
+    await fn.frag.build();
+    const casePath = path.join(__dirname, '../case/case-optimize/');
+    await extFs.copyFiles(casePath, FRAG_PATH);
+
+    // 开始
+    const configPath = path.join(FRAG_PATH, 'yyl.config.js');
+    const iEnv = {};
+    const config = await yh.parseConfig(configPath, iEnv);
+    yh.optimize.init({ config, iEnv });
+    await yh.optimize.afterTask(false);
+
+    // 检查结果
+    // resource check
+    expect(fs.existsSync(config.alias.root, 'svga', 'logo.png')).toEqual(true);
+
+    // concat check
+    expect(fs.existsSync(config.alias.jsDest, 'vendors.js')).toEqual(true);
+
+    // rev check
+    expect(fs.existsSync(config.alias.revDest, yh.optimize.rev.filename)).toEqual(true);
+
+    // varSugar check
+    const htmlPath = path.join(config.alias.htmlDest, 'index.html');
+    const htmlCnt = fs.readFileSync(htmlPath).toString();
+
+    const SUGAR_REG = /(\{\$)([a-zA-Z0-9@_\-$.~]+)(\})/g;
+    const URL_REG = /__url\(/g;
+    expect(htmlCnt.match(SUGAR_REG)).toEqual(null);
+    expect(htmlCnt.match(URL_REG)).toEqual(null);
+
+    // 销毁
+    await fn.frag.destroy();
   });
 }
