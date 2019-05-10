@@ -1,3 +1,6 @@
+import { userInfo } from "os";
+import { isInterfaceDeclaration } from "@babel/types";
+
 export default class Handler {
   constructor({ log: logFunction, vars: IVars });
   // vars
@@ -9,10 +12,59 @@ export default class Handler {
   // 语法糖 replace
   public sugarReplace(str: string, alias: object): string;
   // config 格式化
-  public parseConfig(configPath: string, iEnv: object, returnKeys: string[] | string): Promise<any>;
+  public parseConfig(configPath: string, iEnv: IEnv, returnKeys: string[] | string): Promise<any>;
+  // 构建相关操作
+  public optimize: IOptimize
 }
 
-type logFunction = (type: string, args: any[]) => void;
+type logFunction = (type: string, status: string, args: any[]) => void;
+
+interface IOptimize {
+  // 初始化
+  public init(config: IConfig, iEnv: IEnv): void;
+  // 语法糖渲染 - 主要用于 html, js 文件
+  public varSugar(): Promise<any>;
+  // 构建后处理函数
+  public afterTask(isUpdate?: boolean): Promise<any>;
+  // concat 操作
+  public concat(): Promise<any>;
+  // resource 操作
+  public resource(): Promise<any>;
+  // 初始化 插件操作
+  public initPlugins(): Promise<any>;
+  // 打开 home page
+  public openHomePage(): Promise<any>;
+  // livereload 操作
+  public livereload(): Promise<any>;
+  // 报错配置到 服务器操作
+  public saveConfigToServer(): Promise<any>;
+  // rev 类
+  public rev: IRev;
+}
+
+interface IRev {
+   private resolveUrl(cnt: string, filePath: string, revMap: object): string;
+   private buildHashMap(iPath: string, revMap: object): void;
+   private fileHashPathUpdate(iPath: string, iRevMap: object): void;
+   private buildRevMapDestFiles(revMap: object): void;
+   private getRemoteManifest(): Promise<any>;
+   // 初始化
+   public init({ config: IConfig, iEnv: IEnv }): void;
+   // rev 构建
+   public build(): Promise<any>;
+   // rev 更新
+   public update(remoteManifestData?: object): Promise<any>;
+   // rev 清理
+   public clean(): Promise<any>;
+}
+
+interface IEnv {
+  name?: string;
+  remote?: boolean;
+  proxy?: boolean;
+  isCommit?: boolean;
+  ver?: 'remote';
+}
 
 interface IVars {
   // 本程序根目录
@@ -45,4 +97,61 @@ interface IVars {
   PROXY_CACHE_PATH?: string;
   // 本机 ip地址
   LOCAL_SERVER?: string;
+  // yyl 版本
+  PKG_VERSION: string;
 }
+
+// + 配置相关
+interface IConfig {
+  // seed 包名称
+  workflow: string;
+  // seed sub name
+  seed?: string;
+  // yyl 版本
+  version: string;
+  // 平台
+  platform: configPlatform;
+  proxy?: IProxy;
+  localserver: IConfigLocalserver;
+  dest: IConfigDest;
+  commit: IConfigCommit;
+  concat?: object;
+  resource?: object;
+  plugins?: string[];
+  webpackConfigPath: string;
+  alias: object;
+}
+
+interface IProxy {
+  port: number,
+  localRemote?: object;
+  homePage?: string;
+}
+
+interface IConfigLocalserver {
+  root: string;
+  port: number;
+}
+
+interface IConfigDest {
+  basePath: string;
+  jsPath: string;
+  jslibPath: string;
+  cssPath: string;
+  htmlPath: string;
+  imagesPath: string;
+  tplPath: string;
+  revPath: string;
+}
+
+interface IConfigCommit {
+  type: configCommitType;
+  revAddr: string;
+  hostname: string;
+  staticHost?: string;
+  mainHost?: string;
+}
+
+declare type configPlatform = 'pc' | 'mobile';
+declare type configCommitType = 'svn' | 'gitlab-ci';
+// - 配置相关
