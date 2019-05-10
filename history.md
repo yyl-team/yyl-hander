@@ -1,6 +1,20 @@
 # 修改历史
 ## 0.1.0 (2019.05.09)
 * [ADD] 新增 class Handle
-* [ADD] 新增 Handle.hideProtocol(iPath: string): string
-* [ADD] 新增 Handle.sugarReplace(str: string, alias: object): string;
-* [ADD] 新增 Handle.parseConfig(configPath: string, iEnv: object, returnKeys: string[] | string): Promise<any>;
+* [ADD] 新增 Hander.hideProtocol(iPath: string): string
+* [ADD] 新增 Hander.sugarReplace(str: string, alias: object): string;
+* [ADD] 新增 Hander.parseConfig(configPath: string, iEnv: object, returnKeys: string[] | string): Promise<any>;
+* [ADD] 新增 Hander.setVars(vars: IVars): IVars;
+* [ADD] 新增 Hander.optimize.init(config: IConfig, iEnv: IEnv): void;
+* [ADD] 新增 Hander.optimize.varSugar(): Promise<any>;
+* [ADD] 新增 Hander.optimize.afterTask(isUpdate?: boolean): Promise<any>;
+* [ADD] 新增 Hander.optimize.concat(): Promise<any>;
+* [ADD] 新增 Hander.optimize.resource(): Promise<any>;
+* [ADD] 新增 Hander.optimize.initPlugins(): Promise<any>;
+* [ADD] 新增 Hander.optimize.openHomePage(): Promise<any>;
+* [ADD] 新增 Hander.optimize.livereload(): Promise<any>;
+* [ADD] 新增 Hander.optimize.saveConfigToServer(): Promise<any>;
+* [ADD] 新增 Hander.optimize.rev.init({ config: IConfig, iEnv: IEnv }): void;
+* [ADD] 新增 Hander.optimize.rev.build(): Promise<any>;
+* [ADD] 新增 Hander.optimize.rev.update(remoteManifestData?: object): Promise<any>;
+* [ADD] 新增 Hander.optimize.rev.clean(): Promise<any>;
