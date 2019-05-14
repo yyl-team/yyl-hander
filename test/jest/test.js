@@ -6,10 +6,10 @@ const util = require('yyl-util');
 const Handler = require('../../lib/yh');
 
 const TEST_CTRL = {
-  // SET_VARS: true,
-  // HIDE_PROTOCOL: true,
-  // SUGAR_REPLACE: true,
-  // PARSE_CONFIG: true,
+  SET_VARS: true,
+  HIDE_PROTOCOL: true,
+  SUGAR_REPLACE: true,
+  PARSE_CONFIG: true,
   OPTIMIZE: true
 };
 
@@ -91,9 +91,9 @@ if (TEST_CTRL.PARSE_CONFIG) {
     const configDir = util.path.join(__dirname, '../case/case-parse-config');
     const configPath = path.join(configDir, 'yyl.config.js');
     yh.setVars({ PROJECT_PATH: configDir });
-    const r = await yh.parseConfig(configPath, {});
+    const r = await yh.parseConfig(configPath, { workflow: 'webpack-vue3'});
     const expectResult = {
-      'workflow': 'webpack-vue2',
+      'workflow': 'webpack-vue3',
       'name': '1',
       'version': '3.4.10',
       'platform': 'mobile',

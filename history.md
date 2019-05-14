@@ -1,4 +1,8 @@
 # 修改历史
+## 0.1.1 (2019-05-14)
+* [ADD] 修复 Hander.parseConfig(configPath, iEnv) 新增 iEnv.workflow 参数
+* [FIX] 修复 Hander.parseConfig() 当不存在 config.workflow & config.x.workflow 时 会报错的问题
+
 ## 0.1.0 (2019.05.09)
 * [ADD] 新增 class Handle
 * [ADD] 新增 Hander.hideProtocol(iPath: string): string
