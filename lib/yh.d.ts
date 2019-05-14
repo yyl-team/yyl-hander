@@ -4,7 +4,7 @@ import { isInterfaceDeclaration } from "@babel/types";
 export default class Handler {
   constructor({ log: logFunction, vars: IVars });
   // vars
-  public vars: IVars;
+  vars: IVars;
   // 设置 vars
   public setVars(vars: IVars): IVars;
   // 去掉协议
@@ -21,41 +21,41 @@ type logFunction = (type: string, status: string, args: any[]) => void;
 
 interface IOptimize {
   // 初始化
-  public init(config: IConfig, iEnv: IEnv): void;
+  init(config: IConfig, iEnv: IEnv): void;
   // 语法糖渲染 - 主要用于 html, js 文件
-  public varSugar(): Promise<any>;
+  varSugar(): Promise<any>;
   // 构建后处理函数
-  public afterTask(isUpdate?: boolean): Promise<any>;
+  afterTask(isUpdate?: boolean): Promise<any>;
   // concat 操作
-  public concat(): Promise<any>;
+  concat(): Promise<any>;
   // resource 操作
-  public resource(): Promise<any>;
+  resource(): Promise<any>;
   // 初始化 插件操作
-  public initPlugins(): Promise<any>;
+  initPlugins(): Promise<any>;
   // 打开 home page
-  public openHomePage(): Promise<any>;
+  openHomePage(): Promise<any>;
   // livereload 操作
-  public livereload(): Promise<any>;
+  livereload(): Promise<any>;
   // 报错配置到 服务器操作
-  public saveConfigToServer(): Promise<any>;
+  saveConfigToServer(): Promise<any>;
   // rev 类
-  public rev: IRev;
+  rev: IRev;
 }
 
 interface IRev {
-   private resolveUrl(cnt: string, filePath: string, revMap: object): string;
-   private buildHashMap(iPath: string, revMap: object): void;
-   private fileHashPathUpdate(iPath: string, iRevMap: object): void;
-   private buildRevMapDestFiles(revMap: object): void;
-   private getRemoteManifest(): Promise<any>;
+   resolveUrl(cnt: string, filePath: string, revMap: object): string;
+   buildHashMap(iPath: string, revMap: object): void;
+   fileHashPathUpdate(iPath: string, iRevMap: object): void;
+   buildRevMapDestFiles(revMap: object): void;
+   getRemoteManifest(): Promise<any>;
    // 初始化
-   public init({ config: IConfig, iEnv: IEnv }): void;
+   init({ config: IConfig, iEnv: IEnv }): void;
    // rev 构建
-   public build(): Promise<any>;
+   build(): Promise<any>;
    // rev 更新
-   public update(remoteManifestData?: object): Promise<any>;
+   update(remoteManifestData?: object): Promise<any>;
    // rev 清理
-   public clean(): Promise<any>;
+   clean(): Promise<any>;
 }
 
 interface IEnv {
@@ -63,6 +63,7 @@ interface IEnv {
   remote?: boolean;
   proxy?: boolean;
   isCommit?: boolean;
+  workflow?: string;
   ver?: 'remote';
 }
 
