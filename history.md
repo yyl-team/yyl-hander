@@ -1,4 +1,7 @@
 # 修改历史
+## 0.1.2 (2019-05-17)
+* [FIX] 修复Hander.parseConfig(configPath, iEnv) 当定义 iEnv.workflow 时 依然不生效问题
+
 ## 0.1.1 (2019-05-14)
 * [ADD] 修复 Hander.parseConfig(configPath, iEnv) 新增 iEnv.workflow 参数
 * [FIX] 修复 Hander.parseConfig() 当不存在 config.workflow & config.x.workflow 时 会报错的问题
