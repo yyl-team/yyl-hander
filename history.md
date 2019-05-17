@@ -1,4 +1,7 @@
 # 修改历史
+## 0.1.3-beta3(2019-05-17)
+* [FIX] 修复 Hander.optimize.initPlugins 永远都会下载的问题
+
 ## 0.1.3-beta2(2019-05-17)
 * [FIX] 修复 Hander.optimize.openHomePage() 报错问题
 * [DEL] 去掉 Hander.parseConfig() 中 检验 commonPath， globalCommonPath 字段的逻辑
