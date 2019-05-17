@@ -153,7 +153,7 @@ if (TEST_CTRL.PARSE_CONFIG) {
         '@': `${configDir}/src`,
         '~@': `${configDir}/src/components`
       },
-      'resolveModule': `${yh.vars.SERVER_PLUGIN_PATH}/webpack-vue2/node_modules`
+      'resolveModule': `${yh.vars.SERVER_PLUGIN_PATH}/webpack-vue3/node_modules`
     };
 
     expectResult.concat[`${configDir}/dist/project/1/mobile/js/vendors.js`] = [
