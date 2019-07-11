@@ -1,4 +1,7 @@
 # 修改历史
+## 0.1.3(2019-07-11)
+* [FIX] 修复 安装 plugins 后 会出现 warning 问题
+
 ## 0.1.3-beta3(2019-05-17)
 * [FIX] 修复 Hander.optimize.initPlugins 永远都会下载的问题
 
