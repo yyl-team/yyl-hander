@@ -1,6 +1,6 @@
 {
   "name": "yyl-hander",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "",
   "main": "lib/yh.js",
   "types": "lib/yh.d.ts",
