@@ -1,0 +1,1 @@
+console.log(__url('{$jsDest}/vendors.js'));

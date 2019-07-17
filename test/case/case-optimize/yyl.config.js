@@ -27,6 +27,7 @@ const setting = {
     htmlPath: 'html',
     imagesPath: 'images',
     tplPath: 'tpl',
+    svgaPath: 'svga',
     revPath: 'assets'
   },
   // 代理服务器
@@ -100,6 +101,7 @@ Object.assign(config, {
     'revDest': path.join(DEST_BASE_PATH, setting.dest.revPath),
     // tpl 输出地址
     'tplDest': path.join(DEST_BASE_PATH, setting.dest.tplPath),
+    'svgaDest': path.join(DEST_BASE_PATH, setting.dest.svgaPath),
     // webpackconfig 中的 alias
     '@': SRC_ROOT,
     '~@': path.join(SRC_ROOT, 'components')
