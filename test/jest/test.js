@@ -189,6 +189,7 @@ if (TEST_CTRL.OPTIMIZE) {
 
       // resource check
       expect(fs.existsSync(path.join(config.alias.root, 'svga', 'logo.png'))).toEqual(true);
+      expect(fs.existsSync(path.join(config.alias.root, 'svga', 't.js'))).toEqual(true);
 
       // concat check
       expect(fs.existsSync(path.join(config.alias.jsDest, 'vendors.js'))).toEqual(true);
@@ -204,6 +205,12 @@ if (TEST_CTRL.OPTIMIZE) {
       const URL_REG = /__url\(/g;
       expect(htmlCnt.match(SUGAR_REG)).toEqual(null);
       expect(htmlCnt.match(URL_REG)).toEqual(null);
+
+      // varSugar js check
+      const jsPath = path.join(config.alias.svgaDest, 't.js');
+      const jsCnt = fs.readFileSync(jsPath).toString();
+      expect(jsCnt.match(SUGAR_REG)).toEqual(null);
+      expect(jsCnt.match(URL_REG)).toEqual(null);
     };
 
     yh.optimize.init({ config, iEnv });
