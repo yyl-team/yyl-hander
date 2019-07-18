@@ -175,7 +175,7 @@ if (TEST_CTRL.OPTIMIZE) {
 
     // 开始
     const configPath = path.join(FRAG_PATH, 'yyl.config.js');
-    const iEnv = {};
+    const iEnv = { isCommit: true };
     const config = await yh.parseConfig(configPath, iEnv);
     const revPath = path.join(config.alias.revDest, yh.optimize.rev.filename);
 
