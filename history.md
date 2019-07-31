@@ -1,6 +1,12 @@
 # 修改历史
+## 0.3.1(2019-17-31)
+* [FIX] 修复 `Hander.parseConfig` 如果遇到未 定义 `config.name` 会报错问题
+
+## 0.3.0(2019-17-31)
+* [EDIT] `Hander.parseConfig` 如遇到 `config.plugins.length === 0`, 不会生成 `config.resolveModule` 对象
+
 ## 0.2.2(2019-07-18)
-* [FIXC] 修复 js 内 通过 __url({$cssDest}) 引入 css时， 前缀不对问题
+* [FIX] 修复 js 内 通过 __url({$cssDest}) 引入 css时， 前缀不对问题
 
 ## 0.2.1(2019-07-17)
 * [FIX] 修复 js 内 通过 __url({$cssDest}) 引入 css时， 缺少hash 问题
