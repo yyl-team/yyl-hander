@@ -60,13 +60,11 @@ Object.assign(config, {
     'src/pc/svga': path.join(setting.localserver.root, setting.dest.basePath, 'tpl')
   },
   plugins: [ // 额外的 npm 组件
-    'yyl-flexlayout'
   ],
   // 自定义 webpack.config 路径
   webpackConfigPath: WEBPACK_CONFIG_PATH
 });
 // - base
-
 
 // + alias
 const DEST_BASE_PATH = path.join(setting.localserver.root, setting.dest.basePath);
