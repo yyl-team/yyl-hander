@@ -1,8 +1,12 @@
 # 修改历史
-## 0.3.1(2019-17-31)
+## 0.3.2(2019-09-12)
+* [FIX] 修复 `Hander.parseConfig` 如果遇到未 定义 `vars.PROJECT_PATH` 会报错问题
+* [FIX] 修复 `Hander.parseConfig` 在 yyl-server 下执行会报错问题
+
+## 0.3.1(2019-07-31)
 * [FIX] 修复 `Hander.parseConfig` 如果遇到未 定义 `config.name` 会报错问题
 
-## 0.3.0(2019-17-31)
+## 0.3.0(2019-07-31)
 * [EDIT] `Hander.parseConfig` 如遇到 `config.plugins.length === 0`, 不会生成 `config.resolveModule` 对象
 
 ## 0.2.2(2019-07-18)
