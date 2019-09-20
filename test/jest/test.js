@@ -237,6 +237,22 @@ if (TEST_CTRL.PARSE_CONFIG) {
     expectResult.resource[`${configDir}/src/pc/svga`] = `${configDir}/dist/project/1/mobile/tpl`;
     expect(r).toEqual(expectResult);
   });
+
+  test('yh.parseConfig(configPath, iEnv, returnKeys): configPath is function', async () => {
+    const configDir = util.path.join(__dirname, '../case/case-parse-config-function');
+    const configPath = path.join(configDir, 'yyl.config.js');
+    yh.setVars({ PROJECT_PATH: configDir });
+    const r1 = await yh.parseConfig(configPath, { mode: 'master'});
+    const r2 = await yh.parseConfig(configPath, { mode: 'dev'});
+
+    expect(r1.commit.hostname).toEqual('//web.yystatic.com');
+    expect(r1.commit.staticHost).toEqual('//web.yystatic.com');
+    expect(r1.commit.mainHost).toEqual('//www.yy.com/web');
+
+    expect(r2.commit.hostname).toEqual('//webtest.yystatic.com');
+    expect(r2.commit.staticHost).toEqual('//webtest.yystatic.com');
+    expect(r2.commit.mainHost).toEqual('//webtest.yy.com');
+  });
 }
 
 if (TEST_CTRL.OPTIMIZE) {
