@@ -1,4 +1,7 @@
 # 修改历史
+## 0.5.0(2020-02-13)
+* feat: 打包时添加 env 变量到 revMap
+
 ## 0.4.0(2019-09-20)
 * feat: `Hander.parseConfig` 支持 `typeof config === function`
 

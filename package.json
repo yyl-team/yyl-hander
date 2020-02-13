@@ -1,11 +1,16 @@
 {
   "name": "yyl-hander",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "",
   "main": "lib/yh.js",
   "types": "lib/yh.d.ts",
   "scripts": {
-    "test": "jest ./test/jest --env=node"
+    "test": "jest ./test/jest --env=node",
+    "test:hideProtocol": "jest ./test/jest/hideProtocol.test.js --env=node",
+    "test:optimize": "jest ./test/jest/optimize.test.js --env=node",
+    "test:parseConfig": "jest ./test/jest/parseConfig.test.js --env=node",
+    "test:setVar": "jest ./test/jest/setVar.test.js --env=node",
+    "test:sugarReplace": "jest ./test/jest/sugarReplace.test.js --env=node"
   },
   "repository": {
     "type": "git",
@@ -34,7 +39,7 @@
     "yyl-util": "^2.2.0"
   },
   "devDependencies": {
-    "jest": "^24.8.0",
+    "jest": "^25.1.0",
     "yyl-fs": "^0.3.2",
     "yyl-print": "^0.7.3"
   }
