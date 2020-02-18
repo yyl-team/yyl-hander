@@ -10,7 +10,8 @@
     "test:optimize": "jest ./test/jest/optimize.test.js --env=node",
     "test:parseConfig": "jest ./test/jest/parseConfig.test.js --env=node",
     "test:setVar": "jest ./test/jest/setVar.test.js --env=node",
-    "test:sugarReplace": "jest ./test/jest/sugarReplace.test.js --env=node"
+    "test:sugarReplace": "jest ./test/jest/sugarReplace.test.js --env=node",
+    "test:html2string": "jest ./test/jest/html2string.test.js --env=node"
   },
   "repository": {
     "type": "git",
@@ -33,7 +34,7 @@
     "chalk": "^2.4.2",
     "concat-with-sourcemaps": "^1.1.0",
     "rev-hash": "^3.0.0",
-    "yyl-file-replacer": "^0.4.1",
+    "yyl-file-replacer": "^0.6.0",
     "yyl-os": "^0.8.3",
     "yyl-request": "^0.1.0",
     "yyl-util": "^2.2.0"
