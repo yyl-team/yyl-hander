@@ -58,7 +58,8 @@ Object.assign(config, {
     '{$jsDest}/vendors.js': ['{$srcRoot}/js/lib/a.js', '{$srcRoot}/js/lib/b.js']
   },
   resource: { // 自定义项目中其他需打包的文件夹
-    'src/svga': path.join(setting.localserver.root, setting.dest.basePath, 'svga')
+    'src/svga': path.join(setting.localserver.root, setting.dest.basePath, 'svga'),
+    'src/tpl': path.join(setting.localserver.root, setting.dest.basePath, 'tpl')
   },
   plugins: [ // 额外的 npm 组件
     'yyl-flexlayout'
