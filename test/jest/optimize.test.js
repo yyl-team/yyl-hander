@@ -81,5 +81,5 @@ test('yh.optimize.afterTask(): Promise<any>', async () => {
   expect(revData1).toEqual(revData2);
 
   // 销毁
-  await fn.frag.destroy(FRAG_PATH);
+  // await fn.frag.destroy(FRAG_PATH);
 });
