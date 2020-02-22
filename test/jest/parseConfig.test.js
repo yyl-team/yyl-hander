@@ -169,3 +169,15 @@ test('yh.parseConfig(configPath, iEnv, returnKeys): configPath is function', asy
   expect(r2.commit.staticHost).toEqual('//webtest.yystatic.com');
   expect(r2.commit.mainHost).toEqual('//webtest.yy.com');
 });
+
+test('yh.parseConfig(configPath, iEnv, returnKeys): resource sugar', async () => {
+  const configDir = util.path.join(__dirname, '../case/case-parse-config-resource');
+  const configPath = path.join(configDir, 'yyl.config.js');
+  yh.setVars({ PROJECT_PATH: configDir });
+  const r = await yh.parseConfig(configPath, {});
+
+  const expectObj = {};
+  expectObj[util.path.join(configDir, 'src/svga')] = util.path.join(configDir, 'dist/project/1/mobile/tpl');
+
+  expect(r.resource).toEqual(expectObj);
+});

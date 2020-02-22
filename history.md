@@ -1,6 +1,9 @@
 # 修改历史
+## 0.7.0(2020-02-23)
+* feat: 让 config.resource 支持 sugar 写法
 ## 0.6.1(2020-02-19)
 * feat: __html 内容会做一次 sugarReplace
+
 ## 0.6.0(2020-02-18)
 * feat: 新增 __html js 的语法糖用于引入 html 模板
 
