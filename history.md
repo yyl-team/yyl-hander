@@ -1,6 +1,10 @@
 # 修改历史
+## 0.7.1(2020-02-23)
+* feat: 新增 `yh.optimize.getHomePage()` 方法
+
 ## 0.7.0(2020-02-23)
 * feat: 让 config.resource 支持 sugar 写法
+
 ## 0.6.1(2020-02-19)
 * feat: __html 内容会做一次 sugarReplace
 
