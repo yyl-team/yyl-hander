@@ -15,8 +15,6 @@ export default class Handler {
   public parseConfig(configPath: string, iEnv: IEnv, returnKeys: string[] | string): Promise<any>;
   /**  构建相关操作 */
   public optimize: Optimize
-  /** html 转 string */
-  public html2string(htmlString: string, quit: '\'' | '"'): string
 }
 
 type logFunction = (type: string, status: string, args: any[]) => void;
@@ -24,14 +22,6 @@ type logFunction = (type: string, status: string, args: any[]) => void;
 interface Optimize {
   /** 初始化 */
   init(config: Config, iEnv: IEnv): void;
-  /** 语法糖渲染 - 主要用于 html, js 文件 */
-  varSugar(): Promise<any>;
-  /** 构建后处理函数 */
-  afterTask(isUpdate?: boolean): Promise<any>;
-  /** concat 操作 */
-  concat(): Promise<any>;
-  /**  resource 操作 */
-  resource(): Promise<any>;
   /** 初始化 插件操作 */
   initPlugins(): Promise<any>;
   /** 打开 home page */
@@ -40,24 +30,6 @@ interface Optimize {
   livereload(): Promise<any>;
   /**  报错配置到 服务器操作 */
   saveConfigToServer(): Promise<any>;
-  /** rev 类 */
-  rev: Rev;
-}
-
-interface Rev {
-   resolveUrl(cnt: string, filePath: string, revMap: object): string;
-   buildHashMap(iPath: string, revMap: object): void;
-   fileHashPathUpdate(iPath: string, iRevMap: object): void;
-   buildRevMapDestFiles(revMap: object): void;
-   getRemoteManifest(): Promise<any>;
-   /** 初始化 */
-   init({ config: Config, iEnv: IEnv }): void;
-   /** rev 构建 */
-   build(): Promise<any>;
-   /** rev 更新 */
-   update(remoteManifestData?: object): Promise<any>;
-   /** rev 清理 */
-   clean(): Promise<any>;
 }
 
 interface IEnv {
