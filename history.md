@@ -1,4 +1,7 @@
 # 修改历史
+## 0.8.1 (2020-02-23)
+* feat: 补充 optimize 相关用例
+
 ## 0.8.0 (2020-02-23)
 * feat: afterTask 相关函数已迁移到 `yyl-seed-gulp-requirejs` 本组件不再保留
 * del: 移除 `yh.optimize.afterTask()`
