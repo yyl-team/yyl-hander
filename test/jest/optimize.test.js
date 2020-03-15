@@ -26,4 +26,17 @@ test('yh.optimize test', async () => {
 
   // plugins check
   expect(fs.existsSync(path.join(serverPluginPath, 'node_modules/yyl-flexlayout'))).toEqual(true);
+
+  // homepage check
+  expect(await yh.optimize.getHomePage({})).toEqual('http://www.yy.com/web/1/')
+
+  // homepage files check
+  config.proxy.homePage = undefined;
+  iEnv.proxy = true;
+  yh.optimize.init({ config, iEnv });
+  expect(await yh.optimize.getHomePage({
+    files: [
+      path.join(FRAG_PATH, 'dist/project/1/pc/html/any.html')
+    ]
+  })).toEqual('http://web.yy.com/project/1/pc/html/any.html')
 });
