@@ -1,4 +1,8 @@
 # 修改历史
+## 0.9.0 (2020-03-15)
+* feat: `yh.optimize.getHomePage()` 新增 `op.files` 属性
+* feat: `yh.optimize.openHomePage()` 新增 `op.files` 属性
+
 ## 0.8.2 (2020-02-29)
 * feat: 修复 yh.openBrowser() 报错问题
 ## 0.8.1 (2020-02-23)
