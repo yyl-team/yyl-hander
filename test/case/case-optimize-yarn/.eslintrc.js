@@ -1,19 +1,22 @@
 module.exports = {
     "env": {
-      "node": true,
-      "es6": true,
-      "amd": true,
-      "jest": true
+        "browser": true,
+        "node": true,
+    	"shared-node-browser":true,
+        "es6": true,
+    	"jquery": true,
+    	"mocha":true,
+    	"prototypejs":true,
+    	"nashorn":true,
+    	"embertest":true,
+    	"amd":true,
+    	"worker":true
     },
-    "plugins": ["node"],
-    "extends": ["eslint:recommended", "plugin:node/recommended"],
-    "settings": {
-        "node": {
-            "allowModules": ["chalk"],
-            "no-unpublished-require": 0,
-            "no-missing-require": 0
-        }
+    "globals": {
+        "__url": true,
+        "__html": true
     },
+    "extends": "eslint:recommended",
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true,
@@ -27,21 +30,12 @@ module.exports = {
      *  "error" 或 2 - 开启规则，使用错误级别的错误：error (当被触发的时候，程序会退出)
      */
     "rules": {
-        "node/no-missing-require": 0,
-        "node/no-unpublished-require": 0,
-        "no-process-exit": 0,
         // 'strict': [2, "global"],
         // 禁止条件表达式中出现赋值操作符
         "no-cond-assign": 2,
 
-        // 变量声明方式
-        "one-var": [1, "never"],
-
-        // template 预处理
-        "prefer-template": 2,
-
-        // 箭头函数
-        "prefer-arrow-callback": 2,
+        // 运算符 两侧要加空格
+        "space-infix-ops": 1,
 
         // 禁用 console
         "no-console": 0,
@@ -66,10 +60,10 @@ module.exports = {
         "comma-spacing": ['warn', { "before": false, "after": true }],
 
         // 空格控制
-        "indent": [ "warn", 2 , {"SwitchCase": 1}],
+        "indent": [ "warn", 4 , {"SwitchCase": 1}],
 
          // 强制使用一致的换行风格
-        "linebreak-style": [ "error" ],
+        // "linebreak-style": ["error", "windows"],
 
         // 强制使用一致的反勾号、双引号或单引号
         "quotes": [ "warn", "single" ],
@@ -86,7 +80,7 @@ module.exports = {
         "padded-blocks": [1, {"blocks": "never"}],
 
         // 一行代码最大长度
-        "max-len": [1, {"code": 100, "ignoreStrings": true, "ignoreRegExpLiterals": true, "ignoreComments": true, "ignoreTemplateLiterals": true}],
+        "max-len": [0, {"code": 100, "ignoreStrings": true, "ignoreRegExpLiterals": true, "ignoreComments": true}],
 
         "no-trailing-spaces": [1, {"ignoreComments": true}],
 
@@ -94,7 +88,10 @@ module.exports = {
         "brace-style": [2],
 
         // 要求遵循大括号约定
-        "curly": [2]
+        "curly": [2],
+
+        // 避免手滑简写，导致uglify失败
+        "object-shorthand": ["error", "never"]
 
     }
 };

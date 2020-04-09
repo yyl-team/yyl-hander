@@ -1,4 +1,9 @@
 # 修改历史
+## 0.10.0 (2020-04-09)
+* feat: 更新 `yyl-os@0.11.0`
+* feat: yh.optimize 支持 `config.yarn` 配置项
+* feat: 新增 `prettier` 开发用插件
+
 ## 0.9.0 (2020-03-15)
 * feat: `yh.optimize.getHomePage()` 新增 `op.files` 属性
 * feat: `yh.optimize.openHomePage()` 新增 `op.files` 属性

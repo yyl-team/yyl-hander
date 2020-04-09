@@ -1,16 +1,40 @@
 {
   "name": "yyl-hander",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "description": "",
   "main": "lib/yh.js",
   "types": "lib/yh.d.ts",
+  "eslintConfig": {
+    "env": {
+      "jest": true
+    },
+    "extends": [
+      "yyl-node"
+    ]
+  },
+  "eslintIgnore": [
+    "node_modules",
+    "test/case"
+  ],
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "jsxSingleQuote": true,
+    "endOfLine": "lf",
+    "quoteProps": "consistent",
+    "trailingComma": "none"
+  },
   "scripts": {
     "test": "jest ./test/jest --env=node",
     "test:hideProtocol": "jest ./test/jest/hideProtocol.test.js --env=node",
     "test:optimize": "jest ./test/jest/optimize.test.js --env=node",
+    "test:optimize-yarn": "jest ./test/jest/optimize.yarn.test.js --env=node",
     "test:parseConfig": "jest ./test/jest/parseConfig.test.js --env=node",
     "test:setVar": "jest ./test/jest/setVar.test.js --env=node",
-    "test:sugarReplace": "jest ./test/jest/sugarReplace.test.js --env=node"
+    "test:sugarReplace": "jest ./test/jest/sugarReplace.test.js --env=node",
+    "eslint": "eslint ./",
+    "prettier": "prettier --write ./**/*.js",
+    "prepublishOnly": "npm test & npm run prettier"
   },
   "repository": {
     "type": "git",
@@ -34,12 +58,14 @@
     "concat-with-sourcemaps": "^1.1.0",
     "rev-hash": "^3.0.0",
     "yyl-file-replacer": "^0.6.0",
-    "yyl-os": "^0.8.3",
+    "yyl-os": "0.11.0",
     "yyl-request": "^0.1.0",
     "yyl-util": "^2.2.0"
   },
   "devDependencies": {
-    "jest": "^25.1.0",
+    "eslint-config-yyl-node": "0.1.2",
+    "jest": "^25.3.0",
+    "prettier": "^2.0.4",
     "yyl-fs": "^0.3.2",
     "yyl-print": "^0.7.3"
   }

@@ -5,10 +5,10 @@ const fs = require('fs')
 const { Handler, log, vars, FRAG_PATH } = require('../lib/const')
 const yh = new Handler({ log, vars })
 
-test('yh.optimize test', async () => {
+test('yh.optimize yarn test', async () => {
   // 准备
   await fn.frag.build(FRAG_PATH)
-  const casePath = path.join(__dirname, '../case/case-optimize/')
+  const casePath = path.join(__dirname, '../case/case-optimize-yarn/')
   await extFs.copyFiles(casePath, FRAG_PATH)
 
   // 开始
@@ -32,6 +32,8 @@ test('yh.optimize test', async () => {
   expect(
     fs.existsSync(path.join(serverPluginPath, 'node_modules/yyl-flexlayout'))
   ).toEqual(true)
+
+  expect(fs.existsSync(path.join(serverPluginPath, 'yarn.lock'))).toEqual(true)
 
   // homepage check
   expect(await yh.optimize.getHomePage({})).toEqual('http://www.yy.com/web/1/')
