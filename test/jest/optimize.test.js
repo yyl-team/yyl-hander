@@ -6,7 +6,7 @@ const { Handler, log, vars, FRAG_PATH } = require('../lib/const')
 const yh = new Handler({ log, vars })
 
 test('yh.optimize test', async () => {
-  const I_FRAG_PATH = path.join(FRAG_PATH, 'optimize-yarn')
+  const I_FRAG_PATH = path.join(FRAG_PATH, 'optimize')
   // 准备
   await fn.frag.build(I_FRAG_PATH)
   const casePath = path.join(__dirname, '../case/case-optimize/')
