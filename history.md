@@ -1,4 +1,7 @@
 # 修改历史
+## 0.11.3 (2020-09-22)
+* feat: yh.opzer localserver 为空时兼容处理
+
 ## 0.11.2 (2020-09-22)
 * feat: yh.parseConfig localserver 字段自动补全
 ## 0.11.1 (2020-09-22)
