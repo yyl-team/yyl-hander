@@ -1,4 +1,7 @@
 # 修改历史
+## 0.10.0 (2020-09-22)
+* feat: `yh.parseConfig` 所有必要字段，如没有配置不再报错，改为自动填充
+
 ## 0.10.0 (2020-04-09)
 * feat: 更新 `yyl-os@0.11.0`
 * feat: yh.optimize 支持 `config.yarn` 配置项
