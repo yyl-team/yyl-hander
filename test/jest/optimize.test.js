@@ -16,6 +16,8 @@ test('yh.optimize test', async () => {
   const iEnv = { isCommit: true, branches: 'master' }
   const config = await yh.parseConfig(configPath, iEnv)
 
+  console.log('===', config)
+
   const serverPluginPath = path.join(
     yh.vars.SERVER_PLUGIN_PATH,
     config.workflow,
