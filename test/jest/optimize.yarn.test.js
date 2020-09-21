@@ -6,13 +6,14 @@ const { Handler, log, vars, FRAG_PATH } = require('../lib/const')
 const yh = new Handler({ log, vars })
 
 test('yh.optimize yarn test', async () => {
+  const I_FRAG_PATH = path.join(FRAG_PATH, 'optimize-yarn')
   // 准备
-  await fn.frag.build(FRAG_PATH)
+  await fn.frag.build(I_FRAG_PATH)
   const casePath = path.join(__dirname, '../case/case-optimize-yarn/')
-  await extFs.copyFiles(casePath, FRAG_PATH)
+  await extFs.copyFiles(casePath, I_FRAG_PATH)
 
   // 开始
-  const configPath = path.join(FRAG_PATH, 'yyl.config.js')
+  const configPath = path.join(I_FRAG_PATH, 'yyl.config.js')
   const iEnv = { isCommit: true, branches: 'master' }
   const config = await yh.parseConfig(configPath, iEnv)
 
@@ -44,7 +45,7 @@ test('yh.optimize yarn test', async () => {
   yh.optimize.init({ config, iEnv })
   expect(
     await yh.optimize.getHomePage({
-      files: [path.join(FRAG_PATH, 'dist/project/1/pc/html/any.html')]
+      files: [path.join(I_FRAG_PATH, 'dist/project/1/pc/html/any.html')]
     })
   ).toEqual('http://web.yy.com/project/1/pc/html/any.html')
 }, 0)

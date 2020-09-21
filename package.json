@@ -1,6 +1,6 @@
 {
   "name": "yyl-hander",
-  "version": "0.11.0",
+  "version": "0.11.1",
   "description": "",
   "main": "lib/yh.js",
   "types": "lib/yh.d.ts",
@@ -33,8 +33,7 @@
     "test:setVar": "jest ./test/jest/setVar.test.js --env=node",
     "test:sugarReplace": "jest ./test/jest/sugarReplace.test.js --env=node",
     "eslint": "eslint ./",
-    "prettier": "prettier --write ./**/*.js",
-    "prepublishOnly": "npm test & npm run prettier"
+    "prettier": "prettier --write ./**/*.js"
   },
   "repository": {
     "type": "git",
