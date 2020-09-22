@@ -1,4 +1,6 @@
 # 修改历史
+## 0.11.4 (2020-09-22)
+* fix: yh.parseConfig localserver.root 路径调整
 ## 0.11.3 (2020-09-22)
 * feat: yh.opzer localserver 为空时兼容处理
 
