@@ -1,7 +1,8 @@
 # 修改历史
-## 0.12.0 (*)
+## 0.12.0 (2020-10-10)
 * feat: 接入 `yyl-config-types`
 * feat: 新增 `yh.initBeforeScript()`, `yh.initAfterScript()`
+* feat: 重新整理 test 用例
 
 ## 0.11.4 (2020-09-22)
 * fix: yh.parseConfig localserver.root 路径调整

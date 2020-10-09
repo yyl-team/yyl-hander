@@ -1,5 +1,5 @@
 module.exports = {
-  OPEN_ADDR: '打开 url', 
+  OPEN_ADDR: '打开 url',
   CONFIG_SAVED: '配置已保存',
 
   CONFIG_NOT_EXISTS: 'yyl.config 路径不存在',
