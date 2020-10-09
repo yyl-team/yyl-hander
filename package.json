@@ -57,14 +57,14 @@
     "chalk": "^2.4.2",
     "concat-with-sourcemaps": "^1.1.0",
     "rev-hash": "^3.0.0",
-    "yyl-file-replacer": "^0.6.0",
+    "yyl-config-types": "^0.2.0",
     "yyl-os": "0.11.0",
-    "yyl-request": "^0.1.0",
-    "yyl-util": "^2.2.0"
+    "yyl-request": "^0.1.1",
+    "yyl-util": "^2.3.8"
   },
   "devDependencies": {
     "eslint-config-yyl-node": "0.1.2",
-    "jest": "^25.3.0",
+    "jest": "^26.5.2",
     "prettier": "^2.0.4",
     "yyl-fs": "^0.3.2",
     "yyl-print": "^0.7.3"
