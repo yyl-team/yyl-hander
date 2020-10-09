@@ -1,6 +1,6 @@
 const path = require('path')
 const util = require('yyl-util')
-const Handler = require('../../lib/yh')
+const Handler = require('../../')
 
 const FRAG_PATH = path.join(__dirname, '../__frag')
 

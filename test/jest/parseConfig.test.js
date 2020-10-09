@@ -3,10 +3,11 @@ const path = require('path')
 const { Handler, log, vars } = require('../lib/const')
 const yh = new Handler({ log, vars })
 
+const configDir = util.path.join(__dirname, '../case/case-parse-config')
+yh.setVars({ PROJECT_PATH: configDir })
+
 test('yh.parseConfig(configPath, iEnv, returnKeys): object', async () => {
-  const configDir = util.path.join(__dirname, '../case/case-parse-config')
   const configPath = path.join(configDir, 'yyl.config.js')
-  yh.setVars({ PROJECT_PATH: configDir })
   const r = await yh.parseConfig(configPath, { workflow: 'webpack-vue3' })
   const expectResult = {
     workflow: 'webpack-vue3',
@@ -24,7 +25,7 @@ test('yh.parseConfig(configPath, iEnv, returnKeys): object', async () => {
       homePage: 'http://www.yy.com/web/1/'
     },
     localserver: {
-      root: './dist',
+      root: `${configDir}/dist`,
       port: 5000
     },
     dest: {
@@ -83,12 +84,7 @@ test('yh.parseConfig(configPath, iEnv, returnKeys): object', async () => {
 })
 
 test('yh.parseConfig(configPath, iEnv, returnKeys): object no plugins', async () => {
-  const configDir = util.path.join(
-    __dirname,
-    '../case/case-parse-config-noplugins'
-  )
-  const configPath = path.join(configDir, 'yyl.config.js')
-  yh.setVars({ PROJECT_PATH: configDir })
+  const configPath = path.join(configDir, 'yyl.config-noplugins.js')
   const r = await yh.parseConfig(configPath)
   const expectResult = {
     workflow: 'webpack-vue2',
@@ -106,7 +102,7 @@ test('yh.parseConfig(configPath, iEnv, returnKeys): object no plugins', async ()
       homePage: 'http://www.yy.com/web/1/'
     },
     localserver: {
-      root: './dist',
+      root: `${configDir}/dist`,
       port: 5000
     },
     dest: {
@@ -164,12 +160,7 @@ test('yh.parseConfig(configPath, iEnv, returnKeys): object no plugins', async ()
 })
 
 test('yh.parseConfig(configPath, iEnv, returnKeys): configPath is function', async () => {
-  const configDir = util.path.join(
-    __dirname,
-    '../case/case-parse-config-function'
-  )
-  const configPath = path.join(configDir, 'yyl.config.js')
-  yh.setVars({ PROJECT_PATH: configDir })
+  const configPath = path.join(configDir, 'yyl.config-function.js')
   const r1 = await yh.parseConfig(configPath, { mode: 'master' })
   const r2 = await yh.parseConfig(configPath, { mode: 'dev' })
 
@@ -183,12 +174,7 @@ test('yh.parseConfig(configPath, iEnv, returnKeys): configPath is function', asy
 })
 
 test('yh.parseConfig(configPath, iEnv, returnKeys): resource sugar', async () => {
-  const configDir = util.path.join(
-    __dirname,
-    '../case/case-parse-config-resource'
-  )
-  const configPath = path.join(configDir, 'yyl.config.js')
-  yh.setVars({ PROJECT_PATH: configDir })
+  const configPath = path.join(configDir, 'yyl.config-resource.js')
   const r = await yh.parseConfig(configPath, {})
 
   const expectObj = {}
