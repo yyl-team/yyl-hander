@@ -1,4 +1,7 @@
 # 修改历史
+## 0.12.1 (2020-10-12)
+* feat: 补充 beforeScripts， afterScripts 相关log
+* fix: 修复 当执行 beforescript 中 webpack 时，会阻塞 yyl webpack hooks 通知问题
 ## 0.12.0 (2020-10-10)
 * feat: 接入 `yyl-config-types`
 * feat: 新增 `yh.initBeforeScript()`, `yh.initAfterScript()`
