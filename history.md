@@ -1,4 +1,7 @@
 # 修改历史
+## 0.12.2 (2020-10-12)
+* feat: 当 initScript 设置为function 并且返回字符串时， 依然执行 runCMD
+
 ## 0.12.1 (2020-10-12)
 * feat: 补充 beforeScripts， afterScripts 相关log
 * fix: 修复 当执行 beforescript 中 webpack 时，会阻塞 yyl webpack hooks 通知问题
