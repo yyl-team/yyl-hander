@@ -19,7 +19,7 @@
 
 • **configPath**: *string*
 
-Defined in: [yylHander.ts:28](https://github.com/jackness1208/yyl-hander/blob/d712c60/src/yylHander.ts#L28)
+Defined in: [yylHander.ts:28](https://github.com/jackness1208/yyl-hander/blob/14d9d5f/src/yylHander.ts#L28)
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 • **env**: Env
 
-Defined in: [yylHander.ts:29](https://github.com/jackness1208/yyl-hander/blob/d712c60/src/yylHander.ts#L29)
+Defined in: [yylHander.ts:29](https://github.com/jackness1208/yyl-hander/blob/14d9d5f/src/yylHander.ts#L29)
