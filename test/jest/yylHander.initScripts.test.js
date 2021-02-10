@@ -1,9 +1,9 @@
 const fn = require('../lib/util')
 const path = require('path')
-const { Handler, log, vars, FRAG_PATH } = require('../lib/const')
-const yh = new Handler({ log, vars })
+const { log, FRAG_PATH } = require('../lib/const')
+const { YylHander } = require('../../output')
 
-test('opzer.initBeforeScripts(all) with string', async () => {
+test('yylHander.runBeforeScripts(all) with string', async () => {
   const name = 'optimize-initbeforescripts-with-string'
   const I_FRAG_PATH = path.join(FRAG_PATH, name)
   // 准备
@@ -13,9 +13,9 @@ test('opzer.initBeforeScripts(all) with string', async () => {
   let isWatchAfterScriptRun = false
 
   // start
-  const config = yh.formatConfig({
-    dirname: I_FRAG_PATH,
-    config: {
+  const yylHander = new YylHander({
+    context: I_FRAG_PATH,
+    yylConfig: {
       name,
       workflow: 'webpack',
       all: {
@@ -37,12 +37,10 @@ test('opzer.initBeforeScripts(all) with string', async () => {
     }
   })
 
-  yh.optimize.init({ config, iEnv: {} })
-
-  await yh.optimize.initBeforeScripts('all')
-  await yh.optimize.initAfterScripts('all')
-  await yh.optimize.initBeforeScripts('watch')
-  await yh.optimize.initAfterScripts('watch')
+  await yylHander.runBeforeScripts('all')
+  await yylHander.runAfterScripts('all')
+  await yylHander.runBeforeScripts('watch')
+  await yylHander.runAfterScripts('watch')
 
   // check
   expect(isWatchBeforeScriptRun).toEqual(true)

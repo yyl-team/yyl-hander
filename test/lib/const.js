@@ -1,12 +1,10 @@
 const path = require('path')
 const util = require('yyl-util')
-const Handler = require('../../')
 
 const FRAG_PATH = path.join(__dirname, '../__frag')
 
 const log = () => {}
-const USERPROFILE =
-  process.env[process.platform == 'win32' ? 'USERPROFILE' : 'HOME']
+const USERPROFILE = process.env[process.platform == 'win32' ? 'USERPROFILE' : 'HOME']
 
 const vars = {
   PROJECT_PATH: process.cwd(),
@@ -15,7 +13,6 @@ const vars = {
 
 module.exports = {
   FRAG_PATH,
-  Handler,
   log,
   vars
 }

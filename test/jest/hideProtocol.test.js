@@ -1,6 +1,4 @@
-const { Handler, log, vars } = require('../lib/const')
-
-const yh = new Handler({ log, vars })
+const { hideProtocol } = require('../../')
 
 test('yh.hideProtocol(iPath): string', () => {
   const checkingMap = {
@@ -9,6 +7,6 @@ test('yh.hideProtocol(iPath): string', () => {
     'http://www.yy.com/991?from=https:': '//www.yy.com/991?from=https:'
   }
   Object.keys(checkingMap).forEach((key) => {
-    expect(yh.hideProtocol(key)).toEqual(checkingMap[key])
+    expect(hideProtocol(key)).toEqual(checkingMap[key])
   })
 })

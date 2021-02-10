@@ -1,14 +1,19 @@
 const util = require('yyl-util')
 const path = require('path')
-const { Handler, log, vars } = require('../lib/const')
-const yh = new Handler({ log, vars })
+const { log, vars } = require('../lib/const')
+const { YylHander, SERVER_PLUGIN_PATH } = require('../../output')
 
 const configDir = util.path.join(__dirname, '../case/case-parse-config')
-yh.setVars({ PROJECT_PATH: configDir })
 
-test('yh.parseConfig(configPath, iEnv, returnKeys): object', async () => {
+test('yylHander.parseConfig(): object', async () => {
   const configPath = path.join(configDir, 'yyl.config.js')
-  const r = await yh.parseConfig(configPath, { workflow: 'webpack-vue3' })
+  const yylHander = new YylHander({
+    yylConfig: configPath,
+    env: {
+      workflow: 'webpack-vue3'
+    }
+  })
+  const r = yylHander.getYylConfig()
   const expectResult = {
     workflow: 'webpack-vue3',
     name: '1',
@@ -18,8 +23,7 @@ test('yh.parseConfig(configPath, iEnv, returnKeys): object', async () => {
       port: 8887,
       localRemote: {
         'http://web.yy.com/': 'http://127.0.0.1:5000/',
-        'http://www.yy.com/web/1':
-          'http://127.0.0.1:5000/project/1/mobile/html',
+        'http://www.yy.com/web/1': 'http://127.0.0.1:5000/project/1/mobile/html',
         'http://www.yy.com/api/mock': 'http://127.0.0.1:5000/api/mock'
       },
       homePage: 'http://www.yy.com/web/1/'
@@ -40,8 +44,7 @@ test('yh.parseConfig(configPath, iEnv, returnKeys): object', async () => {
     },
     commit: {
       type: 'gitlab-ci',
-      revAddr:
-        'http://web.yystatic.com/project/1/mobile/assets/rev-manifest.json',
+      revAddr: 'http://web.yystatic.com/project/1/mobile/assets/rev-manifest.json',
       hostname: '//web.yystatic.com',
       staticHost: '//web.yystatic.com',
       mainHost: '//www.yy.com/web'
@@ -69,7 +72,7 @@ test('yh.parseConfig(configPath, iEnv, returnKeys): object', async () => {
       '@': `${configDir}/src`,
       '~@': `${configDir}/src/components`
     },
-    resolveModule: `${yh.vars.SERVER_PLUGIN_PATH}/webpack-vue3/1/node_modules`
+    resolveModule: `${SERVER_PLUGIN_PATH}/webpack-vue3/1/node_modules`
   }
 
   expectResult.concat[`${configDir}/dist/project/1/mobile/js/vendors.js`] = [
@@ -77,15 +80,16 @@ test('yh.parseConfig(configPath, iEnv, returnKeys): object', async () => {
     `${configDir}/src/js/lib/b.js`
   ]
 
-  expectResult.resource[
-    `${configDir}/src/pc/svga`
-  ] = `${configDir}/dist/project/1/mobile/tpl`
+  expectResult.resource[`${configDir}/src/pc/svga`] = `${configDir}/dist/project/1/mobile/tpl`
   expect(r).toEqual(expectResult)
 })
 
-test('yh.parseConfig(configPath, iEnv, returnKeys): object no plugins', async () => {
+test('yylHander.parseConfig(): object no plugins', async () => {
   const configPath = path.join(configDir, 'yyl.config-noplugins.js')
-  const r = await yh.parseConfig(configPath)
+  const yylHander = new YylHander({
+    yylConfig: configPath
+  })
+  const r = yylHander.getYylConfig()
   const expectResult = {
     workflow: 'webpack-vue2',
     name: '1',
@@ -95,8 +99,7 @@ test('yh.parseConfig(configPath, iEnv, returnKeys): object no plugins', async ()
       port: 8887,
       localRemote: {
         'http://web.yy.com/': 'http://127.0.0.1:5000/',
-        'http://www.yy.com/web/1':
-          'http://127.0.0.1:5000/project/1/mobile/html',
+        'http://www.yy.com/web/1': 'http://127.0.0.1:5000/project/1/mobile/html',
         'http://www.yy.com/api/mock': 'http://127.0.0.1:5000/api/mock'
       },
       homePage: 'http://www.yy.com/web/1/'
@@ -117,8 +120,7 @@ test('yh.parseConfig(configPath, iEnv, returnKeys): object no plugins', async ()
     },
     commit: {
       type: 'gitlab-ci',
-      revAddr:
-        'http://web.yystatic.com/project/1/mobile/assets/rev-manifest.json',
+      revAddr: 'http://web.yystatic.com/project/1/mobile/assets/rev-manifest.json',
       hostname: '//web.yystatic.com',
       staticHost: '//web.yystatic.com',
       mainHost: '//www.yy.com/web'
@@ -153,16 +155,24 @@ test('yh.parseConfig(configPath, iEnv, returnKeys): object no plugins', async ()
     `${configDir}/src/js/lib/b.js`
   ]
 
-  expectResult.resource[
-    `${configDir}/src/pc/svga`
-  ] = `${configDir}/dist/project/1/mobile/tpl`
+  expectResult.resource[`${configDir}/src/pc/svga`] = `${configDir}/dist/project/1/mobile/tpl`
   expect(r).toEqual(expectResult)
 })
 
-test('yh.parseConfig(configPath, iEnv, returnKeys): configPath is function', async () => {
+test('yylHander.parseConfig(): configPath is function', async () => {
   const configPath = path.join(configDir, 'yyl.config-function.js')
-  const r1 = await yh.parseConfig(configPath, { mode: 'master' })
-  const r2 = await yh.parseConfig(configPath, { mode: 'dev' })
+  const yylHander1 = new YylHander({
+    yylConfig: configPath,
+    env: { mode: 'master' }
+  })
+  const yylHander2 = new YylHander({
+    yylConfig: configPath,
+    env: {
+      mode: 'dev'
+    }
+  })
+  const r1 = yylHander1.getYylConfig()
+  const r2 = yylHander2.getYylConfig()
 
   expect(r1.commit.hostname).toEqual('//web.yystatic.com')
   expect(r1.commit.staticHost).toEqual('//web.yystatic.com')
@@ -173,9 +183,12 @@ test('yh.parseConfig(configPath, iEnv, returnKeys): configPath is function', asy
   expect(r2.commit.mainHost).toEqual('//webtest.yy.com')
 })
 
-test('yh.parseConfig(configPath, iEnv, returnKeys): resource sugar', async () => {
+test('yylHander.parseConfig(): resource sugar', async () => {
   const configPath = path.join(configDir, 'yyl.config-resource.js')
-  const r = await yh.parseConfig(configPath, {})
+  const yylHander = new YylHander({
+    yylConfig: configPath
+  })
+  const r = yylHander.getYylConfig()
 
   const expectObj = {}
   expectObj[util.path.join(configDir, 'src/svga')] = util.path.join(

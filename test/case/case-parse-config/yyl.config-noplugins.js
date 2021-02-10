@@ -1,21 +1,22 @@
 /* eslint indent: ["error", 2, { "SwitchCase": 1 }] */
-const path = require('path');
+const path = require('path')
 
-const config = {};
+const config = {}
 
 // + vars
-const PROJECT_NAME = '1';
-const WORKFLOW = 'webpack-vue2';
-const PLATFORM = 'mobile';
-const VERSION = '3.4.10';
-const SRC_ROOT = './src';
-const COMMON_PATH = '../commons';
-const WEBPACK_CONFIG_PATH = './webpack.config.js';
+const PROJECT_NAME = '1'
+const WORKFLOW = 'webpack-vue2'
+const PLATFORM = 'mobile'
+const VERSION = '3.4.10'
+const SRC_ROOT = './src'
+const COMMON_PATH = '../commons'
+const WEBPACK_CONFIG_PATH = './webpack.config.js'
 // - vars
 
 // + setting
 const setting = {
-  localserver: { // 本地服务器配置
+  localserver: {
+    // 本地服务器配置
     root: './dist', // 服务器输出地址
     port: 5000 // 服务器 port
   },
@@ -37,9 +38,11 @@ const setting = {
     },
     homePage: `http://www.yy.com/web/${PROJECT_NAME}/`
   }
-};
-setting.proxy.localRemote[`http://www.yy.com/web/${PROJECT_NAME}`] = `http://127.0.0.1:5000/project/${PROJECT_NAME}/${PLATFORM}/html`;
-setting.proxy.localRemote['http://www.yy.com/api/mock'] = 'http://127.0.0.1:5000/api/mock';
+}
+setting.proxy.localRemote[
+  `http://www.yy.com/web/${PROJECT_NAME}`
+] = `http://127.0.0.1:5000/project/${PROJECT_NAME}/${PLATFORM}/html`
+setting.proxy.localRemote['http://www.yy.com/api/mock'] = 'http://127.0.0.1:5000/api/mock'
 // - setting
 
 // + base
@@ -53,21 +56,24 @@ Object.assign(config, {
   dest: setting.dest,
   commit: {},
 
-  concat: { // js 合并
+  concat: {
+    // js 合并
     '{$jsDest}/vendors.js': ['{$srcRoot}/js/lib/a.js', '{$srcRoot}/js/lib/b.js']
   },
-  resource: { // 自定义项目中其他需打包的文件夹
+  resource: {
+    // 自定义项目中其他需打包的文件夹
     'src/pc/svga': path.join(setting.localserver.root, setting.dest.basePath, 'tpl')
   },
-  plugins: [ // 额外的 npm 组件
+  plugins: [
+    // 额外的 npm 组件
   ],
   // 自定义 webpack.config 路径
   webpackConfigPath: WEBPACK_CONFIG_PATH
-});
+})
 // - base
 
 // + alias
-const DEST_BASE_PATH = path.join(setting.localserver.root, setting.dest.basePath);
+const DEST_BASE_PATH = path.join(setting.localserver.root, setting.dest.basePath)
 Object.assign(config, {
   alias: {
     // 输出目录中 到 html, js, css, image 层 的路径
@@ -105,7 +111,7 @@ Object.assign(config, {
     // + yyl make
     // - yyl make
   }
-});
+})
 // - alias
 
 // + commit
@@ -118,7 +124,7 @@ Object.assign(config, {
     staticHost: '//web.yystatic.com',
     mainHost: '//www.yy.com/web'
   }
-});
+})
 // - commit
 
-module.exports = config;
+module.exports = config

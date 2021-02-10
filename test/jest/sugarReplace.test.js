@@ -1,7 +1,7 @@
-const { Handler, log, vars } = require('../lib/const')
-const yh = new Handler({ log, vars })
+const { log, vars } = require('../lib/const')
+const { sugarReplace } = require('../../')
 
-test('yh.sugarReplace(str, data): string', () => {
+test('sugarReplace(str, data): string', () => {
   const checkingArr = [
     {
       str: 'hello {$name}',
@@ -26,6 +26,6 @@ test('yh.sugarReplace(str, data): string', () => {
   ]
 
   checkingArr.forEach((item) => {
-    expect(yh.sugarReplace(item.str, item.data)).toEqual(item.result)
+    expect(sugarReplace(item.str, item.data)).toEqual(item.result)
   })
 })
