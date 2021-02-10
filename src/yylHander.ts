@@ -1,7 +1,7 @@
 import { YylConfig, Env, YylConfigAlias } from 'yyl-config-types'
 import { deepReplace, formatPath, needEnvName, toCtx } from './util'
 import extOs, { runSpawn } from 'yyl-os'
-import { type } from 'yyl-util'
+import util, { type, requireJs } from 'yyl-util'
 import extFs from 'yyl-fs'
 import fs from 'fs'
 import chalk from 'chalk'
@@ -9,15 +9,24 @@ import { LANG, SERVER_PLUGIN_PATH, SERVER_CONFIG_LOG_PATH, SERVER_PATH } from '.
 import request from 'request-promise'
 import path from 'path'
 export interface YylParserOption {
-  yylConfig: YylConfig
+  yylConfig: YylConfig | string
   env?: Env
   logger?: Logger
   context?: string
 }
 
-export type ParseConfigOption = Pick<Required<YylParserOption>, 'env' | 'yylConfig' | 'context'>
+export interface FormatConfigOption {
+  yylConfig: YylConfig
+  env: Env
+  context: string
+}
 export interface GetHomePageOption {
   files?: string[]
+}
+
+export interface ParseConfigOption {
+  configPath: string
+  env: Env
 }
 
 export type Logger = (type: LoggerType, subType: LoggerSubType, ...args: any[]) => void
@@ -39,7 +48,7 @@ export const DEFAULT_ALIAS: YylConfigAlias = {
   publicPath: '/'
 }
 
-export class YylParser {
+export class YylHander {
   context: string = process.cwd()
   yylConfig: YylConfig = {}
   env: Env = {}
@@ -55,10 +64,59 @@ export class YylParser {
     if (context) {
       this.context = context
     }
-    this.yylConfig = this.parseConfig({ yylConfig, env: this.env, context: this.context })
+    if (typeof yylConfig === 'string') {
+      this.context = path.dirname(yylConfig)
+      this.yylConfig = this.parseConfig({
+        configPath: yylConfig,
+        env: this.env
+      })
+    } else {
+      this.yylConfig = this.formatConfig({ yylConfig, env: this.env, context: this.context })
+    }
   }
 
-  parseConfig(option: ParseConfigOption): YylConfig {
+  parseConfig(op: ParseConfigOption) {
+    const { configPath, env } = op
+    let yylConfig: any = {}
+    if (!fs.existsSync(configPath)) {
+      throw new Error(`${LANG.CONFIG_NOT_EXISTS}: ${chalk.yellow(configPath)}`)
+    }
+    const context = path.dirname(configPath)
+
+    try {
+      yylConfig = requireJs(configPath)
+    } catch (er) {
+      throw new Error(`${LANG.CONFIG_PARSE_ERROR}: ${configPath}, ${er.message}`)
+    }
+
+    if (typeof yylConfig === 'function') {
+      yylConfig = yylConfig({ env })
+    }
+
+    // extend config.mine.js
+    let mineConfig: any = {}
+    const mineConfigPath = configPath.replace(/\.js$/, '.mine.js')
+    if (fs.existsSync(mineConfigPath)) {
+      try {
+        mineConfig = requireJs(mineConfigPath)
+      } catch (er) {}
+    }
+
+    if (typeof mineConfigPath === 'function') {
+      mineConfig = mineConfig({ env })
+    }
+
+    // deep extends
+    util.extend(true, yylConfig, mineConfig)
+
+    return this.formatConfig({
+      context,
+      yylConfig,
+      env
+    })
+  }
+
+  formatConfig(option: FormatConfigOption): YylConfig {
     let { yylConfig, env, context } = option
 
     // 检查是否需要 env.name
@@ -151,7 +209,7 @@ export class YylParser {
         path.join(SERVER_PLUGIN_PATH, yylConfig.workflow, yylConfig.name, 'node_modules')
       )
     }
-    return this.yylConfig
+    return yylConfig
   }
 
   /** 获取 yylConfig 内容 */
