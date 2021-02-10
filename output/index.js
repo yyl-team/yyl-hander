@@ -583,8 +583,13 @@ function hideProtocol(url) {
 /** sugar 替换 */
 function sugarReplace(str, alias) {
     return str.replace(SUGAR_REG, (str, $1, $2) => {
-        if ($2 in alias) {
-            return alias[$2];
+        if (alias) {
+            if ($2 in alias) {
+                return alias[$2];
+            }
+            else {
+                return str;
+            }
         }
         else {
             return str;
@@ -2509,16 +2514,14 @@ var source = chalk;
 const DEFAULT_ALIAS = {
     root: './dist',
     srcRoot: './src',
+    destRoot: './dist',
     dirname: './',
     jsDest: './dist/js',
     cssDest: './dist/css',
     imagesDest: './dist/images',
     htmlDest: './dist/html',
     revDest: './dist/assets',
-    revRoot: './dist',
-    revAddr: '',
-    basePath: '/',
-    publicPath: '/'
+    revRoot: './dist'
 };
 class YylHander {
     constructor(option) {
@@ -2536,9 +2539,54 @@ class YylHander {
         if (context) {
             this.context = context;
         }
-        this.yylConfig = this.parseConfig({ yylConfig, env: this.env, context: this.context });
+        if (typeof yylConfig === 'string') {
+            this.context = path__default['default'].dirname(yylConfig);
+            this.yylConfig = this.parseConfig({
+                configPath: yylConfig,
+                env: this.env
+            });
+        }
+        else {
+            this.yylConfig = this.formatConfig({ yylConfig, env: this.env, context: this.context });
+        }
     }
-    parseConfig(option) {
+    parseConfig(op) {
+        const { configPath, env } = op;
+        let yylConfig = {};
+        if (!fs__default['default'].existsSync(configPath)) {
+            throw new Error(`${LANG.CONFIG_NOT_EXISTS}: ${source.yellow(configPath)}`);
+        }
+        const context = path__default['default'].dirname(configPath);
+        try {
+            yylConfig = require(configPath);
+        }
+        catch (er) {
+            throw new Error(`${LANG.CONFIG_PARSE_ERROR}: ${configPath}, ${er.message}`);
+        }
+        if (typeof yylConfig === 'function') {
+            yylConfig = yylConfig({ env });
+        }
+        // extend config.mine.js
+        let mineConfig = {};
+        const mineConfigPath = configPath.replace(/\.js$/, '.mine.js');
+        if (fs__default['default'].existsSync(mineConfigPath)) {
+            try {
+                mineConfig = require(mineConfigPath);
+            }
+            catch (er) { }
+        }
+        if (typeof mineConfigPath === 'function') {
+            mineConfig = mineConfig({ env });
+        }
+        // deep extends
+        yylUtil.extend(true, yylConfig, mineConfig);
+        return this.formatConfig({
+            context,
+            yylConfig,
+            env
+        });
+    }
+    formatConfig(option) {
         var _a, _b, _c;
         let { yylConfig, env, context } = option;
         // 检查是否需要 env.name
@@ -2569,7 +2617,7 @@ class YylHander {
         yylConfig.alias = Object.assign(Object.assign({}, DEFAULT_ALIAS), yylConfig.alias);
         // alias format to absolute
         Object.keys(yylConfig.alias).forEach((key) => {
-            if (yylConfig.alias) {
+            if (yylConfig.alias && yylConfig.alias[key]) {
                 yylConfig.alias[key] = formatPath(path__default['default'].resolve(context, yylConfig.alias[key]));
             }
         });
@@ -2585,16 +2633,19 @@ class YylHander {
                 yylConfig.commit.hostname = '/';
             }
         }
+        if (yylConfig.webpackConfigPath) {
+            yylConfig.webpackConfigPath = yylUtil.path.resolve(context, yylConfig.webpackConfigPath);
+        }
         // config.resource to absolute
         if (yylConfig.resource) {
             Object.keys(yylConfig.resource).forEach((key) => {
-                let curKey = self.sugarReplace(key, yylConfig.alias);
+                let curKey = sugarReplace(key, yylConfig.alias);
                 if (curKey === key) {
                     curKey = formatPath(path__default['default'].resolve(context, key));
                 }
                 if (yylConfig.resource) {
                     const curVal = yylConfig.resource[key];
-                    let rVal = self.sugarReplace(curVal, yylConfig.alias);
+                    let rVal = sugarReplace(curVal, yylConfig.alias);
                     if (rVal === curVal) {
                         rVal = formatPath(path__default['default'].resolve(context, yylConfig.resource[key]));
                     }
@@ -2618,14 +2669,14 @@ class YylHander {
         if (!yylConfig.resolveModule && yylConfig.workflow && ((_c = yylConfig.plugins) === null || _c === void 0 ? void 0 : _c.length)) {
             yylConfig.resolveModule = formatPath(path__default['default'].join(SERVER_PLUGIN_PATH, yylConfig.workflow, yylConfig.name, 'node_modules'));
         }
-        return this.yylConfig;
+        return yylConfig;
     }
     /** 获取 yylConfig 内容 */
     getYylConfig() {
         return this.yylConfig;
     }
     /** 解析 yylConfig.plugins 内容 */
-    initPlugin() {
+    initPlugins() {
         return __awaiter(this, void 0, void 0, function* () {
             const { yylConfig } = this;
             let pluginPath = null;
@@ -2707,7 +2758,7 @@ class YylHander {
                 }
                 if (htmls.length) {
                     if (yylConfig.alias && addr) {
-                        addr = formatPath(path__default['default'].join(addr, path__default['default'].relative((_g = yylConfig.alias) === null || _g === void 0 ? void 0 : _g.destRoot, htmls[0])));
+                        addr = yylUtil.path.join(addr, path__default['default'].relative((_g = yylConfig.alias) === null || _g === void 0 ? void 0 : _g.destRoot, htmls[0]));
                     }
                 }
             }

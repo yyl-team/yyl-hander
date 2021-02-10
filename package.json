@@ -34,7 +34,14 @@
     "w": "rollup --watch --config ./rollup.config.js",
     "prepublishOnly": "npm run prettier & npm test & npm run doc",
     "doc": "typedoc src/index.ts --plugin typedoc-plugin-markdown",
-    "test": "npm run build & jest ./test/jest/"
+    "test": "npm run build & jest ./test/jest/",
+    "test:hideProtocol": "jest ./test/jest/hideProtocol.test.js",
+    "test:sugarReplace": "jest ./test/jest/sugarReplace.test.js",
+    "test:getHomePage": "jest ./test/jest/yylHander.getHomePage.test.js",
+    "test:getYylConfig": "jest ./test/jest/yylHander.getYylConfig.test.js",
+    "test:initPlugins": "jest ./test/jest/yylHander.initPlugins.test.js",
+    "test:initScripts": "jest ./test/jest/yylHander.initScripts.test.js",
+    "test:parseConfig": "jest ./test/jest/yylHander.parseConfig.test.js"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.1.0",
@@ -52,7 +59,7 @@
     "typedoc": "^0.20.20",
     "typedoc-plugin-markdown": "^3.4.5",
     "typescript": "^4.1.3",
-    "yyl-config-types": "^0.3.17"
+    "yyl-config-types": "^0.3.18"
   },
   "name": "yyl-hander",
   "description": "yyl hander",

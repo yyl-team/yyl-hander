@@ -1,8 +1,7 @@
 const path = require('path')
 const extOs = require('yyl-os')
 const { log, FRAG_PATH } = require('../lib/const')
-const { YylHander } = require('../../')
-const yh = new Handler({ log, vars })
+const { YylHander } = require('../../output')
 
 test('yylHander.getHomePage()', async () => {
   const name = 'optimize-gethomepage'
@@ -18,11 +17,12 @@ test('yylHander.getHomePage()', async () => {
       }
     }
   })
+  const yylConfig = yylHander.getYylConfig()
   expect(
     await yylHander.getHomePage({
       files: [path.join(I_FRAG_PATH, 'dist/project/1/pc/html/any.html')]
     })
-  ).toEqual(`http://${extOs.LOCAL_IP}:${config.localserver.port}/project/1/pc/html/any.html`)
+  ).toEqual(`http://${extOs.LOCAL_IP}:${yylConfig.localserver.port}/project/1/pc/html/any.html`)
 }, 0)
 
 test('yylHander.getHomePage() with proxy', async () => {
@@ -69,11 +69,12 @@ test('yylHander.getHomePage() with proxy.homePage', async () => {
       }
     }
   })
+  const yylConfig = yylHander.getYylConfig()
   expect(
     await yylHander.getHomePage({
       files: [path.join(I_FRAG_PATH, 'dist/project/1/pc/html/any.html')]
     })
-  ).toEqual(`http://${extOs.LOCAL_IP}:${config.localserver.port}/project/1/pc/html/any.html`)
+  ).toEqual(`http://${extOs.LOCAL_IP}:${yylConfig.localserver.port}/project/1/pc/html/any.html`)
 }, 0)
 
 test('yylHander.getHomePage() with proxy.homePage and --proxy', async () => {

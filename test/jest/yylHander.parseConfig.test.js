@@ -1,16 +1,17 @@
 const util = require('yyl-util')
 const path = require('path')
-const { Handler, log, vars } = require('../lib/const')
-const { YylHander } = require('../../')
-const yh = new Handler({ log, vars })
+const { log, vars } = require('../lib/const')
+const { YylHander, SERVER_PLUGIN_PATH } = require('../../output')
 
 const configDir = util.path.join(__dirname, '../case/case-parse-config')
-yh.setVars({ PROJECT_PATH: configDir })
 
 test('yylHander.parseConfig(): object', async () => {
   const configPath = path.join(configDir, 'yyl.config.js')
   const yylHander = new YylHander({
-    yylConfig: configPath
+    yylConfig: configPath,
+    env: {
+      workflow: 'webpack-vue3'
+    }
   })
   const r = yylHander.getYylConfig()
   const expectResult = {
@@ -71,7 +72,7 @@ test('yylHander.parseConfig(): object', async () => {
       '@': `${configDir}/src`,
       '~@': `${configDir}/src/components`
     },
-    resolveModule: `${yh.vars.SERVER_PLUGIN_PATH}/webpack-vue3/1/node_modules`
+    resolveModule: `${SERVER_PLUGIN_PATH}/webpack-vue3/1/node_modules`
   }
 
   expectResult.concat[`${configDir}/dist/project/1/mobile/js/vendors.js`] = [
@@ -162,7 +163,7 @@ test('yylHander.parseConfig(): configPath is function', async () => {
   const configPath = path.join(configDir, 'yyl.config-function.js')
   const yylHander1 = new YylHander({
     yylConfig: configPath,
-    env: { mode: 'master'}
+    env: { mode: 'master' }
   })
   const yylHander2 = new YylHander({
     yylConfig: configPath,

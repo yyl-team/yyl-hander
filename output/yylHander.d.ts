@@ -1,13 +1,21 @@
 import { YylConfig, Env, YylConfigAlias } from 'yyl-config-types';
 export interface YylParserOption {
-    yylConfig: YylConfig;
+    yylConfig: YylConfig | string;
     env?: Env;
     logger?: Logger;
     context?: string;
 }
-export declare type ParseConfigOption = Pick<Required<YylParserOption>, 'env' | 'yylConfig' | 'context'>;
+export interface FormatConfigOption {
+    yylConfig: YylConfig;
+    env: Env;
+    context: string;
+}
 export interface GetHomePageOption {
     files?: string[];
+}
+export interface ParseConfigOption {
+    configPath: string;
+    env: Env;
 }
 export declare type Logger = (type: LoggerType, subType: LoggerSubType, ...args: any[]) => void;
 export declare type LoggerType = 'msg';
@@ -19,11 +27,12 @@ export declare class YylHander {
     env: Env;
     logger: Logger;
     constructor(option: YylParserOption);
-    parseConfig(option: ParseConfigOption): YylConfig;
+    parseConfig(op: ParseConfigOption): YylConfig;
+    formatConfig(option: FormatConfigOption): YylConfig;
     /** 获取 yylConfig 内容 */
     getYylConfig(): YylConfig;
     /** 解析 yylConfig.plugins 内容 */
-    initPlugin(): Promise<any>;
+    initPlugins(): Promise<any>;
     /** 获取 homePage */
     getHomePage(op?: GetHomePageOption): Promise<string | undefined>;
     /** 打开 homePage */

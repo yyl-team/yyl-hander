@@ -1,7 +1,7 @@
 const fn = require('../lib/util')
 const util = require('yyl-util')
 const { log, FRAG_PATH } = require('../lib/const')
-const { YylHander } = rquire('../../')
+const { YylHander } = require('../../')
 
 test('yylHander() return default ', async () => {
   const name = 'optimize-initplugins-with-config-plugins'
@@ -26,12 +26,12 @@ test('yylHander() return default ', async () => {
       destRoot: util.path.join(I_FRAG_PATH, 'dist'),
       imagesDest: util.path.join(I_FRAG_PATH, 'dist/images'),
       jsDest: util.path.join(I_FRAG_PATH, 'dist/js'),
-      revDest: util.path.join(I_FRAG_PATH, 'dist/assets'),
+      revDest: util.path.join(I_FRAG_PATH, 'dist'),
       cssDest: util.path.join(I_FRAG_PATH, 'dist/css'),
       htmlDest: util.path.join(I_FRAG_PATH, 'dist/html'),
-      revAddr: '',
-      basePath: '/',
-      publicPath: '/'
+      root: util.path.join(I_FRAG_PATH, 'dist'),
+      revRoot: util.path.join(I_FRAG_PATH, 'dist'),
+      revDest: util.path.join(I_FRAG_PATH, 'dist/assets')
     },
     commit: {
       revAddr: '',
@@ -47,8 +47,8 @@ test('yylHander() with resource and concat ', async () => {
   await fn.frag.build(I_FRAG_PATH)
 
   const yylHander = new YylHander({
-    dirname: I_FRAG_PATH,
-    config: {
+    context: I_FRAG_PATH,
+    yylConfig: {
       workflow: 'webpack',
       concat: {
         // js 合并
@@ -89,14 +89,17 @@ test('yylHander() with resource and concat ', async () => {
       dirname: I_FRAG_PATH,
       srcRoot: util.path.join(I_FRAG_PATH, 'src'),
       destRoot: util.path.join(I_FRAG_PATH, 'dist'),
-      imagesDest: util.path.join(I_FRAG_PATH, 'dist'),
+      imagesDest: util.path.join(I_FRAG_PATH, 'dist/images'),
       jsDest: util.path.join(I_FRAG_PATH, 'dist/js'),
       revDest: util.path.join(I_FRAG_PATH, 'dist/assets'),
       cssDest: util.path.join(I_FRAG_PATH, 'dist/css'),
       htmlDest: util.path.join(I_FRAG_PATH, 'dist/html'),
-      tplDest: util.path.join(I_FRAG_PATH, 'dist/tpl')
+      tplDest: util.path.join(I_FRAG_PATH, 'dist/tpl'),
+      revRoot: util.path.join(I_FRAG_PATH, 'dist'),
+      root: util.path.join(I_FRAG_PATH, 'dist')
     },
     commit: {
+      revAddr: '',
       hostname: '/'
     }
   })

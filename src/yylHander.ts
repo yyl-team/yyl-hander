@@ -1,5 +1,5 @@
 import { YylConfig, Env, YylConfigAlias } from 'yyl-config-types'
-import { deepReplace, formatPath, needEnvName, toCtx } from './util'
+import { deepReplace, formatPath, needEnvName, toCtx, sugarReplace } from './util'
 import extOs, { runSpawn } from 'yyl-os'
 import util, { type, requireJs } from 'yyl-util'
 import extFs from 'yyl-fs'
@@ -36,16 +36,14 @@ export type LoggerSubType = 'info' | 'success' | 'warn' | 'error' | 'cmd'
 export const DEFAULT_ALIAS: YylConfigAlias = {
   root: './dist',
   srcRoot: './src',
+  destRoot: './dist',
   dirname: './',
   jsDest: './dist/js',
   cssDest: './dist/css',
   imagesDest: './dist/images',
   htmlDest: './dist/html',
   revDest: './dist/assets',
-  revRoot: './dist',
-  revAddr: '',
-  basePath: '/',
-  publicPath: '/'
+  revRoot: './dist'
 }
 
 export class YylHander {
@@ -84,7 +82,7 @@ export class YylHander {
     const context = path.dirname(configPath)
 
     try {
-      yylConfig = requireJs(configPath)
+      yylConfig = require(configPath)
     } catch (er) {
       throw new Error(`${LANG.CONFIG_PARSE_ERROR}: ${configPath}, ${er.message}`)
     }
@@ -98,7 +96,7 @@ export class YylHander {
     const mineConfigPath = configPath.replace(/\.js$/, '.mine.js')
     if (fs.existsSync(mineConfigPath)) {
       try {
-        mineConfig = requireJs(mineConfigPath)
+        mineConfig = require(mineConfigPath)
       } catch (er) {}
     }
 
@@ -154,7 +152,7 @@ export class YylHander {
 
     // alias format to absolute
     Object.keys(yylConfig.alias).forEach((key: keyof YylConfigAlias) => {
-      if (yylConfig.alias) {
+      if (yylConfig.alias && yylConfig.alias[key]) {
         yylConfig.alias[key] = formatPath(path.resolve(context, yylConfig.alias[key]))
       }
     })
@@ -171,16 +169,20 @@ export class YylHander {
       }
     }
 
+    if (yylConfig.webpackConfigPath) {
+      yylConfig.webpackConfigPath = util.path.resolve(context, yylConfig.webpackConfigPath)
+    }
+
     // config.resource to absolute
     if (yylConfig.resource) {
       Object.keys(yylConfig.resource).forEach((key) => {
-        let curKey = self.sugarReplace(key, yylConfig.alias)
+        let curKey = sugarReplace(key, yylConfig.alias)
         if (curKey === key) {
           curKey = formatPath(path.resolve(context, key))
         }
         if (yylConfig.resource) {
           const curVal = yylConfig.resource[key]
-          let rVal = self.sugarReplace(curVal, yylConfig.alias)
+          let rVal = sugarReplace(curVal, yylConfig.alias)
           if (rVal === curVal) {
             rVal = formatPath(path.resolve(context, yylConfig.resource[key]))
           }
@@ -218,7 +220,7 @@ export class YylHander {
   }
 
   /** 解析 yylConfig.plugins 内容 */
-  async initPlugin() {
+  async initPlugins() {
     const { yylConfig } = this
     let pluginPath = null
     if (yylConfig.resolveModule) {
@@ -299,7 +301,7 @@ export class YylHander {
 
       if (htmls.length) {
         if (yylConfig.alias && addr) {
-          addr = formatPath(path.join(addr, path.relative(yylConfig.alias?.destRoot, htmls[0])))
+          addr = util.path.join(addr, path.relative(yylConfig.alias?.destRoot, htmls[0]))
         }
       }
     }

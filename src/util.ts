@@ -22,10 +22,14 @@ export function hideProtocol(url: string) {
 }
 
 /** sugar 替换 */
-export function sugarReplace(str: string, alias: YylConfigAlias) {
+export function sugarReplace(str: string, alias?: YylConfigAlias) {
   return str.replace(SUGAR_REG, (str, $1, $2) => {
-    if ($2 in alias) {
-      return alias[$2]
+    if (alias) {
+      if ($2 in alias) {
+        return alias[$2]
+      } else {
+        return str
+      }
     } else {
       return str
     }

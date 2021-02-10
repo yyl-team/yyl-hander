@@ -3,8 +3,7 @@ const path = require('path')
 const extFs = require('yyl-fs')
 const fs = require('fs')
 const { log, FRAG_PATH } = require('../lib/const')
-const { YylHander, SERVER_PLUGIN_PATH } = require('../../')
-const yh = new Handler({ log, vars })
+const { YylHander, SERVER_PLUGIN_PATH } = require('../../output')
 
 test('yylHander.initPlugins() with config.plugins', async () => {
   const name = 'optimize-initplugins-with-config-plugins'

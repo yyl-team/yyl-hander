@@ -1,8 +1,7 @@
 const fn = require('../lib/util')
 const path = require('path')
-const { Handler, log, vars, FRAG_PATH } = require('../lib/const')
+const { log, FRAG_PATH } = require('../lib/const')
 const { YylHander } = require('../../output')
-const yh = new Handler({ log, vars })
 
 test('yylHander.runBeforeScripts(all) with string', async () => {
   const name = 'optimize-initbeforescripts-with-string'
@@ -38,10 +37,10 @@ test('yylHander.runBeforeScripts(all) with string', async () => {
     }
   })
 
-  await yh.optimize.runBeforeScripts('all')
-  await yh.optimize.runAfterScripts('all')
-  await yh.optimize.runBeforeScripts('watch')
-  await yh.optimize.runAfterScripts('watch')
+  await yylHander.runBeforeScripts('all')
+  await yylHander.runAfterScripts('all')
+  await yylHander.runBeforeScripts('watch')
+  await yylHander.runAfterScripts('watch')
 
   // check
   expect(isWatchBeforeScriptRun).toEqual(true)
