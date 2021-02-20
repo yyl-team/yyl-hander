@@ -27,7 +27,14 @@ export const LANG = {
   CONFIG_SAVED: '配置已保存',
 
   CONFIG_NOT_EXISTS: 'yyl.config 路径不存在',
+  CONFIG_NOT_SET: 'new yylHander 入参不存在: op.yylConfig',
   CONFIG_PARSE_ERROR: '配置解析错误',
+  REQUIRE_ATLEAST_VERSION: '项目要求 yyl 版本 不能低于',
+  DEL_PKG_LOCK_FILE: '存在 package-lock.json, 与 yarn 冲突，删之',
+  INSTALL_YARN: '请先安装 yarn',
+  YARN_VERSION: 'yarn 版本',
+  SEED_NOT_SET: '没有传入 seed 配置',
+
   MISS_NAME_OPTIONS: '缺少 --name 属性',
   NAME_OPTIONS_NOT_EXISTS: '--name 属性设置错误',
   CONFIG_ATTR_IS_NEEDFUL: 'config 中以下属性为必填项',

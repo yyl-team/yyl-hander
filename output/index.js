@@ -67,6 +67,7 @@ const LANG = {
     OPEN_ADDR: '打开 url',
     CONFIG_SAVED: '配置已保存',
     CONFIG_NOT_EXISTS: 'yyl.config 路径不存在',
+    CONFIG_NOT_SET: 'new yylHander 入参不存在: op.yylConfig',
     CONFIG_PARSE_ERROR: '配置解析错误',
     MISS_NAME_OPTIONS: '缺少 --name 属性',
     NAME_OPTIONS_NOT_EXISTS: '--name 属性设置错误',
@@ -189,15 +190,26 @@ class YylHander {
         if (context) {
             this.context = context;
         }
-        if (typeof yylConfig === 'string') {
+        if (this.env.config) {
+            const configPath = path__default['default'].resolve(process.cwd(), this.env.config);
+            this.context = path__default['default'].dirname(configPath);
+            this.yylConfig = this.parseConfig({
+                configPath,
+                env: this.env
+            });
+        }
+        else if (typeof yylConfig === 'string') {
             this.context = path__default['default'].dirname(yylConfig);
             this.yylConfig = this.parseConfig({
                 configPath: yylConfig,
                 env: this.env
             });
         }
-        else {
+        else if (yylConfig) {
             this.yylConfig = this.formatConfig({ yylConfig, env: this.env, context: this.context });
+        }
+        else {
+            throw new Error(`${LANG.CONFIG_NOT_EXISTS}`);
         }
     }
     parseConfig(op) {

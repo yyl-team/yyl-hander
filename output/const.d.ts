@@ -15,6 +15,7 @@ export declare const LANG: {
     OPEN_ADDR: string;
     CONFIG_SAVED: string;
     CONFIG_NOT_EXISTS: string;
+    CONFIG_NOT_SET: string;
     CONFIG_PARSE_ERROR: string;
     MISS_NAME_OPTIONS: string;
     NAME_OPTIONS_NOT_EXISTS: string;

@@ -1,6 +1,6 @@
 import { YylConfig, Env, YylConfigAlias } from 'yyl-config-types';
 export interface YylParserOption {
-    yylConfig: YylConfig | string;
+    yylConfig?: YylConfig | string;
     env?: Env;
     logger?: Logger;
     context?: string;

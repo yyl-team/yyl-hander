@@ -1,15 +1,16 @@
+import fs from 'fs'
+import path from 'path'
 import { YylConfig, Env, YylConfigAlias } from 'yyl-config-types'
 import { deepReplace, formatPath, needEnvName, toCtx, sugarReplace } from './util'
 import extOs, { runSpawn } from 'yyl-os'
-import util, { type, requireJs } from 'yyl-util'
+import util, { type } from 'yyl-util'
 import extFs from 'yyl-fs'
-import fs from 'fs'
 import chalk from 'chalk'
 import { LANG, SERVER_PLUGIN_PATH, SERVER_CONFIG_LOG_PATH, SERVER_PATH } from './const'
 import request from 'request-promise'
-import path from 'path'
+import { SeedEntry } from 'yyl-seed-base'
 export interface YylParserOption {
-  yylConfig: YylConfig | string
+  yylConfig?: YylConfig | string
   env?: Env
   logger?: Logger
   context?: string
@@ -33,6 +34,15 @@ export type Logger = (type: LoggerType, subType: LoggerSubType, ...args: any[]) 
 export type LoggerType = 'msg'
 export type LoggerSubType = 'info' | 'success' | 'warn' | 'error' | 'cmd'
 
+export interface YylHanderInitOption {
+  /** seed 包 */
+  seed: SeedEntry
+  /** 是否执行 watch */
+  watch?: boolean
+  /** yyl 版本 - 用于与 yylConfig.version 进行比较 */
+  yylVersion?: string
+}
+
 export const DEFAULT_ALIAS: YylConfigAlias = {
   root: './dist',
   srcRoot: './src',
@@ -50,6 +60,7 @@ export class YylHander {
   context: string = process.cwd()
   yylConfig: YylConfig = {}
   env: Env = {}
+  seed: SeedEntry | undefined = undefined
   logger: Logger = () => undefined
   constructor(option: YylParserOption) {
     const { yylConfig, env, logger, context } = option
@@ -62,17 +73,94 @@ export class YylHander {
     if (context) {
       this.context = context
     }
-    if (typeof yylConfig === 'string') {
+
+    if (this.env.config) {
+      const configPath = path.resolve(process.cwd(), this.env.config)
+      this.context = path.dirname(configPath)
+      this.yylConfig = this.parseConfig({
+        configPath,
+        env: this.env
+      })
+    } else if (typeof yylConfig === 'string') {
       this.context = path.dirname(yylConfig)
       this.yylConfig = this.parseConfig({
         configPath: yylConfig,
         env: this.env
       })
-    } else {
+    } else if (yylConfig) {
       this.yylConfig = this.formatConfig({ yylConfig, env: this.env, context: this.context })
+    } else {
+      throw new Error(`${LANG.CONFIG_NOT_EXISTS}`)
     }
   }
 
+  /** 初始化 */
+  async init(op: YylHanderInitOption) {
+    const { seed, watch, yylVersion } = op
+    const { yylConfig, context, logger, env } = this
+
+    // 版本检查
+    if (yylVersion && yylConfig.version) {
+      if (util.compareVersion(yylConfig.version, yylVersion) > 0) {
+        throw new Error(`${LANG.REQUIRE_ATLEAST_VERSION}: ${yylConfig.version}`)
+      }
+    }
+
+    // yarn 安装检查
+    if (yylConfig.yarn) {
+      const yarnVersion = await extOs.getYarnVersion()
+      if (yarnVersion) {
+        logger('msg', 'info', `${LANG.YARN_VERSION}: ${chalk.green(yarnVersion)}`)
+
+        // 删除 package-lock.json
+        const pkgLockPath = path.join(context, 'package-lock.json')
+        if (fs.existsSync(pkgLockPath)) {
+          await extFs.removeFiles(pkgLockPath)
+          logger('msg', 'warn', LANG.DEL_PKG_LOCK_FILE)
+        }
+      } else {
+        throw new Error(`${LANG.INSTALL_YARN}: ${chalk.yellow('npm i yarn -g')}`)
+      }
+    }
+
+    if (!seed) {
+      throw new Error(LANG.SEED_NOT_SET)
+    }
+
+    // config.plugins 插件初始化
+    await this.initPlugins()
+
+    // 保存配置到服务器
+    this.saveConfigToServer()
+
+    // clean dist
+    if (
+      yylConfig.localserver?.root &&
+      path.join(yylConfig.localserver.root) !== path.join(context)
+    ) {
+      await extFs.removeFiles(yylConfig.localserver?.root)
+    }
+
+    // 执行代码前配置项
+    await this.runBeforeScripts()
+
+    const opzer = await seed.optimize({
+      yylConfig,
+      env,
+      ctx: watch ? 'watch' : 'all',
+      root: context
+    })
+
+    if (opzer) {
+      if (watch) {
+        // TODO:
+      } else {
+        // TODO:
+      }
+    }
+  }
+
+  /** 解析配置 */
   parseConfig(op: ParseConfigOption) {
     const { configPath, env } = op
     let yylConfig: any = {}
@@ -114,6 +202,7 @@ export class YylHander {
     })
   }
 
+  /** 格式化配置 */
   formatConfig(option: FormatConfigOption): YylConfig {
     let { yylConfig, env, context } = option
 
@@ -343,48 +432,46 @@ export class YylHander {
   }
 
   /** 执行 before script */
-  async runBeforeScripts(ctx: string) {
+  async runBeforeScripts(watch?: boolean) {
     const { yylConfig, logger } = this
     let entry = yylConfig.all
-    const IS_WATCH = ctx === 'watch'
-    if (IS_WATCH) {
+    if (watch) {
       entry = yylConfig.watch
     }
     if (entry && entry.beforeScripts) {
       logger(
         'msg',
         'info',
-        IS_WATCH ? LANG.RUN_WATCH_BEFORE_SCRIPT_START : LANG.RUN_ALL_BEFORE_SCRIPT_START
+        watch ? LANG.RUN_WATCH_BEFORE_SCRIPT_START : LANG.RUN_ALL_BEFORE_SCRIPT_START
       )
       const r = await this.initScripts(entry.beforeScripts)
       logger(
         'msg',
         'success',
-        IS_WATCH ? LANG.RUN_WATCH_BEFORE_SCRIPT_FINISHED : LANG.RUN_ALL_BEFORE_SCRIPT_FINISHED
+        watch ? LANG.RUN_WATCH_BEFORE_SCRIPT_FINISHED : LANG.RUN_ALL_BEFORE_SCRIPT_FINISHED
       )
       return r
     }
   }
 
   /** 执行 after script */
-  async runAfterScripts(ctx: string) {
+  async runAfterScripts(watch?: boolean) {
     const { yylConfig, logger } = this
     let entry = yylConfig.all
-    const IS_WATCH = ctx === 'watch'
-    if (IS_WATCH) {
+    if (watch) {
       entry = yylConfig.watch
     }
     if (entry && entry.afterScripts) {
       logger(
         'msg',
         'info',
-        IS_WATCH ? LANG.RUN_WATCH_AFTER_SCRIPT_START : LANG.RUN_ALL_AFTER_SCRIPT_START
+        watch ? LANG.RUN_WATCH_AFTER_SCRIPT_START : LANG.RUN_ALL_AFTER_SCRIPT_START
       )
       const r = await this.initScripts(entry.afterScripts)
       logger(
         'msg',
         'success',
-        IS_WATCH ? LANG.RUN_WATCH_AFTER_SCRIPT_FINISHED : LANG.RUN_ALL_AFTER_SCRIPT_FINISHED
+        watch ? LANG.RUN_WATCH_AFTER_SCRIPT_FINISHED : LANG.RUN_ALL_AFTER_SCRIPT_FINISHED
       )
       return r
     }
