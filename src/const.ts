@@ -34,6 +34,9 @@ export const LANG = {
   INSTALL_YARN: '请先安装 yarn',
   YARN_VERSION: 'yarn 版本',
   SEED_NOT_SET: '没有传入 seed 配置',
+  OPTIMIZE_FINISHED: '任务执行完成',
+  PRINT_HOME_PAGE: '主页地址',
+  PAGE_RELOAD: '页面刷新',
 
   MISS_NAME_OPTIONS: '缺少 --name 属性',
   NAME_OPTIONS_NOT_EXISTS: '--name 属性设置错误',
