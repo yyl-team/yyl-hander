@@ -9,12 +9,6 @@ import chalk from 'chalk'
 import { LANG, SERVER_PLUGIN_PATH, SERVER_CONFIG_LOG_PATH, SERVER_PATH } from './const'
 import request from 'request-promise'
 import { MsgType, SeedEntry, SeedOptimizeResult } from 'yyl-seed-base'
-export interface YylParserOption {
-  yylConfig?: YylConfig | string
-  env?: Env
-  logger?: Logger
-  context?: string
-}
 
 export interface FormatConfigOption {
   yylConfig: YylConfig
@@ -30,7 +24,6 @@ export interface ParseConfigOption {
   env: Env
 }
 
-export type Logger = (type: LoggerType, args: any[]) => void
 export type LoggerType =
   | 'info'
   | 'success'
@@ -42,6 +35,14 @@ export type LoggerType =
   | 'loading'
   | 'finished'
 
+export type Logger = (type: LoggerType, args: any[]) => void
+
+export interface YylParserOption {
+  yylConfig?: YylConfig | string
+  env?: Env
+  logger?: Logger
+  context?: string
+}
 export interface YylHanderInitOption {
   /** seed 包 */
   seed: SeedEntry
@@ -107,10 +108,13 @@ export class YylHander {
     const { seed, watch, yylVersion } = op
     const { yylConfig, context, logger, env } = this
 
+    logger('start', [])
+
     // 版本检查
     if (yylVersion && yylConfig.version) {
       if (util.compareVersion(yylConfig.version, yylVersion) > 0) {
-        throw new Error(`${LANG.REQUIRE_ATLEAST_VERSION}: ${yylConfig.version}`)
+        logger('error', [new Error(`${LANG.REQUIRE_ATLEAST_VERSION}: ${yylConfig.version}`)])
+        return
       }
     }
 
@@ -123,112 +127,124 @@ export class YylHander {
         // 删除 package-lock.json
         const pkgLockPath = path.join(context, 'package-lock.json')
         if (fs.existsSync(pkgLockPath)) {
-          await extFs.removeFiles(pkgLockPath)
+          await extFs.removeFiles(pkgLockPath).catch(() => undefined)
           logger('warn', [LANG.DEL_PKG_LOCK_FILE])
         }
       } else {
-        throw new Error(`${LANG.INSTALL_YARN}: ${chalk.yellow('npm i yarn -g')}`)
+        logger('error', [new Error(`${LANG.INSTALL_YARN}: ${chalk.yellow('npm i yarn -g')}`)])
+        return
       }
     }
 
     if (!seed) {
-      throw new Error(LANG.SEED_NOT_SET)
+      logger('error', [new Error(LANG.SEED_NOT_SET)])
+      return
     }
 
     // config.plugins 插件初始化
-    await this.initPlugins()
+    await this.initPlugins().catch((er) => {
+      logger('error', [er])
+    })
 
     // 保存配置到服务器
-    this.saveConfigToServer()
+    try {
+      this.saveConfigToServer()
+    } catch (er) {
+      logger('error', [new Error(LANG.SAVE_CONFIG_TO_SERVER_FAIL)])
+    }
 
     // clean dist
     if (
       yylConfig.localserver?.root &&
       path.join(yylConfig.localserver.root) !== path.join(context)
     ) {
-      await extFs.removeFiles(yylConfig.localserver?.root)
+      await extFs.removeFiles(yylConfig.localserver?.root).catch(() => {
+        logger('warn', [`${LANG.CLEAN_DIST_FAIL}: ${chalk.yellow(yylConfig.localserver?.root)}`])
+      })
     }
 
     // 执行代码前配置项
-    await this.runBeforeScripts()
-
-    const opzer = await seed.optimize({
-      yylConfig,
-      env,
-      ctx: watch ? 'watch' : 'all',
-      root: context
+    await this.runBeforeScripts().catch((er) => {
+      logger('error', [er])
     })
 
-    return new Promise<[YylConfig, SeedOptimizeResult | undefined]>((resolve, reject) => {
-      if (opzer) {
-        let isUpdate = false
-        let isError: false | Error = false
-        const htmlSet: Set<string> = new Set()
-        opzer
-          .on('start', () => {
-            if (isUpdate) {
-              logger('start', [])
-            }
-          })
-          .on('msg', (type: MsgType, args: any[]) => {
-            if (type === 'error') {
-              isError = toCtx<Error>(args[0])
-            }
-            if (['create', 'update'].includes(type)) {
-              if (/\.html$/.test(args[0])) {
-                htmlSet.add(args[0])
+    try {
+      const opzer = await seed.optimize({
+        yylConfig,
+        env,
+        ctx: watch ? 'watch' : 'all',
+        root: context
+      })
+      return await new Promise<[YylConfig, SeedOptimizeResult | undefined]>((resolve, reject) => {
+        if (opzer) {
+          let isUpdate = false
+          let isError: false | Error = false
+          const htmlSet: Set<string> = new Set()
+          opzer
+            .on('msg', (type: MsgType, args: any[]) => {
+              if (type === 'error') {
+                isError = toCtx<Error>(args[0])
               }
-            }
-          })
-          .on('loading', (name: string) => {
-            logger('loading', [name])
-          })
-          .on('finished', async () => {
-            if (!watch && isError) {
-              return reject(isError)
-            }
-
-            /** 执行代码执行后配置项 */
-            this.runAfterScripts(watch)
-            logger('success', [`${watch ? 'watch' : 'all'} ${LANG.OPTIMIZE_FINISHED}`])
-
-            const homePage = await this.getHomePage({
-              files: (() => {
-                const r: string[] = []
-                htmlSet.forEach((item) => {
-                  r.push(item)
-                })
-                return r
-              })()
+              if (['create', 'update'].includes(type)) {
+                if (/\.html$/.test(args[0])) {
+                  htmlSet.add(args[0])
+                }
+              }
             })
-            logger('success', [`${LANG.PRINT_HOME_PAGE}: ${chalk.yellow.bold(homePage)}`])
-
-            // 第一次构建 打开 对应页面
-            if (watch && !isUpdate && !env.silent && env.proxy && homePage) {
-              extOs.openBrowser(homePage)
-            }
-
-            if (isUpdate) {
-              if (env.livereload) {
-                logger('success', [LANG.PAGE_RELOAD])
-                await this.livereload()
+            .on('loading', (name: string) => {
+              logger('loading', [name])
+            })
+            .on('finished', async () => {
+              if (!watch && isError) {
+                logger('error', [isError])
+                return
               }
-              logger('finished', [])
-            } else {
-              isUpdate = true
-              logger('finished', [])
-              resolve([yylConfig, opzer])
-            }
-          })
-        if (watch) {
-          opzer.watch()
+
+              /** 执行代码执行后配置项 */
+              this.runAfterScripts(watch)
+              logger('success', [`${watch ? 'watch' : 'all'} ${LANG.OPTIMIZE_FINISHED}`])
+
+              const homePage = await this.getHomePage({
+                files: (() => {
+                  const r: string[] = []
+                  htmlSet.forEach((item) => {
+                    r.push(item)
+                  })
+                  return r
+                })()
+              })
+              logger('success', [`${LANG.PRINT_HOME_PAGE}: ${chalk.yellow.bold(homePage)}`])
+
+              // 第一次构建 打开 对应页面
+              if (watch && !isUpdate && !env.silent && env.proxy && homePage) {
+                extOs.openBrowser(homePage)
+              }
+
+              if (isUpdate) {
+                if (env.livereload) {
+                  logger('success', [LANG.PAGE_RELOAD])
+                  await this.livereload()
+                }
+                logger('finished', [])
+              } else {
+                isUpdate = true
+                logger('finished', [])
+                resolve([yylConfig, opzer])
+              }
+            })
+          if (watch) {
+            opzer.watch()
+          } else {
+            opzer.all()
+          }
         } else {
-          opzer.all()
+          logger('error', [new Error(LANG.NO_OPZER_HANDLE)])
+          resolve([yylConfig, opzer])
         }
-      } else {
-        resolve([yylConfig, opzer])
-      }
-    })
+      })
+    } catch (er) {
+      logger('error', [new Error(LANG.OPTIMIZE_RUN_FAIL)])
+    }
   }
 
   /** 解析配置 */

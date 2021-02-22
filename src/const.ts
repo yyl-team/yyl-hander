@@ -37,6 +37,10 @@ export const LANG = {
   OPTIMIZE_FINISHED: '任务执行完成',
   PRINT_HOME_PAGE: '主页地址',
   PAGE_RELOAD: '页面刷新',
+  SAVE_CONFIG_TO_SERVER_FAIL: '保存配置到本地服务失败',
+  CLEAN_DIST_FAIL: '清除本地输出目录失败',
+  OPTIMIZE_RUN_FAIL: '构建文件运行出错',
+  NO_OPZER_HANDLE: 'seed 包没返回 opzer',
 
   MISS_NAME_OPTIONS: '缺少 --name 属性',
   NAME_OPTIONS_NOT_EXISTS: '--name 属性设置错误',

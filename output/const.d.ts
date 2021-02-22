@@ -17,6 +17,18 @@ export declare const LANG: {
     CONFIG_NOT_EXISTS: string;
     CONFIG_NOT_SET: string;
     CONFIG_PARSE_ERROR: string;
+    REQUIRE_ATLEAST_VERSION: string;
+    DEL_PKG_LOCK_FILE: string;
+    INSTALL_YARN: string;
+    YARN_VERSION: string;
+    SEED_NOT_SET: string;
+    OPTIMIZE_FINISHED: string;
+    PRINT_HOME_PAGE: string;
+    PAGE_RELOAD: string;
+    SAVE_CONFIG_TO_SERVER_FAIL: string;
+    CLEAN_DIST_FAIL: string;
+    OPTIMIZE_RUN_FAIL: string;
+    NO_OPZER_HANDLE: string;
     MISS_NAME_OPTIONS: string;
     NAME_OPTIONS_NOT_EXISTS: string;
     CONFIG_ATTR_IS_NEEDFUL: string;
