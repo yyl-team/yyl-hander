@@ -17,6 +17,7 @@
 - [context](yylhander.md#context)
 - [env](yylhander.md#env)
 - [logger](yylhander.md#logger)
+- [seed](yylhander.md#seed)
 - [yylConfig](yylhander.md#yylconfig)
 
 ### Methods
@@ -24,6 +25,7 @@
 - [formatConfig](yylhander.md#formatconfig)
 - [getHomePage](yylhander.md#gethomepage)
 - [getYylConfig](yylhander.md#getyylconfig)
+- [init](yylhander.md#init)
 - [initPlugins](yylhander.md#initplugins)
 - [initScripts](yylhander.md#initscripts)
 - [livereload](yylhander.md#livereload)
@@ -47,7 +49,7 @@ Name | Type |
 
 **Returns:** [*YylHander*](yylhander.md)
 
-Defined in: [yylHander.ts:53](https://github.com/jackness1208/yyl-hander/blob/14d9d5f/src/yylHander.ts#L53)
+Defined in: [yylHander.ts:79](https://github.com/jackness1208/yyl-hander/blob/7df87c0/src/yylHander.ts#L79)
 
 ## Properties
 
@@ -55,7 +57,7 @@ Defined in: [yylHander.ts:53](https://github.com/jackness1208/yyl-hander/blob/14
 
 • **context**: *string*
 
-Defined in: [yylHander.ts:50](https://github.com/jackness1208/yyl-hander/blob/14d9d5f/src/yylHander.ts#L50)
+Defined in: [yylHander.ts:75](https://github.com/jackness1208/yyl-hander/blob/7df87c0/src/yylHander.ts#L75)
 
 ___
 
@@ -63,15 +65,23 @@ ___
 
 • **env**: Env
 
-Defined in: [yylHander.ts:52](https://github.com/jackness1208/yyl-hander/blob/14d9d5f/src/yylHander.ts#L52)
+Defined in: [yylHander.ts:77](https://github.com/jackness1208/yyl-hander/blob/7df87c0/src/yylHander.ts#L77)
 
 ___
 
 ### logger
 
-• **logger**: [*Logger*](../modules.md#logger)
+• **logger**: [*Logger*](../modules.md#logger)<*msg* \| *cmd* \| *clear* \| *start* \| *loading* \| *finished*, *undefined* \| *string* \| *string*[]\>
 
-Defined in: [yylHander.ts:53](https://github.com/jackness1208/yyl-hander/blob/14d9d5f/src/yylHander.ts#L53)
+Defined in: [yylHander.ts:79](https://github.com/jackness1208/yyl-hander/blob/7df87c0/src/yylHander.ts#L79)
+
+___
+
+### seed
+
+• **seed**: *undefined* \| SeedEntry
+
+Defined in: [yylHander.ts:78](https://github.com/jackness1208/yyl-hander/blob/7df87c0/src/yylHander.ts#L78)
 
 ___
 
@@ -79,13 +89,15 @@ ___
 
 • **yylConfig**: YylConfig
 
-Defined in: [yylHander.ts:51](https://github.com/jackness1208/yyl-hander/blob/14d9d5f/src/yylHander.ts#L51)
+Defined in: [yylHander.ts:76](https://github.com/jackness1208/yyl-hander/blob/7df87c0/src/yylHander.ts#L76)
 
 ## Methods
 
 ### formatConfig
 
 ▸ **formatConfig**(`option`: [*FormatConfigOption*](../interfaces/formatconfigoption.md)): YylConfig
+
+格式化配置
 
 #### Parameters:
 
@@ -95,7 +107,7 @@ Name | Type |
 
 **Returns:** YylConfig
 
-Defined in: [yylHander.ts:117](https://github.com/jackness1208/yyl-hander/blob/14d9d5f/src/yylHander.ts#L117)
+Defined in: [yylHander.ts:303](https://github.com/jackness1208/yyl-hander/blob/7df87c0/src/yylHander.ts#L303)
 
 ___
 
@@ -113,7 +125,7 @@ Name | Type |
 
 **Returns:** *Promise*<*undefined* \| *string*\>
 
-Defined in: [yylHander.ts:238](https://github.com/jackness1208/yyl-hander/blob/14d9d5f/src/yylHander.ts#L238)
+Defined in: [yylHander.ts:424](https://github.com/jackness1208/yyl-hander/blob/7df87c0/src/yylHander.ts#L424)
 
 ___
 
@@ -125,7 +137,25 @@ ___
 
 **Returns:** YylConfig
 
-Defined in: [yylHander.ts:218](https://github.com/jackness1208/yyl-hander/blob/14d9d5f/src/yylHander.ts#L218)
+Defined in: [yylHander.ts:404](https://github.com/jackness1208/yyl-hander/blob/7df87c0/src/yylHander.ts#L404)
+
+___
+
+### init
+
+▸ **init**(`op`: [*YylHanderInitOption*](../interfaces/yylhanderinitoption.md)): *Promise*<*undefined* \| [YylConfig, *undefined* \| SeedOptimizeResult]\>
+
+初始化
+
+#### Parameters:
+
+Name | Type |
+------ | ------ |
+`op` | [*YylHanderInitOption*](../interfaces/yylhanderinitoption.md) |
+
+**Returns:** *Promise*<*undefined* \| [YylConfig, *undefined* \| SeedOptimizeResult]\>
+
+Defined in: [yylHander.ts:113](https://github.com/jackness1208/yyl-hander/blob/7df87c0/src/yylHander.ts#L113)
 
 ___
 
@@ -137,7 +167,7 @@ ___
 
 **Returns:** *Promise*<*any*\>
 
-Defined in: [yylHander.ts:223](https://github.com/jackness1208/yyl-hander/blob/14d9d5f/src/yylHander.ts#L223)
+Defined in: [yylHander.ts:409](https://github.com/jackness1208/yyl-hander/blob/7df87c0/src/yylHander.ts#L409)
 
 ___
 
@@ -155,7 +185,7 @@ Name | Type |
 
 **Returns:** *Promise*<*any*\>
 
-Defined in: [yylHander.ts:326](https://github.com/jackness1208/yyl-hander/blob/14d9d5f/src/yylHander.ts#L326)
+Defined in: [yylHander.ts:512](https://github.com/jackness1208/yyl-hander/blob/7df87c0/src/yylHander.ts#L512)
 
 ___
 
@@ -167,7 +197,7 @@ ___
 
 **Returns:** *Promise*<*void*\>
 
-Defined in: [yylHander.ts:394](https://github.com/jackness1208/yyl-hander/blob/14d9d5f/src/yylHander.ts#L394)
+Defined in: [yylHander.ts:570](https://github.com/jackness1208/yyl-hander/blob/7df87c0/src/yylHander.ts#L570)
 
 ___
 
@@ -185,13 +215,15 @@ Name | Type |
 
 **Returns:** *Promise*<*undefined* \| *string*\>
 
-Defined in: [yylHander.ts:312](https://github.com/jackness1208/yyl-hander/blob/14d9d5f/src/yylHander.ts#L312)
+Defined in: [yylHander.ts:498](https://github.com/jackness1208/yyl-hander/blob/7df87c0/src/yylHander.ts#L498)
 
 ___
 
 ### parseConfig
 
 ▸ **parseConfig**(`op`: [*ParseConfigOption*](../interfaces/parseconfigoption.md)): YylConfig
+
+解析配置
 
 #### Parameters:
 
@@ -201,13 +233,13 @@ Name | Type |
 
 **Returns:** YylConfig
 
-Defined in: [yylHander.ts:76](https://github.com/jackness1208/yyl-hander/blob/14d9d5f/src/yylHander.ts#L76)
+Defined in: [yylHander.ts:261](https://github.com/jackness1208/yyl-hander/blob/7df87c0/src/yylHander.ts#L261)
 
 ___
 
 ### runAfterScripts
 
-▸ **runAfterScripts**(`ctx`: *string*): *Promise*<*any*\>
+▸ **runAfterScripts**(`watch?`: *boolean*): *Promise*<*any*\>
 
 执行 after script
 
@@ -215,17 +247,17 @@ ___
 
 Name | Type |
 ------ | ------ |
-`ctx` | *string* |
+`watch?` | *boolean* |
 
 **Returns:** *Promise*<*any*\>
 
-Defined in: [yylHander.ts:370](https://github.com/jackness1208/yyl-hander/blob/14d9d5f/src/yylHander.ts#L370)
+Defined in: [yylHander.ts:551](https://github.com/jackness1208/yyl-hander/blob/7df87c0/src/yylHander.ts#L551)
 
 ___
 
 ### runBeforeScripts
 
-▸ **runBeforeScripts**(`ctx`: *string*): *Promise*<*any*\>
+▸ **runBeforeScripts**(`watch?`: *boolean*): *Promise*<*any*\>
 
 执行 before script
 
@@ -233,11 +265,11 @@ ___
 
 Name | Type |
 ------ | ------ |
-`ctx` | *string* |
+`watch?` | *boolean* |
 
 **Returns:** *Promise*<*any*\>
 
-Defined in: [yylHander.ts:346](https://github.com/jackness1208/yyl-hander/blob/14d9d5f/src/yylHander.ts#L346)
+Defined in: [yylHander.ts:532](https://github.com/jackness1208/yyl-hander/blob/7df87c0/src/yylHander.ts#L532)
 
 ___
 
@@ -249,4 +281,4 @@ ___
 
 **Returns:** *Promise*<*void*\>
 
-Defined in: [yylHander.ts:405](https://github.com/jackness1208/yyl-hander/blob/14d9d5f/src/yylHander.ts#L405)
+Defined in: [yylHander.ts:581](https://github.com/jackness1208/yyl-hander/blob/7df87c0/src/yylHander.ts#L581)

@@ -1,5 +1,5 @@
 /*!
- * yyl-hander cjs 1.0.1
+ * yyl-hander cjs 1.1.0
  * (c) 2020 - 2021 
  * Released under the MIT License.
  */
@@ -7,21 +7,21 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
+var fs = require('fs');
 var path = require('path');
 var util = require('yyl-util');
 var extOs = require('yyl-os');
 var extFs = require('yyl-fs');
-var fs = require('fs');
 var chalk = require('chalk');
 var request = require('request-promise');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
+var fs__default = /*#__PURE__*/_interopDefaultLegacy(fs);
 var path__default = /*#__PURE__*/_interopDefaultLegacy(path);
 var util__default = /*#__PURE__*/_interopDefaultLegacy(util);
 var extOs__default = /*#__PURE__*/_interopDefaultLegacy(extOs);
 var extFs__default = /*#__PURE__*/_interopDefaultLegacy(extFs);
-var fs__default = /*#__PURE__*/_interopDefaultLegacy(fs);
 var chalk__default = /*#__PURE__*/_interopDefaultLegacy(chalk);
 var request__default = /*#__PURE__*/_interopDefaultLegacy(request);
 
@@ -67,7 +67,20 @@ const LANG = {
     OPEN_ADDR: '打开 url',
     CONFIG_SAVED: '配置已保存',
     CONFIG_NOT_EXISTS: 'yyl.config 路径不存在',
+    CONFIG_NOT_SET: 'new yylHander 入参不存在: op.yylConfig',
     CONFIG_PARSE_ERROR: '配置解析错误',
+    REQUIRE_ATLEAST_VERSION: '项目要求 yyl 版本 不能低于',
+    DEL_PKG_LOCK_FILE: '存在 package-lock.json, 与 yarn 冲突，删之',
+    INSTALL_YARN: '请先安装 yarn',
+    YARN_VERSION: 'yarn 版本',
+    SEED_NOT_SET: '没有传入 seed 配置',
+    OPTIMIZE_FINISHED: '任务执行完成',
+    PRINT_HOME_PAGE: '主页地址',
+    PAGE_RELOAD: '页面刷新',
+    SAVE_CONFIG_TO_SERVER_FAIL: '保存配置到本地服务失败',
+    CLEAN_DIST_FAIL: '清除本地输出目录失败',
+    OPTIMIZE_RUN_FAIL: '构建文件运行出错',
+    NO_OPZER_HANDLE: 'seed 包没返回 opzer',
     MISS_NAME_OPTIONS: '缺少 --name 属性',
     NAME_OPTIONS_NOT_EXISTS: '--name 属性设置错误',
     CONFIG_ATTR_IS_NEEDFUL: 'config 中以下属性为必填项',
@@ -178,7 +191,8 @@ class YylHander {
         this.context = process.cwd();
         this.yylConfig = {};
         this.env = {};
-        this.logger = () => undefined;
+        this.seed = undefined;
+        this.logger = () => { };
         const { yylConfig, env, logger, context } = option;
         if (logger) {
             this.logger = logger;
@@ -189,17 +203,170 @@ class YylHander {
         if (context) {
             this.context = context;
         }
-        if (typeof yylConfig === 'string') {
+        if (this.env.config) {
+            const configPath = path__default['default'].resolve(process.cwd(), this.env.config);
+            this.context = path__default['default'].dirname(configPath);
+            this.yylConfig = this.parseConfig({
+                configPath,
+                env: this.env
+            });
+        }
+        else if (typeof yylConfig === 'string') {
             this.context = path__default['default'].dirname(yylConfig);
             this.yylConfig = this.parseConfig({
                 configPath: yylConfig,
                 env: this.env
             });
         }
-        else {
+        else if (yylConfig) {
             this.yylConfig = this.formatConfig({ yylConfig, env: this.env, context: this.context });
         }
+        else {
+            throw new Error(`${LANG.CONFIG_NOT_EXISTS}`);
+        }
     }
+    /** 初始化 */
+    init(op) {
+        var _a, _b;
+        return __awaiter(this, void 0, void 0, function* () {
+            const { seed, watch, yylVersion } = op;
+            const { yylConfig, context, logger, env } = this;
+            logger('start', undefined);
+            // 版本检查
+            if (yylVersion && yylConfig.version) {
+                if (util__default['default'].compareVersion(yylConfig.version, yylVersion) > 0) {
+                    logger('msg', 'error', [new Error(`${LANG.REQUIRE_ATLEAST_VERSION}: ${yylConfig.version}`)]);
+                    return;
+                }
+            }
+            // yarn 安装检查
+            if (yylConfig.yarn) {
+                const yarnVersion = yield extOs__default['default'].getYarnVersion();
+                if (yarnVersion) {
+                    logger('msg', 'info', [`${LANG.YARN_VERSION}: ${chalk__default['default'].green(yarnVersion)}`]);
+                    // 删除 package-lock.json
+                    const pkgLockPath = path__default['default'].join(context, 'package-lock.json');
+                    if (fs__default['default'].existsSync(pkgLockPath)) {
+                        yield extFs__default['default'].removeFiles(pkgLockPath).catch(() => undefined);
+                        logger('msg', 'warn', [LANG.DEL_PKG_LOCK_FILE]);
+                    }
+                }
+                else {
+                    logger('msg', 'error', [
+                        new Error(`${LANG.INSTALL_YARN}: ${chalk__default['default'].yellow('npm i yarn -g')}`)
+                    ]);
+                    return;
+                }
+            }
+            if (!seed) {
+                logger('msg', 'error', [new Error(LANG.SEED_NOT_SET)]);
+                return;
+            }
+            // config.plugins 插件初始化
+            yield this.initPlugins().catch((er) => {
+                logger('msg', 'error', [er]);
+            });
+            // 保存配置到服务器
+            try {
+                this.saveConfigToServer();
+            }
+            catch (er) {
+                logger('msg', 'error', [new Error(LANG.SAVE_CONFIG_TO_SERVER_FAIL)]);
+            }
+            // clean dist
+            if (((_a = yylConfig.localserver) === null || _a === void 0 ? void 0 : _a.root) &&
+                path__default['default'].join(yylConfig.localserver.root) !== path__default['default'].join(context)) {
+                yield extFs__default['default'].removeFiles((_b = yylConfig.localserver) === null || _b === void 0 ? void 0 : _b.root).catch(() => {
+                    var _a;
+                    logger('msg', 'warn', [
+                        `${LANG.CLEAN_DIST_FAIL}: ${chalk__default['default'].yellow((_a = yylConfig.localserver) === null || _a === void 0 ? void 0 : _a.root)}`
+                    ]);
+                });
+            }
+            // 执行代码前配置项
+            yield this.runBeforeScripts().catch((er) => {
+                logger('msg', 'error', [er]);
+            });
+            try {
+                const opzer = yield seed.optimize({
+                    yylConfig,
+                    env,
+                    ctx: watch ? 'watch' : 'all',
+                    root: context
+                });
+                return yield new Promise((resolve, reject) => {
+                    if (opzer) {
+                        let isUpdate = false;
+                        let isError = false;
+                        const htmlSet = new Set();
+                        opzer
+                            .on('msg', (type, args) => {
+                            if (type === 'error') {
+                                isError = toCtx(args[0]);
+                            }
+                            if (['create', 'update'].includes(type)) {
+                                if (/\.html$/.test(args[0])) {
+                                    htmlSet.add(args[0]);
+                                }
+                            }
+                        })
+                            .on('loading', (name) => {
+                            logger('loading', name);
+                        })
+                            .on('finished', () => __awaiter(this, void 0, void 0, function* () {
+                            if (!watch && isError) {
+                                logger('msg', 'error', [isError]);
+                                return;
+                            }
+                            /** 执行代码执行后配置项 */
+                            this.runAfterScripts(watch);
+                            logger('msg', 'success', [`${watch ? 'watch' : 'all'} ${LANG.OPTIMIZE_FINISHED}`]);
+                            const homePage = yield this.getHomePage({
+                                files: (() => {
+                                    const r = [];
+                                    htmlSet.forEach((item) => {
+                                        r.push(item);
+                                    });
+                                    return r;
+                                })()
+                            });
+                            logger('msg', 'success', [`${LANG.PRINT_HOME_PAGE}: ${chalk__default['default'].yellow.bold(homePage)}`]);
+                            // 第一次构建 打开 对应页面
+                            if (watch && !isUpdate && !env.silent && env.proxy && homePage) {
+                                extOs__default['default'].openBrowser(homePage);
+                            }
+                            if (isUpdate) {
+                                if (env.livereload) {
+                                    logger('msg', 'success', [LANG.PAGE_RELOAD]);
+                                    yield this.livereload();
+                                }
+                                logger('finished', undefined);
+                            }
+                            else {
+                                isUpdate = true;
+                                logger('finished', undefined);
+                                resolve([yylConfig, opzer]);
+                            }
+                        }));
+                        if (watch) {
+                            opzer.watch();
+                        }
+                        else {
+                            opzer.all();
+                        }
+                    }
+                    else {
+                        logger('msg', 'error', [new Error(LANG.NO_OPZER_HANDLE)]);
+                        resolve([yylConfig, opzer]);
+                    }
+                });
+            }
+            catch (er) {
+                logger('msg', 'error', [new Error(LANG.OPTIMIZE_RUN_FAIL)]);
+            }
+        });
+    }
+    /** 解析配置 */
     parseConfig(op) {
         const { configPath, env } = op;
         let yylConfig = {};
@@ -236,6 +403,7 @@ class YylHander {
             env
         });
     }
+    /** 格式化配置 */
     formatConfig(option) {
         var _a, _b, _c;
         let { yylConfig, env, context } = option;
@@ -421,8 +589,8 @@ class YylHander {
             const { logger } = this;
             const addr = yield this.getHomePage(op);
             if (addr) {
-                logger('msg', 'success', LANG.OPEN_ADDR);
-                logger('msg', 'success', chalk__default['default'].cyan(addr));
+                logger('msg', 'success', [LANG.OPEN_ADDR]);
+                logger('msg', 'success', [chalk__default['default'].cyan(addr)]);
                 yield extOs__default['default'].openBrowser(addr);
             }
             return addr;
@@ -433,54 +601,60 @@ class YylHander {
         return __awaiter(this, void 0, void 0, function* () {
             const { yylConfig, env, logger, context } = this;
             if (typeof ctx === 'string') {
-                logger('msg', 'cmd', ctx);
+                logger('cmd', [ctx]);
                 return yield extOs.runSpawn(ctx, context);
             }
             else if (typeof ctx === 'function') {
-                logger('msg', 'info', LANG.RUN_SCRIPT_FN_START);
+                logger('msg', 'info', [LANG.RUN_SCRIPT_FN_START]);
                 const rFn = ctx({ config: yylConfig, env });
                 if (typeof rFn === 'string') {
-                    logger('msg', 'cmd', rFn);
+                    logger('cmd', [rFn]);
                     return yield extOs.runSpawn(rFn, context);
                 }
                 else {
                     const r = yield rFn;
-                    logger('msg', 'success', LANG.RUN_SCRIPT_FN_FINISHED);
+                    logger('msg', 'success', [LANG.RUN_SCRIPT_FN_FINISHED]);
                     return r;
                 }
             }
         });
     }
     /** 执行 before script */
-    runBeforeScripts(ctx) {
+    runBeforeScripts(watch) {
         return __awaiter(this, void 0, void 0, function* () {
             const { yylConfig, logger } = this;
             let entry = yylConfig.all;
-            const IS_WATCH = ctx === 'watch';
-            if (IS_WATCH) {
+            if (watch) {
                 entry = yylConfig.watch;
             }
             if (entry && entry.beforeScripts) {
-                logger('msg', 'info', IS_WATCH ? LANG.RUN_WATCH_BEFORE_SCRIPT_START : LANG.RUN_ALL_BEFORE_SCRIPT_START);
+                logger('msg', 'info', [
+                    watch ? LANG.RUN_WATCH_BEFORE_SCRIPT_START : LANG.RUN_ALL_BEFORE_SCRIPT_START
+                ]);
                 const r = yield this.initScripts(entry.beforeScripts);
-                logger('msg', 'success', IS_WATCH ? LANG.RUN_WATCH_BEFORE_SCRIPT_FINISHED : LANG.RUN_ALL_BEFORE_SCRIPT_FINISHED);
+                logger('msg', 'success', [
+                    watch ? LANG.RUN_WATCH_BEFORE_SCRIPT_FINISHED : LANG.RUN_ALL_BEFORE_SCRIPT_FINISHED
+                ]);
                 return r;
             }
         });
     }
     /** 执行 after script */
-    runAfterScripts(ctx) {
+    runAfterScripts(watch) {
         return __awaiter(this, void 0, void 0, function* () {
             const { yylConfig, logger } = this;
             let entry = yylConfig.all;
-            const IS_WATCH = ctx === 'watch';
-            if (IS_WATCH) {
+            if (watch) {
                 entry = yylConfig.watch;
             }
             if (entry && entry.afterScripts) {
-                logger('msg', 'info', IS_WATCH ? LANG.RUN_WATCH_AFTER_SCRIPT_START : LANG.RUN_ALL_AFTER_SCRIPT_START);
+                logger('msg', 'info', [
+                    watch ? LANG.RUN_WATCH_AFTER_SCRIPT_START : LANG.RUN_ALL_AFTER_SCRIPT_START
+                ]);
                 const r = yield this.initScripts(entry.afterScripts);
-                logger('msg', 'success', IS_WATCH ? LANG.RUN_WATCH_AFTER_SCRIPT_FINISHED : LANG.RUN_ALL_AFTER_SCRIPT_FINISHED);
+                logger('msg', 'success', [
+                    watch ? LANG.RUN_WATCH_AFTER_SCRIPT_FINISHED : LANG.RUN_ALL_AFTER_SCRIPT_FINISHED
+                ]);
                 return r;
             }
         });
@@ -511,7 +685,7 @@ class YylHander {
             const serverConfigPath = path__default['default'].join(SERVER_CONFIG_LOG_PATH, filename);
             const printPath = `~/.yyl/${path__default['default'].relative(SERVER_PATH, serverConfigPath)}`;
             fs__default['default'].writeFileSync(serverConfigPath, JSON.stringify(yylConfig, null, 2));
-            logger('msg', 'success', `${LANG.CONFIG_SAVED}: ${chalk__default['default'].yellow(printPath)}`);
+            logger('msg', 'success', [`${LANG.CONFIG_SAVED}: ${chalk__default['default'].yellow(printPath)}`]);
         });
     }
 }

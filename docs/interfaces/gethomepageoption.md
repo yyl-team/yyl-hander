@@ -18,4 +18,4 @@
 
 • `Optional` **files**: *undefined* \| *string*[]
 
-Defined in: [yylHander.ts:24](https://github.com/jackness1208/yyl-hander/blob/14d9d5f/src/yylHander.ts#L24)
+Defined in: [yylHander.ts:19](https://github.com/jackness1208/yyl-hander/blob/7df87c0/src/yylHander.ts#L19)
