@@ -4,7 +4,7 @@
 
 ## Hierarchy
 
-- **YylHander**
+* **YylHander**
 
 ## Table of contents
 
@@ -17,6 +17,7 @@
 - [context](yylhander.md#context)
 - [env](yylhander.md#env)
 - [logger](yylhander.md#logger)
+- [seed](yylhander.md#seed)
 - [yylConfig](yylhander.md#yylconfig)
 
 ### Methods
@@ -24,6 +25,7 @@
 - [formatConfig](yylhander.md#formatconfig)
 - [getHomePage](yylhander.md#gethomepage)
 - [getYylConfig](yylhander.md#getyylconfig)
+- [init](yylhander.md#init)
 - [initPlugins](yylhander.md#initplugins)
 - [initScripts](yylhander.md#initscripts)
 - [livereload](yylhander.md#livereload)
@@ -37,85 +39,95 @@
 
 ### constructor
 
-\+ **new YylHander**(`option`: [_YylParserOption_](../interfaces/yylparseroption.md)): [_YylHander_](yylhander.md)
+\+ **new YylHander**(`option`: [*YylParserOption*](../interfaces/yylparseroption.md)): [*YylHander*](yylhander.md)
 
 #### Parameters:
 
-| Name     | Type                                                  |
-| -------- | ----------------------------------------------------- |
-| `option` | [_YylParserOption_](../interfaces/yylparseroption.md) |
+Name | Type |
+------ | ------ |
+`option` | [*YylParserOption*](../interfaces/yylparseroption.md) |
 
-**Returns:** [_YylHander_](yylhander.md)
+**Returns:** [*YylHander*](yylhander.md)
 
-Defined in: [yylHander.ts:53](https://github.com/jackness1208/yyl-hander/blob/14d9d5f/src/yylHander.ts#L53)
+Defined in: [yylHander.ts:79](https://github.com/jackness1208/yyl-hander/blob/7df87c0/src/yylHander.ts#L79)
 
 ## Properties
 
 ### context
 
-• **context**: _string_
+• **context**: *string*
 
-Defined in: [yylHander.ts:50](https://github.com/jackness1208/yyl-hander/blob/14d9d5f/src/yylHander.ts#L50)
+Defined in: [yylHander.ts:75](https://github.com/jackness1208/yyl-hander/blob/7df87c0/src/yylHander.ts#L75)
 
----
+___
 
 ### env
 
 • **env**: Env
 
-Defined in: [yylHander.ts:52](https://github.com/jackness1208/yyl-hander/blob/14d9d5f/src/yylHander.ts#L52)
+Defined in: [yylHander.ts:77](https://github.com/jackness1208/yyl-hander/blob/7df87c0/src/yylHander.ts#L77)
 
----
+___
 
 ### logger
 
-• **logger**: [_Logger_](../modules.md#logger)
+• **logger**: [*Logger*](../modules.md#logger)<*msg* \| *cmd* \| *clear* \| *start* \| *loading* \| *finished*, *undefined* \| *string* \| *string*[]\>
 
-Defined in: [yylHander.ts:53](https://github.com/jackness1208/yyl-hander/blob/14d9d5f/src/yylHander.ts#L53)
+Defined in: [yylHander.ts:79](https://github.com/jackness1208/yyl-hander/blob/7df87c0/src/yylHander.ts#L79)
 
----
+___
+
+### seed
+
+• **seed**: *undefined* \| SeedEntry
+
+Defined in: [yylHander.ts:78](https://github.com/jackness1208/yyl-hander/blob/7df87c0/src/yylHander.ts#L78)
+
+___
 
 ### yylConfig
 
 • **yylConfig**: YylConfig
 
-Defined in: [yylHander.ts:51](https://github.com/jackness1208/yyl-hander/blob/14d9d5f/src/yylHander.ts#L51)
+Defined in: [yylHander.ts:76](https://github.com/jackness1208/yyl-hander/blob/7df87c0/src/yylHander.ts#L76)
 
 ## Methods
 
 ### formatConfig
 
-▸ **formatConfig**(`option`: [_FormatConfigOption_](../interfaces/formatconfigoption.md)): YylConfig
+▸ **formatConfig**(`option`: [*FormatConfigOption*](../interfaces/formatconfigoption.md)): YylConfig
+
+格式化配置
 
 #### Parameters:
 
-| Name     | Type                                                        |
-| -------- | ----------------------------------------------------------- |
-| `option` | [_FormatConfigOption_](../interfaces/formatconfigoption.md) |
+Name | Type |
+------ | ------ |
+`option` | [*FormatConfigOption*](../interfaces/formatconfigoption.md) |
 
 **Returns:** YylConfig
 
-Defined in: [yylHander.ts:117](https://github.com/jackness1208/yyl-hander/blob/14d9d5f/src/yylHander.ts#L117)
+Defined in: [yylHander.ts:303](https://github.com/jackness1208/yyl-hander/blob/7df87c0/src/yylHander.ts#L303)
 
----
+___
 
 ### getHomePage
 
-▸ **getHomePage**(`op?`: [_GetHomePageOption_](../interfaces/gethomepageoption.md)): _Promise_<_undefined_ \| _string_\>
+▸ **getHomePage**(`op?`: [*GetHomePageOption*](../interfaces/gethomepageoption.md)): *Promise*<*undefined* \| *string*\>
 
 获取 homePage
 
 #### Parameters:
 
-| Name  | Type                                                      |
-| ----- | --------------------------------------------------------- |
-| `op?` | [_GetHomePageOption_](../interfaces/gethomepageoption.md) |
+Name | Type |
+------ | ------ |
+`op?` | [*GetHomePageOption*](../interfaces/gethomepageoption.md) |
 
-**Returns:** _Promise_<_undefined_ \| _string_\>
+**Returns:** *Promise*<*undefined* \| *string*\>
 
-Defined in: [yylHander.ts:238](https://github.com/jackness1208/yyl-hander/blob/14d9d5f/src/yylHander.ts#L238)
+Defined in: [yylHander.ts:424](https://github.com/jackness1208/yyl-hander/blob/7df87c0/src/yylHander.ts#L424)
 
----
+___
 
 ### getYylConfig
 
@@ -125,128 +137,148 @@ Defined in: [yylHander.ts:238](https://github.com/jackness1208/yyl-hander/blob/1
 
 **Returns:** YylConfig
 
-Defined in: [yylHander.ts:218](https://github.com/jackness1208/yyl-hander/blob/14d9d5f/src/yylHander.ts#L218)
+Defined in: [yylHander.ts:404](https://github.com/jackness1208/yyl-hander/blob/7df87c0/src/yylHander.ts#L404)
 
----
+___
+
+### init
+
+▸ **init**(`op`: [*YylHanderInitOption*](../interfaces/yylhanderinitoption.md)): *Promise*<*undefined* \| [YylConfig, *undefined* \| SeedOptimizeResult]\>
+
+初始化
+
+#### Parameters:
+
+Name | Type |
+------ | ------ |
+`op` | [*YylHanderInitOption*](../interfaces/yylhanderinitoption.md) |
+
+**Returns:** *Promise*<*undefined* \| [YylConfig, *undefined* \| SeedOptimizeResult]\>
+
+Defined in: [yylHander.ts:113](https://github.com/jackness1208/yyl-hander/blob/7df87c0/src/yylHander.ts#L113)
+
+___
 
 ### initPlugins
 
-▸ **initPlugins**(): _Promise_<_any_\>
+▸ **initPlugins**(): *Promise*<*any*\>
 
 解析 yylConfig.plugins 内容
 
-**Returns:** _Promise_<_any_\>
+**Returns:** *Promise*<*any*\>
 
-Defined in: [yylHander.ts:223](https://github.com/jackness1208/yyl-hander/blob/14d9d5f/src/yylHander.ts#L223)
+Defined in: [yylHander.ts:409](https://github.com/jackness1208/yyl-hander/blob/7df87c0/src/yylHander.ts#L409)
 
----
+___
 
 ### initScripts
 
-▸ **initScripts**(`ctx`: _any_): _Promise_<_any_\>
+▸ **initScripts**(`ctx`: *any*): *Promise*<*any*\>
 
 scripts 执行
 
 #### Parameters:
 
-| Name  | Type  |
-| ----- | ----- |
-| `ctx` | _any_ |
+Name | Type |
+------ | ------ |
+`ctx` | *any* |
 
-**Returns:** _Promise_<_any_\>
+**Returns:** *Promise*<*any*\>
 
-Defined in: [yylHander.ts:326](https://github.com/jackness1208/yyl-hander/blob/14d9d5f/src/yylHander.ts#L326)
+Defined in: [yylHander.ts:512](https://github.com/jackness1208/yyl-hander/blob/7df87c0/src/yylHander.ts#L512)
 
----
+___
 
 ### livereload
 
-▸ **livereload**(): _Promise_<_void_\>
+▸ **livereload**(): *Promise*<*void*\>
 
 热更新
 
-**Returns:** _Promise_<_void_\>
+**Returns:** *Promise*<*void*\>
 
-Defined in: [yylHander.ts:394](https://github.com/jackness1208/yyl-hander/blob/14d9d5f/src/yylHander.ts#L394)
+Defined in: [yylHander.ts:570](https://github.com/jackness1208/yyl-hander/blob/7df87c0/src/yylHander.ts#L570)
 
----
+___
 
 ### openHomePage
 
-▸ **openHomePage**(`op`: [_GetHomePageOption_](../interfaces/gethomepageoption.md)): _Promise_<_undefined_ \| _string_\>
+▸ **openHomePage**(`op`: [*GetHomePageOption*](../interfaces/gethomepageoption.md)): *Promise*<*undefined* \| *string*\>
 
 打开 homePage
 
 #### Parameters:
 
-| Name | Type                                                      |
-| ---- | --------------------------------------------------------- |
-| `op` | [_GetHomePageOption_](../interfaces/gethomepageoption.md) |
+Name | Type |
+------ | ------ |
+`op` | [*GetHomePageOption*](../interfaces/gethomepageoption.md) |
 
-**Returns:** _Promise_<_undefined_ \| _string_\>
+**Returns:** *Promise*<*undefined* \| *string*\>
 
-Defined in: [yylHander.ts:312](https://github.com/jackness1208/yyl-hander/blob/14d9d5f/src/yylHander.ts#L312)
+Defined in: [yylHander.ts:498](https://github.com/jackness1208/yyl-hander/blob/7df87c0/src/yylHander.ts#L498)
 
----
+___
 
 ### parseConfig
 
-▸ **parseConfig**(`op`: [_ParseConfigOption_](../interfaces/parseconfigoption.md)): YylConfig
+▸ **parseConfig**(`op`: [*ParseConfigOption*](../interfaces/parseconfigoption.md)): YylConfig
+
+解析配置
 
 #### Parameters:
 
-| Name | Type                                                      |
-| ---- | --------------------------------------------------------- |
-| `op` | [_ParseConfigOption_](../interfaces/parseconfigoption.md) |
+Name | Type |
+------ | ------ |
+`op` | [*ParseConfigOption*](../interfaces/parseconfigoption.md) |
 
 **Returns:** YylConfig
 
-Defined in: [yylHander.ts:76](https://github.com/jackness1208/yyl-hander/blob/14d9d5f/src/yylHander.ts#L76)
+Defined in: [yylHander.ts:261](https://github.com/jackness1208/yyl-hander/blob/7df87c0/src/yylHander.ts#L261)
 
----
+___
 
 ### runAfterScripts
 
-▸ **runAfterScripts**(`ctx`: _string_): _Promise_<_any_\>
+▸ **runAfterScripts**(`watch?`: *boolean*): *Promise*<*any*\>
 
 执行 after script
 
 #### Parameters:
 
-| Name  | Type     |
-| ----- | -------- |
-| `ctx` | _string_ |
+Name | Type |
+------ | ------ |
+`watch?` | *boolean* |
 
-**Returns:** _Promise_<_any_\>
+**Returns:** *Promise*<*any*\>
 
-Defined in: [yylHander.ts:370](https://github.com/jackness1208/yyl-hander/blob/14d9d5f/src/yylHander.ts#L370)
+Defined in: [yylHander.ts:551](https://github.com/jackness1208/yyl-hander/blob/7df87c0/src/yylHander.ts#L551)
 
----
+___
 
 ### runBeforeScripts
 
-▸ **runBeforeScripts**(`ctx`: _string_): _Promise_<_any_\>
+▸ **runBeforeScripts**(`watch?`: *boolean*): *Promise*<*any*\>
 
 执行 before script
 
 #### Parameters:
 
-| Name  | Type     |
-| ----- | -------- |
-| `ctx` | _string_ |
+Name | Type |
+------ | ------ |
+`watch?` | *boolean* |
 
-**Returns:** _Promise_<_any_\>
+**Returns:** *Promise*<*any*\>
 
-Defined in: [yylHander.ts:346](https://github.com/jackness1208/yyl-hander/blob/14d9d5f/src/yylHander.ts#L346)
+Defined in: [yylHander.ts:532](https://github.com/jackness1208/yyl-hander/blob/7df87c0/src/yylHander.ts#L532)
 
----
+___
 
 ### saveConfigToServer
 
-▸ **saveConfigToServer**(): _Promise_<_void_\>
+▸ **saveConfigToServer**(): *Promise*<*void*\>
 
 保存配置到缓存目录
 
-**Returns:** _Promise_<_void_\>
+**Returns:** *Promise*<*void*\>
 
-Defined in: [yylHander.ts:405](https://github.com/jackness1208/yyl-hander/blob/14d9d5f/src/yylHander.ts#L405)
+Defined in: [yylHander.ts:581](https://github.com/jackness1208/yyl-hander/blob/7df87c0/src/yylHander.ts#L581)

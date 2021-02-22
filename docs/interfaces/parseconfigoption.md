@@ -4,7 +4,7 @@
 
 ## Hierarchy
 
-- **ParseConfigOption**
+* **ParseConfigOption**
 
 ## Table of contents
 
@@ -17,14 +17,14 @@
 
 ### configPath
 
-• **configPath**: _string_
+• **configPath**: *string*
 
-Defined in: [yylHander.ts:28](https://github.com/jackness1208/yyl-hander/blob/14d9d5f/src/yylHander.ts#L28)
+Defined in: [yylHander.ts:23](https://github.com/jackness1208/yyl-hander/blob/7df87c0/src/yylHander.ts#L23)
 
----
+___
 
 ### env
 
 • **env**: Env
 
-Defined in: [yylHander.ts:29](https://github.com/jackness1208/yyl-hander/blob/14d9d5f/src/yylHander.ts#L29)
+Defined in: [yylHander.ts:24](https://github.com/jackness1208/yyl-hander/blob/7df87c0/src/yylHander.ts#L24)
