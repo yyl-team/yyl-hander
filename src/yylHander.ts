@@ -24,18 +24,24 @@ export interface ParseConfigOption {
   env: Env
 }
 
-export type LoggerType =
-  | 'info'
-  | 'success'
-  | 'warn'
-  | 'error'
-  | 'cmd'
-  | 'clear'
-  | 'start'
-  | 'loading'
-  | 'finished'
+export type LoggerType = 'msg' | 'cmd' | 'clear' | 'start' | 'loading' | 'finished'
 
-export type Logger = (type: LoggerType, args: any[]) => void
+export type LoggerMsgType = 'info' | 'success' | 'warn' | 'error'
+
+export interface LoggerTypeMap {
+  msg: LoggerMsgType
+  cmd: string[]
+  clear: undefined
+  start: undefined
+  loading: string
+  finished: undefined
+}
+
+export type Logger<T extends keyof LoggerTypeMap = keyof LoggerTypeMap, N = LoggerTypeMap[T]> = (
+  type: T,
+  ctx: N,
+  ...args: any[]
+) => void
 
 export interface YylParserOption {
   yylConfig?: YylConfig | string
@@ -70,7 +76,7 @@ export class YylHander {
   yylConfig: YylConfig = {}
   env: Env = {}
   seed: SeedEntry | undefined = undefined
-  logger: Logger = () => undefined
+  logger: Logger = () => {}
   constructor(option: YylParserOption) {
     const { yylConfig, env, logger, context } = option
     if (logger) {
@@ -108,12 +114,12 @@ export class YylHander {
     const { seed, watch, yylVersion } = op
     const { yylConfig, context, logger, env } = this
 
-    logger('start', [])
+    logger('start', undefined)
 
     // 版本检查
     if (yylVersion && yylConfig.version) {
       if (util.compareVersion(yylConfig.version, yylVersion) > 0) {
-        logger('error', [new Error(`${LANG.REQUIRE_ATLEAST_VERSION}: ${yylConfig.version}`)])
+        logger('msg', 'error', [new Error(`${LANG.REQUIRE_ATLEAST_VERSION}: ${yylConfig.version}`)])
         return
       }
     }
@@ -122,35 +128,37 @@ export class YylHander {
     if (yylConfig.yarn) {
       const yarnVersion = await extOs.getYarnVersion()
       if (yarnVersion) {
-        logger('info', [`${LANG.YARN_VERSION}: ${chalk.green(yarnVersion)}`])
+        logger('msg', 'info', [`${LANG.YARN_VERSION}: ${chalk.green(yarnVersion)}`])
 
         // 删除 package-lock.json
         const pkgLockPath = path.join(context, 'package-lock.json')
         if (fs.existsSync(pkgLockPath)) {
           await extFs.removeFiles(pkgLockPath).catch(() => undefined)
-          logger('warn', [LANG.DEL_PKG_LOCK_FILE])
+          logger('msg', 'warn', [LANG.DEL_PKG_LOCK_FILE])
         }
       } else {
-        logger('error', [new Error(`${LANG.INSTALL_YARN}: ${chalk.yellow('npm i yarn -g')}`)])
+        logger('msg', 'error', [
+          new Error(`${LANG.INSTALL_YARN}: ${chalk.yellow('npm i yarn -g')}`)
+        ])
         return
       }
     }
 
     if (!seed) {
-      logger('error', [new Error(LANG.SEED_NOT_SET)])
+      logger('msg', 'error', [new Error(LANG.SEED_NOT_SET)])
       return
     }
 
     // config.plugins 插件初始化
     await this.initPlugins().catch((er) => {
-      logger('error', [er])
+      logger('msg', 'error', [er])
     })
 
     // 保存配置到服务器
     try {
       this.saveConfigToServer()
     } catch (er) {
-      logger('error', [new Error(LANG.SAVE_CONFIG_TO_SERVER_FAIL)])
+      logger('msg', 'error', [new Error(LANG.SAVE_CONFIG_TO_SERVER_FAIL)])
     }
 
     // clean dist
@@ -159,13 +167,15 @@ export class YylHander {
       path.join(yylConfig.localserver.root) !== path.join(context)
     ) {
       await extFs.removeFiles(yylConfig.localserver?.root).catch(() => {
-        logger('warn', [`${LANG.CLEAN_DIST_FAIL}: ${chalk.yellow(yylConfig.localserver?.root)}`])
+        logger('msg', 'warn', [
+          `${LANG.CLEAN_DIST_FAIL}: ${chalk.yellow(yylConfig.localserver?.root)}`
+        ])
       })
     }
 
     // 执行代码前配置项
     await this.runBeforeScripts().catch((er) => {
-      logger('error', [er])
+      logger('msg', 'error', [er])
     })
 
     try {
@@ -192,17 +202,17 @@ export class YylHander {
               }
             })
             .on('loading', (name: string) => {
-              logger('loading', [name])
+              logger('loading', name)
             })
             .on('finished', async () => {
               if (!watch && isError) {
-                logger('error', [isError])
+                logger('msg', 'error', [isError])
                 return
               }
 
               /** 执行代码执行后配置项 */
               this.runAfterScripts(watch)
-              logger('success', [`${watch ? 'watch' : 'all'} ${LANG.OPTIMIZE_FINISHED}`])
+              logger('msg', 'success', [`${watch ? 'watch' : 'all'} ${LANG.OPTIMIZE_FINISHED}`])
 
               const homePage = await this.getHomePage({
                 files: (() => {
@@ -213,7 +223,7 @@ export class YylHander {
                   return r
                 })()
               })
-              logger('success', [`${LANG.PRINT_HOME_PAGE}: ${chalk.yellow.bold(homePage)}`])
+              logger('msg', 'success', [`${LANG.PRINT_HOME_PAGE}: ${chalk.yellow.bold(homePage)}`])
 
               // 第一次构建 打开 对应页面
               if (watch && !isUpdate && !env.silent && env.proxy && homePage) {
@@ -222,13 +232,13 @@ export class YylHander {
 
               if (isUpdate) {
                 if (env.livereload) {
-                  logger('success', [LANG.PAGE_RELOAD])
+                  logger('msg', 'success', [LANG.PAGE_RELOAD])
                   await this.livereload()
                 }
-                logger('finished', [])
+                logger('finished', undefined)
               } else {
                 isUpdate = true
-                logger('finished', [])
+                logger('finished', undefined)
                 resolve([yylConfig, opzer])
               }
             })
@@ -238,12 +248,12 @@ export class YylHander {
             opzer.all()
           }
         } else {
-          logger('error', [new Error(LANG.NO_OPZER_HANDLE)])
+          logger('msg', 'error', [new Error(LANG.NO_OPZER_HANDLE)])
           resolve([yylConfig, opzer])
         }
       })
     } catch (er) {
-      logger('error', [new Error(LANG.OPTIMIZE_RUN_FAIL)])
+      logger('msg', 'error', [new Error(LANG.OPTIMIZE_RUN_FAIL)])
     }
   }
 
@@ -490,8 +500,8 @@ export class YylHander {
     const addr = await this.getHomePage(op)
 
     if (addr) {
-      logger('success', [LANG.OPEN_ADDR])
-      logger('success', [chalk.cyan(addr)])
+      logger('msg', 'success', [LANG.OPEN_ADDR])
+      logger('msg', 'success', [chalk.cyan(addr)])
       await extOs.openBrowser(addr)
     }
 
@@ -505,14 +515,14 @@ export class YylHander {
       logger('cmd', [ctx])
       return await runSpawn(ctx, context)
     } else if (typeof ctx === 'function') {
-      logger('info', [LANG.RUN_SCRIPT_FN_START])
+      logger('msg', 'info', [LANG.RUN_SCRIPT_FN_START])
       const rFn = ctx({ config: yylConfig, env })
       if (typeof rFn === 'string') {
         logger('cmd', [rFn])
         return await runSpawn(rFn, context)
       } else {
         const r = await rFn
-        logger('success', [LANG.RUN_SCRIPT_FN_FINISHED])
+        logger('msg', 'success', [LANG.RUN_SCRIPT_FN_FINISHED])
         return r
       }
     }
@@ -526,11 +536,11 @@ export class YylHander {
       entry = yylConfig.watch
     }
     if (entry && entry.beforeScripts) {
-      logger('info', [
+      logger('msg', 'info', [
         watch ? LANG.RUN_WATCH_BEFORE_SCRIPT_START : LANG.RUN_ALL_BEFORE_SCRIPT_START
       ])
       const r = await this.initScripts(entry.beforeScripts)
-      logger('success', [
+      logger('msg', 'success', [
         watch ? LANG.RUN_WATCH_BEFORE_SCRIPT_FINISHED : LANG.RUN_ALL_BEFORE_SCRIPT_FINISHED
       ])
       return r
@@ -545,9 +555,11 @@ export class YylHander {
       entry = yylConfig.watch
     }
     if (entry && entry.afterScripts) {
-      logger('info', [watch ? LANG.RUN_WATCH_AFTER_SCRIPT_START : LANG.RUN_ALL_AFTER_SCRIPT_START])
+      logger('msg', 'info', [
+        watch ? LANG.RUN_WATCH_AFTER_SCRIPT_START : LANG.RUN_ALL_AFTER_SCRIPT_START
+      ])
       const r = await this.initScripts(entry.afterScripts)
-      logger('success', [
+      logger('msg', 'success', [
         watch ? LANG.RUN_WATCH_AFTER_SCRIPT_FINISHED : LANG.RUN_ALL_AFTER_SCRIPT_FINISHED
       ])
       return r
@@ -577,6 +589,6 @@ export class YylHander {
     const serverConfigPath = path.join(SERVER_CONFIG_LOG_PATH, filename)
     const printPath = `~/.yyl/${path.relative(SERVER_PATH, serverConfigPath)}`
     fs.writeFileSync(serverConfigPath, JSON.stringify(yylConfig, null, 2))
-    logger('success', [`${LANG.CONFIG_SAVED}: ${chalk.yellow(printPath)}`])
+    logger('msg', 'success', [`${LANG.CONFIG_SAVED}: ${chalk.yellow(printPath)}`])
   }
 }

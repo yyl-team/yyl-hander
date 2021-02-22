@@ -12,8 +12,17 @@ export interface ParseConfigOption {
     configPath: string;
     env: Env;
 }
-export declare type LoggerType = 'info' | 'success' | 'warn' | 'error' | 'cmd' | 'clear' | 'start' | 'loading' | 'finished';
-export declare type Logger = (type: LoggerType, args: any[]) => void;
+export declare type LoggerType = 'msg' | 'cmd' | 'clear' | 'start' | 'loading' | 'finished';
+export declare type LoggerMsgType = 'info' | 'success' | 'warn' | 'error';
+export interface LoggerTypeMap {
+    msg: LoggerMsgType;
+    cmd: string[];
+    clear: undefined;
+    start: undefined;
+    loading: string;
+    finished: undefined;
+}
+export declare type Logger<T extends keyof LoggerTypeMap = keyof LoggerTypeMap, N = LoggerTypeMap[T]> = (type: T, ctx: N, ...args: any[]) => void;
 export interface YylParserOption {
     yylConfig?: YylConfig | string;
     env?: Env;
