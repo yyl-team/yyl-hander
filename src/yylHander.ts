@@ -171,6 +171,9 @@ export class YylHander {
           `${LANG.CLEAN_DIST_FAIL}: ${chalk.yellow(yylConfig.localserver?.root)}`
         ])
       })
+      logger('msg', 'success', [
+        `${LANG.CLEAN_DIST_FINISHED}: ${chalk.yellow(yylConfig.localserver?.root)}`
+      ])
     }
 
     // 执行代码前配置项
@@ -179,17 +182,20 @@ export class YylHander {
     })
 
     try {
+      logger('msg', 'info', [`${LANG.SEED_INIT_START}`])
       const opzer = await seed.optimize({
         yylConfig,
         env,
         ctx: watch ? 'watch' : 'all',
         root: context
       })
+      logger('msg', 'info', [`${LANG.SEED_INIT_FINISHED}`])
       return await new Promise<[YylConfig, SeedOptimizeResult | undefined]>((resolve, reject) => {
         if (opzer) {
           let isUpdate = false
           let isError: false | Error = false
           const htmlSet: Set<string> = new Set()
+          logger('msg', 'info', [LANG.OPTIMIZE_START])
           opzer
             .on('msg', (type: MsgType, args: any[]) => {
               if (type === 'error') {
@@ -253,7 +259,7 @@ export class YylHander {
         }
       })
     } catch (er) {
-      logger('msg', 'error', [new Error(LANG.OPTIMIZE_RUN_FAIL)])
+      logger('msg', 'error', [new Error(LANG.SEED_INIT_FAIL)])
     }
   }
 

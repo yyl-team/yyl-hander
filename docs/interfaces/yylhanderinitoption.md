@@ -22,7 +22,7 @@
 
 seed 包
 
-Defined in: [yylHander.ts:54](https://github.com/jackness1208/yyl-hander/blob/7df87c0/src/yylHander.ts#L54)
+Defined in: yylHander.ts:54
 
 ___
 
@@ -32,7 +32,7 @@ ___
 
 是否执行 watch
 
-Defined in: [yylHander.ts:56](https://github.com/jackness1208/yyl-hander/blob/7df87c0/src/yylHander.ts#L56)
+Defined in: yylHander.ts:56
 
 ___
 
@@ -42,4 +42,4 @@ ___
 
 yyl 版本 - 用于与 yylConfig.version 进行比较
 
-Defined in: [yylHander.ts:58](https://github.com/jackness1208/yyl-hander/blob/7df87c0/src/yylHander.ts#L58)
+Defined in: yylHander.ts:58

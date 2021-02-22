@@ -23,7 +23,7 @@
 
 • **clear**: *undefined*
 
-Defined in: [yylHander.ts:34](https://github.com/jackness1208/yyl-hander/blob/7df87c0/src/yylHander.ts#L34)
+Defined in: yylHander.ts:34
 
 ___
 
@@ -31,7 +31,7 @@ ___
 
 • **cmd**: *string*[]
 
-Defined in: [yylHander.ts:33](https://github.com/jackness1208/yyl-hander/blob/7df87c0/src/yylHander.ts#L33)
+Defined in: yylHander.ts:33
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 • **finished**: *undefined*
 
-Defined in: [yylHander.ts:37](https://github.com/jackness1208/yyl-hander/blob/7df87c0/src/yylHander.ts#L37)
+Defined in: yylHander.ts:37
 
 ___
 
@@ -47,7 +47,7 @@ ___
 
 • **loading**: *string*
 
-Defined in: [yylHander.ts:36](https://github.com/jackness1208/yyl-hander/blob/7df87c0/src/yylHander.ts#L36)
+Defined in: yylHander.ts:36
 
 ___
 
@@ -55,7 +55,7 @@ ___
 
 • **msg**: [*LoggerMsgType*](../modules.md#loggermsgtype)
 
-Defined in: [yylHander.ts:32](https://github.com/jackness1208/yyl-hander/blob/7df87c0/src/yylHander.ts#L32)
+Defined in: yylHander.ts:32
 
 ___
 
@@ -63,4 +63,4 @@ ___
 
 • **start**: *undefined*
 
-Defined in: [yylHander.ts:35](https://github.com/jackness1208/yyl-hander/blob/7df87c0/src/yylHander.ts#L35)
+Defined in: yylHander.ts:35

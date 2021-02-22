@@ -1,5 +1,5 @@
 /*!
- * yyl-hander cjs 1.1.0
+ * yyl-hander cjs 1.1.1
  * (c) 2020 - 2021 
  * Released under the MIT License.
  */
@@ -74,13 +74,17 @@ const LANG = {
     INSTALL_YARN: '请先安装 yarn',
     YARN_VERSION: 'yarn 版本',
     SEED_NOT_SET: '没有传入 seed 配置',
-    OPTIMIZE_FINISHED: '任务执行完成',
     PRINT_HOME_PAGE: '主页地址',
     PAGE_RELOAD: '页面刷新',
     SAVE_CONFIG_TO_SERVER_FAIL: '保存配置到本地服务失败',
     CLEAN_DIST_FAIL: '清除本地输出目录失败',
-    OPTIMIZE_RUN_FAIL: '构建文件运行出错',
+    CLEAN_DIST_FINISHED: '清除本地输出目录完成',
+    SEED_INIT_START: '正在初始化 seed包构建部分',
+    SEED_INIT_FINISHED: '初始化 seed包构建部分完成',
+    SEED_INIT_FAIL: '初始化 seed包构建部分失败',
     NO_OPZER_HANDLE: 'seed 包没返回 opzer',
+    OPTIMIZE_START: '开始构建项目',
+    OPTIMIZE_FINISHED: '任务执行完成',
     MISS_NAME_OPTIONS: '缺少 --name 属性',
     NAME_OPTIONS_NOT_EXISTS: '--name 属性设置错误',
     CONFIG_ATTR_IS_NEEDFUL: 'config 中以下属性为必填项',
@@ -227,7 +231,7 @@ class YylHander {
     }
     /** 初始化 */
     init(op) {
-        var _a, _b;
+        var _a, _b, _c;
         return __awaiter(this, void 0, void 0, function* () {
             const { seed, watch, yylVersion } = op;
             const { yylConfig, context, logger, env } = this;
@@ -282,23 +286,29 @@ class YylHander {
                         `${LANG.CLEAN_DIST_FAIL}: ${chalk__default['default'].yellow((_a = yylConfig.localserver) === null || _a === void 0 ? void 0 : _a.root)}`
                     ]);
                 });
+                logger('msg', 'success', [
+                    `${LANG.CLEAN_DIST_FINISHED}: ${chalk__default['default'].yellow((_c = yylConfig.localserver) === null || _c === void 0 ? void 0 : _c.root)}`
+                ]);
             }
             // 执行代码前配置项
             yield this.runBeforeScripts().catch((er) => {
                 logger('msg', 'error', [er]);
             });
             try {
+                logger('msg', 'info', [`${LANG.SEED_INIT_START}`]);
                 const opzer = yield seed.optimize({
                     yylConfig,
                     env,
                     ctx: watch ? 'watch' : 'all',
                     root: context
                 });
+                logger('msg', 'info', [`${LANG.SEED_INIT_FINISHED}`]);
                 return yield new Promise((resolve, reject) => {
                     if (opzer) {
                         let isUpdate = false;
                         let isError = false;
                         const htmlSet = new Set();
+                        logger('msg', 'info', [LANG.OPTIMIZE_START]);
                         opzer
                             .on('msg', (type, args) => {
                             if (type === 'error') {
@@ -362,7 +372,7 @@ class YylHander {
                 });
             }
             catch (er) {
-                logger('msg', 'error', [new Error(LANG.OPTIMIZE_RUN_FAIL)]);
+                logger('msg', 'error', [new Error(LANG.SEED_INIT_FAIL)]);
             }
         });
     }
