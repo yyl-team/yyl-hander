@@ -193,6 +193,7 @@ export class YylHander {
                   htmlSet.add(args[0])
                 }
               }
+              logger('msg', type, args)
             })
             .on('progress', async (subType) => {
               if (subType === 'start') {
