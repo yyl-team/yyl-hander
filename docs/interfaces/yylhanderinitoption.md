@@ -4,7 +4,7 @@
 
 ## Hierarchy
 
-- **YylHanderInitOption**
+* **YylHanderInitOption**
 
 ## Table of contents
 
@@ -22,24 +22,24 @@
 
 seed 包
 
-Defined in: [yylHander.ts:41](https://github.com/jackness1208/yyl-hander/blob/d810b2c/src/yylHander.ts#L41)
+Defined in: yylHander.ts:41
 
----
+___
 
 ### watch
 
-• `Optional` **watch**: _undefined_ \| _boolean_
+• `Optional` **watch**: *undefined* \| *boolean*
 
 是否执行 watch
 
-Defined in: [yylHander.ts:43](https://github.com/jackness1208/yyl-hander/blob/d810b2c/src/yylHander.ts#L43)
+Defined in: yylHander.ts:43
 
----
+___
 
 ### yylVersion
 
-• `Optional` **yylVersion**: _undefined_ \| _string_
+• `Optional` **yylVersion**: *undefined* \| *string*
 
 yyl 版本 - 用于与 yylConfig.version 进行比较
 
-Defined in: [yylHander.ts:45](https://github.com/jackness1208/yyl-hander/blob/d810b2c/src/yylHander.ts#L45)
+Defined in: yylHander.ts:45

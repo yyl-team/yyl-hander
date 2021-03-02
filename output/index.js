@@ -1,5 +1,5 @@
 /*!
- * yyl-hander cjs 1.1.1
+ * yyl-hander cjs 1.1.3
  * (c) 2020 - 2021 
  * Released under the MIT License.
  */
@@ -319,6 +319,7 @@ class YylHander {
                                     htmlSet.add(args[0]);
                                 }
                             }
+                            logger('msg', type, args);
                         })
                             .on('progress', (subType) => __awaiter(this, void 0, void 0, function* () {
                             if (subType === 'start') {

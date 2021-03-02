@@ -4,7 +4,7 @@
 
 ## Hierarchy
 
-- **FormatConfigOption**
+* **FormatConfigOption**
 
 ## Table of contents
 
@@ -18,22 +18,22 @@
 
 ### context
 
-• **context**: _string_
+• **context**: *string*
 
-Defined in: [yylHander.ts:16](https://github.com/jackness1208/yyl-hander/blob/d810b2c/src/yylHander.ts#L16)
+Defined in: yylHander.ts:16
 
----
+___
 
 ### env
 
 • **env**: Env
 
-Defined in: [yylHander.ts:15](https://github.com/jackness1208/yyl-hander/blob/d810b2c/src/yylHander.ts#L15)
+Defined in: yylHander.ts:15
 
----
+___
 
 ### yylConfig
 
 • **yylConfig**: YylConfig
 
-Defined in: [yylHander.ts:14](https://github.com/jackness1208/yyl-hander/blob/d810b2c/src/yylHander.ts#L14)
+Defined in: yylHander.ts:14
