@@ -8,7 +8,7 @@ import extFs from 'yyl-fs'
 import chalk from 'chalk'
 import { LANG, SERVER_PLUGIN_PATH, SERVER_CONFIG_LOG_PATH, SERVER_PATH } from './const'
 import request from 'request-promise'
-import { MsgType, SeedEntry, SeedOptimizeResult } from 'yyl-seed-base'
+import { MsgType, SeedEntry, SeedOptimizeResult, SeedEventName } from 'yyl-seed-base'
 
 export interface FormatConfigOption {
   yylConfig: YylConfig
@@ -24,23 +24,10 @@ export interface ParseConfigOption {
   env: Env
 }
 
-export type LoggerType = 'msg' | 'cmd' | 'clear' | 'start' | 'loading' | 'finished'
-
-export type LoggerMsgType = 'info' | 'success' | 'warn' | 'error'
-
-export interface LoggerTypeMap {
-  msg: LoggerMsgType
-  cmd: string[]
-  clear: undefined
-  start: undefined
-  loading: string
-  finished: undefined
-}
-
-export type Logger<T extends keyof LoggerTypeMap = keyof LoggerTypeMap, N = LoggerTypeMap[T]> = (
+export type Logger<T extends keyof SeedEventName = keyof SeedEventName, N = SeedEventName[T]> = (
   type: T,
-  ctx: N,
-  ...args: any[]
+  subType: N,
+  args?: any[]
 ) => void
 
 export interface YylParserOption {
@@ -114,7 +101,7 @@ export class YylHander {
     const { seed, watch, yylVersion } = op
     const { yylConfig, context, logger, env } = this
 
-    logger('start', undefined)
+    logger('progress', 'start')
 
     // 版本检查
     if (yylVersion && yylConfig.version) {
@@ -207,45 +194,50 @@ export class YylHander {
                 }
               }
             })
-            .on('loading', (name: string) => {
-              logger('loading', name)
-            })
-            .on('finished', async () => {
-              if (!watch && isError) {
-                logger('msg', 'error', [isError])
-                return
-              }
-
-              /** 执行代码执行后配置项 */
-              this.runAfterScripts(watch)
-              logger('msg', 'success', [`${watch ? 'watch' : 'all'} ${LANG.OPTIMIZE_FINISHED}`])
-
-              const homePage = await this.getHomePage({
-                files: (() => {
-                  const r: string[] = []
-                  htmlSet.forEach((item) => {
-                    r.push(item)
-                  })
-                  return r
-                })()
-              })
-              logger('msg', 'success', [`${LANG.PRINT_HOME_PAGE}: ${chalk.yellow.bold(homePage)}`])
-
-              // 第一次构建 打开 对应页面
-              if (watch && !isUpdate && !env.silent && env.proxy && homePage) {
-                extOs.openBrowser(homePage)
-              }
-
-              if (isUpdate) {
-                if (env.livereload) {
-                  logger('msg', 'success', [LANG.PAGE_RELOAD])
-                  await this.livereload()
+            .on('progress', async (subType) => {
+              if (subType === 'start') {
+                logger('progress', 'start')
+              } else if (subType === 'finished') {
+                if (!watch && isError) {
+                  logger('msg', 'error', [isError])
+                  return
                 }
-                logger('finished', undefined)
+
+                /** 执行代码执行后配置项 */
+                this.runAfterScripts(watch)
+                logger('msg', 'success', [`${watch ? 'watch' : 'all'} ${LANG.OPTIMIZE_FINISHED}`])
+
+                const homePage = await this.getHomePage({
+                  files: (() => {
+                    const r: string[] = []
+                    htmlSet.forEach((item) => {
+                      r.push(item)
+                    })
+                    return r
+                  })()
+                })
+                logger('msg', 'success', [
+                  `${LANG.PRINT_HOME_PAGE}: ${chalk.yellow.bold(homePage)}`
+                ])
+
+                // 第一次构建 打开 对应页面
+                if (watch && !isUpdate && !env.silent && env.proxy && homePage) {
+                  extOs.openBrowser(homePage)
+                }
+
+                if (isUpdate) {
+                  if (env.livereload) {
+                    logger('msg', 'success', [LANG.PAGE_RELOAD])
+                    await this.livereload()
+                  }
+                  logger('progress', 'finished')
+                } else {
+                  isUpdate = true
+                  logger('progress', 'finished')
+                  resolve([yylConfig, opzer])
+                }
               } else {
-                isUpdate = true
-                logger('finished', undefined)
-                resolve([yylConfig, opzer])
+                logger('progress', subType)
               }
             })
           if (watch) {
@@ -518,13 +510,13 @@ export class YylHander {
   async initScripts(ctx: any) {
     const { yylConfig, env, logger, context } = this
     if (typeof ctx === 'string') {
-      logger('cmd', [ctx])
+      logger('msg', 'cmd', [ctx])
       return await runSpawn(ctx, context)
     } else if (typeof ctx === 'function') {
       logger('msg', 'info', [LANG.RUN_SCRIPT_FN_START])
       const rFn = ctx({ config: yylConfig, env })
       if (typeof rFn === 'string') {
-        logger('cmd', [rFn])
+        logger('msg', 'cmd', [rFn])
         return await runSpawn(rFn, context)
       } else {
         const r = await rFn

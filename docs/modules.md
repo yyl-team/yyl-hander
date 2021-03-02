@@ -12,7 +12,6 @@
 
 - [FormatConfigOption](interfaces/formatconfigoption.md)
 - [GetHomePageOption](interfaces/gethomepageoption.md)
-- [LoggerTypeMap](interfaces/loggertypemap.md)
 - [ParseConfigOption](interfaces/parseconfigoption.md)
 - [YylHanderInitOption](interfaces/yylhanderinitoption.md)
 - [YylParserOption](interfaces/yylparseroption.md)
@@ -20,8 +19,6 @@
 ### Type aliases
 
 - [Logger](modules.md#logger)
-- [LoggerMsgType](modules.md#loggermsgtype)
-- [LoggerType](modules.md#loggertype)
 
 ### Variables
 
@@ -44,32 +41,16 @@
 
 ### Logger
 
-Ƭ **Logger**<T, N\>: (`type`: T, `ctx`: N, ...`args`: *any*[]) => *void*
+Ƭ **Logger**<T, N\>: (`type`: T, `subType`: N, `args?`: *any*[]) => *void*
 
 #### Type parameters:
 
 Name | Type | Default |
 ------ | ------ | ------ |
-`T` | keyof [*LoggerTypeMap*](interfaces/loggertypemap.md) | keyof [*LoggerTypeMap*](interfaces/loggertypemap.md) |
-`N` | - | [*LoggerTypeMap*](interfaces/loggertypemap.md)[T] |
+`T` | keyof SeedEventName | keyof SeedEventName |
+`N` | - | SeedEventName[T] |
 
-Defined in: yylHander.ts:40
-
-___
-
-### LoggerMsgType
-
-Ƭ **LoggerMsgType**: *info* \| *success* \| *warn* \| *error*
-
-Defined in: yylHander.ts:29
-
-___
-
-### LoggerType
-
-Ƭ **LoggerType**: *msg* \| *cmd* \| *clear* \| *start* \| *loading* \| *finished*
-
-Defined in: yylHander.ts:27
+Defined in: [yylHander.ts:27](https://github.com/jackness1208/yyl-hander/blob/d810b2c/src/yylHander.ts#L27)
 
 ## Variables
 
@@ -77,7 +58,7 @@ Defined in: yylHander.ts:27
 
 • `Const` **DEFAULT\_ALIAS**: YylConfigAlias
 
-Defined in: yylHander.ts:61
+Defined in: [yylHander.ts:48](https://github.com/jackness1208/yyl-hander/blob/d810b2c/src/yylHander.ts#L48)
 
 ___
 
@@ -124,7 +105,7 @@ Name | Type |
 `SEED_NOT_SET` | *string* |
 `YARN_VERSION` | *string* |
 
-Defined in: const.ts:25
+Defined in: [const.ts:25](https://github.com/jackness1208/yyl-hander/blob/d810b2c/src/const.ts#L25)
 
 ___
 
@@ -134,7 +115,7 @@ ___
 
 proxy 缓存目录
 
-Defined in: const.ts:23
+Defined in: [const.ts:23](https://github.com/jackness1208/yyl-hander/blob/d810b2c/src/const.ts#L23)
 
 ___
 
@@ -144,7 +125,7 @@ ___
 
 server 存放构建生成的 config 的缓存文件
 
-Defined in: const.ts:20
+Defined in: [const.ts:20](https://github.com/jackness1208/yyl-hander/blob/d810b2c/src/const.ts#L20)
 
 ___
 
@@ -154,7 +135,7 @@ ___
 
 server 数据存放目录
 
-Defined in: const.ts:14
+Defined in: [const.ts:14](https://github.com/jackness1208/yyl-hander/blob/d810b2c/src/const.ts#L14)
 
 ___
 
@@ -164,7 +145,7 @@ ___
 
 server 根目录
 
-Defined in: const.ts:11
+Defined in: [const.ts:11](https://github.com/jackness1208/yyl-hander/blob/d810b2c/src/const.ts#L11)
 
 ___
 
@@ -174,7 +155,7 @@ ___
 
 server plugins 存放目录
 
-Defined in: const.ts:17
+Defined in: [const.ts:17](https://github.com/jackness1208/yyl-hander/blob/d810b2c/src/const.ts#L17)
 
 ___
 
@@ -182,7 +163,7 @@ ___
 
 • `Const` **SUGAR\_REG**: *RegExp*
 
-Defined in: const.ts:5
+Defined in: [const.ts:5](https://github.com/jackness1208/yyl-hander/blob/d810b2c/src/const.ts#L5)
 
 ___
 
@@ -192,7 +173,7 @@ ___
 
 profile
 
-Defined in: const.ts:8
+Defined in: [const.ts:8](https://github.com/jackness1208/yyl-hander/blob/d810b2c/src/const.ts#L8)
 
 ## Functions
 
@@ -210,7 +191,7 @@ Name | Type |
 
 **Returns:** *string*
 
-Defined in: util.ts:16
+Defined in: [util.ts:16](https://github.com/jackness1208/yyl-hander/blob/d810b2c/src/util.ts#L16)
 
 ___
 
@@ -229,4 +210,4 @@ Name | Type |
 
 **Returns:** *string*
 
-Defined in: util.ts:25
+Defined in: [util.ts:25](https://github.com/jackness1208/yyl-hander/blob/d810b2c/src/util.ts#L25)

@@ -20,7 +20,7 @@
 
 • **context**: *string*
 
-Defined in: yylHander.ts:16
+Defined in: [yylHander.ts:16](https://github.com/jackness1208/yyl-hander/blob/d810b2c/src/yylHander.ts#L16)
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 • **env**: Env
 
-Defined in: yylHander.ts:15
+Defined in: [yylHander.ts:15](https://github.com/jackness1208/yyl-hander/blob/d810b2c/src/yylHander.ts#L15)
 
 ___
 
@@ -36,4 +36,4 @@ ___
 
 • **yylConfig**: YylConfig
 
-Defined in: yylHander.ts:14
+Defined in: [yylHander.ts:14](https://github.com/jackness1208/yyl-hander/blob/d810b2c/src/yylHander.ts#L14)

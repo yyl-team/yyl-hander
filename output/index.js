@@ -1,5 +1,5 @@
 /*!
- * yyl-hander cjs 1.1.1
+ * yyl-hander cjs 1.1.2
  * (c) 2020 - 2021 
  * Released under the MIT License.
  */
@@ -235,7 +235,7 @@ class YylHander {
         return __awaiter(this, void 0, void 0, function* () {
             const { seed, watch, yylVersion } = op;
             const { yylConfig, context, logger, env } = this;
-            logger('start', undefined);
+            logger('progress', 'start');
             // 版本检查
             if (yylVersion && yylConfig.version) {
                 if (util__default['default'].compareVersion(yylConfig.version, yylVersion) > 0) {
@@ -320,42 +320,49 @@ class YylHander {
                                 }
                             }
                         })
-                            .on('loading', (name) => {
-                            logger('loading', name);
-                        })
-                            .on('finished', () => __awaiter(this, void 0, void 0, function* () {
-                            if (!watch && isError) {
-                                logger('msg', 'error', [isError]);
-                                return;
+                            .on('progress', (subType) => __awaiter(this, void 0, void 0, function* () {
+                            if (subType === 'start') {
+                                logger('progress', 'start');
                             }
-                            /** 执行代码执行后配置项 */
-                            this.runAfterScripts(watch);
-                            logger('msg', 'success', [`${watch ? 'watch' : 'all'} ${LANG.OPTIMIZE_FINISHED}`]);
-                            const homePage = yield this.getHomePage({
-                                files: (() => {
-                                    const r = [];
-                                    htmlSet.forEach((item) => {
-                                        r.push(item);
-                                    });
-                                    return r;
-                                })()
-                            });
-                            logger('msg', 'success', [`${LANG.PRINT_HOME_PAGE}: ${chalk__default['default'].yellow.bold(homePage)}`]);
-                            // 第一次构建 打开 对应页面
-                            if (watch && !isUpdate && !env.silent && env.proxy && homePage) {
-                                extOs__default['default'].openBrowser(homePage);
-                            }
-                            if (isUpdate) {
-                                if (env.livereload) {
-                                    logger('msg', 'success', [LANG.PAGE_RELOAD]);
-                                    yield this.livereload();
+                            else if (subType === 'finished') {
+                                if (!watch && isError) {
+                                    logger('msg', 'error', [isError]);
+                                    return;
                                 }
-                                logger('finished', undefined);
+                                /** 执行代码执行后配置项 */
+                                this.runAfterScripts(watch);
+                                logger('msg', 'success', [`${watch ? 'watch' : 'all'} ${LANG.OPTIMIZE_FINISHED}`]);
+                                const homePage = yield this.getHomePage({
+                                    files: (() => {
+                                        const r = [];
+                                        htmlSet.forEach((item) => {
+                                            r.push(item);
+                                        });
+                                        return r;
+                                    })()
+                                });
+                                logger('msg', 'success', [
+                                    `${LANG.PRINT_HOME_PAGE}: ${chalk__default['default'].yellow.bold(homePage)}`
+                                ]);
+                                // 第一次构建 打开 对应页面
+                                if (watch && !isUpdate && !env.silent && env.proxy && homePage) {
+                                    extOs__default['default'].openBrowser(homePage);
+                                }
+                                if (isUpdate) {
+                                    if (env.livereload) {
+                                        logger('msg', 'success', [LANG.PAGE_RELOAD]);
+                                        yield this.livereload();
+                                    }
+                                    logger('progress', 'finished');
+                                }
+                                else {
+                                    isUpdate = true;
+                                    logger('progress', 'finished');
+                                    resolve([yylConfig, opzer]);
+                                }
                             }
                             else {
-                                isUpdate = true;
-                                logger('finished', undefined);
-                                resolve([yylConfig, opzer]);
+                                logger('progress', subType);
                             }
                         }));
                         if (watch) {
@@ -611,14 +618,14 @@ class YylHander {
         return __awaiter(this, void 0, void 0, function* () {
             const { yylConfig, env, logger, context } = this;
             if (typeof ctx === 'string') {
-                logger('cmd', [ctx]);
+                logger('msg', 'cmd', [ctx]);
                 return yield extOs.runSpawn(ctx, context);
             }
             else if (typeof ctx === 'function') {
                 logger('msg', 'info', [LANG.RUN_SCRIPT_FN_START]);
                 const rFn = ctx({ config: yylConfig, env });
                 if (typeof rFn === 'string') {
-                    logger('cmd', [rFn]);
+                    logger('msg', 'cmd', [rFn]);
                     return yield extOs.runSpawn(rFn, context);
                 }
                 else {

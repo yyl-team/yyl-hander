@@ -5457,10 +5457,10 @@ yyl-os@^0.11.4:
   dependencies:
     yyl-util "^2.3.5"
 
-yyl-seed-base@^0.1.1:
-  version "0.1.1"
-  resolved "https://registry.npmjs.org/yyl-seed-base/-/yyl-seed-base-0.1.1.tgz#64ec6f6defee48d8dcbedd4032fdf4192bbbfdda"
-  integrity sha512-v29uRwJ4G6VhJPHMv6/KWaKpJA+am9bxOC1TYTYVABlnadnHxbCizbu314JC227sUaaYpM8CSCnOERjzv8iDyg==
+yyl-seed-base@^0.2.2:
+  version "0.2.2"
+  resolved "https://registry.npmjs.org/yyl-seed-base/-/yyl-seed-base-0.2.2.tgz#6807f9a30468299b1a9987928b9c5186c7dc43bb"
+  integrity sha512-LBQ/jlgqZ7RhX2x6ieDLjlS1pqz34Hpp66Sy9Dykh6j4AGVHdcgDa3UiL2jsox/nFP/20EE8fuySWYmAxDbPBg==
 
 yyl-seed-response@^0.2.0:
   version "0.2.0"
