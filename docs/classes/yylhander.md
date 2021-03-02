@@ -49,7 +49,7 @@ Name | Type |
 
 **Returns:** [*YylHander*](yylhander.md)
 
-Defined in: yylHander.ts:79
+Defined in: [yylHander.ts:66](https://github.com/jackness1208/yyl-hander/blob/d810b2c/src/yylHander.ts#L66)
 
 ## Properties
 
@@ -57,7 +57,7 @@ Defined in: yylHander.ts:79
 
 • **context**: *string*
 
-Defined in: yylHander.ts:75
+Defined in: [yylHander.ts:62](https://github.com/jackness1208/yyl-hander/blob/d810b2c/src/yylHander.ts#L62)
 
 ___
 
@@ -65,15 +65,15 @@ ___
 
 • **env**: Env
 
-Defined in: yylHander.ts:77
+Defined in: [yylHander.ts:64](https://github.com/jackness1208/yyl-hander/blob/d810b2c/src/yylHander.ts#L64)
 
 ___
 
 ### logger
 
-• **logger**: [*Logger*](../modules.md#logger)<*msg* \| *cmd* \| *clear* \| *start* \| *loading* \| *finished*, *undefined* \| *string* \| *string*[]\>
+• **logger**: [*Logger*](../modules.md#logger)<*msg* \| *progress*, *number* \| *error* \| *warn* \| *info* \| *add* \| *update* \| *success* \| *del* \| *cmd* \| *start* \| *finished*\>
 
-Defined in: yylHander.ts:79
+Defined in: [yylHander.ts:66](https://github.com/jackness1208/yyl-hander/blob/d810b2c/src/yylHander.ts#L66)
 
 ___
 
@@ -81,7 +81,7 @@ ___
 
 • **seed**: *undefined* \| SeedEntry
 
-Defined in: yylHander.ts:78
+Defined in: [yylHander.ts:65](https://github.com/jackness1208/yyl-hander/blob/d810b2c/src/yylHander.ts#L65)
 
 ___
 
@@ -89,7 +89,7 @@ ___
 
 • **yylConfig**: YylConfig
 
-Defined in: yylHander.ts:76
+Defined in: [yylHander.ts:63](https://github.com/jackness1208/yyl-hander/blob/d810b2c/src/yylHander.ts#L63)
 
 ## Methods
 
@@ -107,7 +107,7 @@ Name | Type |
 
 **Returns:** YylConfig
 
-Defined in: yylHander.ts:309
+Defined in: [yylHander.ts:301](https://github.com/jackness1208/yyl-hander/blob/d810b2c/src/yylHander.ts#L301)
 
 ___
 
@@ -125,7 +125,7 @@ Name | Type |
 
 **Returns:** *Promise*<*undefined* \| *string*\>
 
-Defined in: yylHander.ts:430
+Defined in: [yylHander.ts:422](https://github.com/jackness1208/yyl-hander/blob/d810b2c/src/yylHander.ts#L422)
 
 ___
 
@@ -137,7 +137,7 @@ ___
 
 **Returns:** YylConfig
 
-Defined in: yylHander.ts:410
+Defined in: [yylHander.ts:402](https://github.com/jackness1208/yyl-hander/blob/d810b2c/src/yylHander.ts#L402)
 
 ___
 
@@ -155,7 +155,7 @@ Name | Type |
 
 **Returns:** *Promise*<*undefined* \| [YylConfig, *undefined* \| SeedOptimizeResult]\>
 
-Defined in: yylHander.ts:113
+Defined in: [yylHander.ts:100](https://github.com/jackness1208/yyl-hander/blob/d810b2c/src/yylHander.ts#L100)
 
 ___
 
@@ -167,7 +167,7 @@ ___
 
 **Returns:** *Promise*<*any*\>
 
-Defined in: yylHander.ts:415
+Defined in: [yylHander.ts:407](https://github.com/jackness1208/yyl-hander/blob/d810b2c/src/yylHander.ts#L407)
 
 ___
 
@@ -185,7 +185,7 @@ Name | Type |
 
 **Returns:** *Promise*<*any*\>
 
-Defined in: yylHander.ts:518
+Defined in: [yylHander.ts:510](https://github.com/jackness1208/yyl-hander/blob/d810b2c/src/yylHander.ts#L510)
 
 ___
 
@@ -197,7 +197,7 @@ ___
 
 **Returns:** *Promise*<*void*\>
 
-Defined in: yylHander.ts:576
+Defined in: [yylHander.ts:568](https://github.com/jackness1208/yyl-hander/blob/d810b2c/src/yylHander.ts#L568)
 
 ___
 
@@ -215,7 +215,7 @@ Name | Type |
 
 **Returns:** *Promise*<*undefined* \| *string*\>
 
-Defined in: yylHander.ts:504
+Defined in: [yylHander.ts:496](https://github.com/jackness1208/yyl-hander/blob/d810b2c/src/yylHander.ts#L496)
 
 ___
 
@@ -233,7 +233,7 @@ Name | Type |
 
 **Returns:** YylConfig
 
-Defined in: yylHander.ts:267
+Defined in: [yylHander.ts:259](https://github.com/jackness1208/yyl-hander/blob/d810b2c/src/yylHander.ts#L259)
 
 ___
 
@@ -251,7 +251,7 @@ Name | Type |
 
 **Returns:** *Promise*<*any*\>
 
-Defined in: yylHander.ts:557
+Defined in: [yylHander.ts:549](https://github.com/jackness1208/yyl-hander/blob/d810b2c/src/yylHander.ts#L549)
 
 ___
 
@@ -269,7 +269,7 @@ Name | Type |
 
 **Returns:** *Promise*<*any*\>
 
-Defined in: yylHander.ts:538
+Defined in: [yylHander.ts:530](https://github.com/jackness1208/yyl-hander/blob/d810b2c/src/yylHander.ts#L530)
 
 ___
 
@@ -281,4 +281,4 @@ ___
 
 **Returns:** *Promise*<*void*\>
 
-Defined in: yylHander.ts:587
+Defined in: [yylHander.ts:579](https://github.com/jackness1208/yyl-hander/blob/d810b2c/src/yylHander.ts#L579)

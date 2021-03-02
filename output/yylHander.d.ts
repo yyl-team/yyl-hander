@@ -1,5 +1,5 @@
 import { YylConfig, Env, YylConfigAlias } from 'yyl-config-types';
-import { SeedEntry, SeedOptimizeResult } from 'yyl-seed-base';
+import { SeedEntry, SeedOptimizeResult, SeedEventName } from 'yyl-seed-base';
 export interface FormatConfigOption {
     yylConfig: YylConfig;
     env: Env;
@@ -12,17 +12,7 @@ export interface ParseConfigOption {
     configPath: string;
     env: Env;
 }
-export declare type LoggerType = 'msg' | 'cmd' | 'clear' | 'start' | 'loading' | 'finished';
-export declare type LoggerMsgType = 'info' | 'success' | 'warn' | 'error';
-export interface LoggerTypeMap {
-    msg: LoggerMsgType;
-    cmd: string[];
-    clear: undefined;
-    start: undefined;
-    loading: string;
-    finished: undefined;
-}
-export declare type Logger<T extends keyof LoggerTypeMap = keyof LoggerTypeMap, N = LoggerTypeMap[T]> = (type: T, ctx: N, ...args: any[]) => void;
+export declare type Logger<T extends keyof SeedEventName = keyof SeedEventName, N = SeedEventName[T]> = (type: T, subType: N, args?: any[]) => void;
 export interface YylParserOption {
     yylConfig?: YylConfig | string;
     env?: Env;
