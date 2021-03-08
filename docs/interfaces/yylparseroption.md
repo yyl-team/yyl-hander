@@ -21,7 +21,7 @@
 
 • `Optional` **context**: *undefined* \| *string*
 
-Defined in: [yylHander.ts:38](https://github.com/jackness1208/yyl-hander/blob/baecb4e/src/yylHander.ts#L38)
+Defined in: [yylHander.ts:38](https://github.com/jackness1208/yyl-hander/blob/303fcf0/src/yylHander.ts#L38)
 
 ___
 
@@ -29,7 +29,7 @@ ___
 
 • `Optional` **env**: *undefined* \| Env
 
-Defined in: [yylHander.ts:36](https://github.com/jackness1208/yyl-hander/blob/baecb4e/src/yylHander.ts#L36)
+Defined in: [yylHander.ts:36](https://github.com/jackness1208/yyl-hander/blob/303fcf0/src/yylHander.ts#L36)
 
 ___
 
@@ -37,7 +37,7 @@ ___
 
 • `Optional` **logger**: *undefined* \| [*Logger*](../modules.md#logger)<*msg* \| *progress*\>
 
-Defined in: [yylHander.ts:37](https://github.com/jackness1208/yyl-hander/blob/baecb4e/src/yylHander.ts#L37)
+Defined in: [yylHander.ts:37](https://github.com/jackness1208/yyl-hander/blob/303fcf0/src/yylHander.ts#L37)
 
 ___
 
@@ -45,4 +45,4 @@ ___
 
 • `Optional` **yylConfig**: *undefined* \| *string* \| YylConfig
 
-Defined in: [yylHander.ts:35](https://github.com/jackness1208/yyl-hander/blob/baecb4e/src/yylHander.ts#L35)
+Defined in: [yylHander.ts:35](https://github.com/jackness1208/yyl-hander/blob/303fcf0/src/yylHander.ts#L35)

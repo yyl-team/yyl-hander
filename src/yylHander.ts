@@ -209,22 +209,25 @@ export class YylHander {
                 this.runAfterScripts(watch)
                 logger('msg', 'success', [`${watch ? 'watch' : 'all'} ${LANG.OPTIMIZE_FINISHED}`])
 
-                const homePage = await this.getHomePage({
-                  files: (() => {
-                    const r: string[] = []
-                    htmlSet.forEach((item) => {
-                      r.push(item)
-                    })
-                    return r
-                  })()
-                })
-                logger('msg', 'success', [
-                  `${LANG.PRINT_HOME_PAGE}: ${chalk.yellow.bold(homePage)}`
-                ])
+                if (watch) {
+                  const homePage = await this.getHomePage({
+                    files: (() => {
+                      const r: string[] = []
+                      htmlSet.forEach((item) => {
+                        r.push(item)
+                      })
+                      return r
+                    })()
+                  })
 
-                // 第一次构建 打开 对应页面
-                if (watch && !isUpdate && !env.silent && env.proxy && homePage) {
-                  extOs.openBrowser(homePage)
+                  logger('msg', 'success', [
+                    `${LANG.PRINT_HOME_PAGE}: ${chalk.yellow.bold(homePage)}`
+                  ])
+
+                  // 第一次构建 打开 对应页面
+                  if (!isUpdate && !env.silent && env.proxy && homePage) {
+                    extOs.openBrowser(homePage)
+                  }
                 }
 
                 if (isUpdate) {
