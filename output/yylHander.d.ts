@@ -12,7 +12,7 @@ export interface ParseConfigOption {
     configPath: string;
     env: Env;
 }
-export declare type Logger<T extends keyof SeedEventName = keyof SeedEventName, N = SeedEventName[T]> = (type: T, subType: N, args?: any[]) => void;
+export declare type Logger<T extends keyof SeedEventName = keyof SeedEventName> = (type: T, args01: SeedEventName[T]['Args01'], args02?: SeedEventName[T]['Args02'], args03?: SeedEventName[T]['Args03']) => void;
 export interface YylParserOption {
     yylConfig?: YylConfig | string;
     env?: Env;
