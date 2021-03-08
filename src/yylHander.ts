@@ -24,10 +24,11 @@ export interface ParseConfigOption {
   env: Env
 }
 
-export type Logger<T extends keyof SeedEventName = keyof SeedEventName, N = SeedEventName[T]> = (
+export type Logger<T extends keyof SeedEventName = keyof SeedEventName> = (
   type: T,
-  subType: N,
-  args?: any[]
+  args01: SeedEventName[T]['Args01'],
+  args02?: SeedEventName[T]['Args02'],
+  args03?: SeedEventName[T]['Args03']
 ) => void
 
 export interface YylParserOption {
@@ -184,7 +185,7 @@ export class YylHander {
           const htmlSet: Set<string> = new Set()
           logger('msg', 'info', [LANG.OPTIMIZE_START])
           opzer
-            .on('msg', (type: MsgType, args: any[]) => {
+            .on('msg', (type, args) => {
               if (type === 'error') {
                 isError = toCtx<Error>(args[0])
               }
@@ -195,10 +196,10 @@ export class YylHander {
               }
               logger('msg', type, args)
             })
-            .on('progress', async (subType) => {
-              if (subType === 'start') {
-                logger('progress', 'start')
-              } else if (subType === 'finished') {
+            .on('progress', async (type, infoType, args) => {
+              if (type === 'start') {
+                logger('progress', 'start', infoType, args)
+              } else if (type === 'finished') {
                 if (!watch && isError) {
                   logger('msg', 'error', [isError])
                   return
@@ -231,14 +232,14 @@ export class YylHander {
                     logger('msg', 'success', [LANG.PAGE_RELOAD])
                     await this.livereload()
                   }
-                  logger('progress', 'finished')
+                  logger('progress', 'finished', infoType, args)
                 } else {
                   isUpdate = true
-                  logger('progress', 'finished')
+                  logger('progress', 'finished', infoType, args)
                   resolve([yylConfig, opzer])
                 }
               } else {
-                logger('progress', subType)
+                logger('progress', type, infoType, args)
               }
             })
           if (watch) {

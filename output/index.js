@@ -1,5 +1,5 @@
 /*!
- * yyl-hander cjs 1.1.3
+ * yyl-hander cjs 1.1.4
  * (c) 2020 - 2021 
  * Released under the MIT License.
  */
@@ -321,11 +321,11 @@ class YylHander {
                             }
                             logger('msg', type, args);
                         })
-                            .on('progress', (subType) => __awaiter(this, void 0, void 0, function* () {
-                            if (subType === 'start') {
-                                logger('progress', 'start');
+                            .on('progress', (type, infoType, args) => __awaiter(this, void 0, void 0, function* () {
+                            if (type === 'start') {
+                                logger('progress', 'start', infoType, args);
                             }
-                            else if (subType === 'finished') {
+                            else if (type === 'finished') {
                                 if (!watch && isError) {
                                     logger('msg', 'error', [isError]);
                                     return;
@@ -354,16 +354,16 @@ class YylHander {
                                         logger('msg', 'success', [LANG.PAGE_RELOAD]);
                                         yield this.livereload();
                                     }
-                                    logger('progress', 'finished');
+                                    logger('progress', 'finished', infoType, args);
                                 }
                                 else {
                                     isUpdate = true;
-                                    logger('progress', 'finished');
+                                    logger('progress', 'finished', infoType, args);
                                     resolve([yylConfig, opzer]);
                                 }
                             }
                             else {
-                                logger('progress', subType);
+                                logger('progress', type, infoType, args);
                             }
                         }));
                         if (watch) {

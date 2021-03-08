@@ -41,16 +41,15 @@
 
 ### Logger
 
-Ƭ **Logger**<T, N\>: (`type`: T, `subType`: N, `args?`: *any*[]) => *void*
+Ƭ **Logger**<T\>: (`type`: T, `args01`: SeedEventName[T][*Args01*], `args02?`: SeedEventName[T][*Args02*], `args03?`: SeedEventName[T][*Args03*]) => *void*
 
 #### Type parameters:
 
 Name | Type | Default |
 ------ | ------ | ------ |
 `T` | keyof SeedEventName | keyof SeedEventName |
-`N` | - | SeedEventName[T] |
 
-Defined in: yylHander.ts:27
+Defined in: [yylHander.ts:27](https://github.com/jackness1208/yyl-hander/blob/baecb4e/src/yylHander.ts#L27)
 
 ## Variables
 
@@ -58,7 +57,7 @@ Defined in: yylHander.ts:27
 
 • `Const` **DEFAULT\_ALIAS**: YylConfigAlias
 
-Defined in: yylHander.ts:48
+Defined in: [yylHander.ts:49](https://github.com/jackness1208/yyl-hander/blob/baecb4e/src/yylHander.ts#L49)
 
 ___
 
@@ -105,7 +104,7 @@ Name | Type |
 `SEED_NOT_SET` | *string* |
 `YARN_VERSION` | *string* |
 
-Defined in: const.ts:25
+Defined in: [const.ts:25](https://github.com/jackness1208/yyl-hander/blob/baecb4e/src/const.ts#L25)
 
 ___
 
@@ -115,7 +114,7 @@ ___
 
 proxy 缓存目录
 
-Defined in: const.ts:23
+Defined in: [const.ts:23](https://github.com/jackness1208/yyl-hander/blob/baecb4e/src/const.ts#L23)
 
 ___
 
@@ -125,7 +124,7 @@ ___
 
 server 存放构建生成的 config 的缓存文件
 
-Defined in: const.ts:20
+Defined in: [const.ts:20](https://github.com/jackness1208/yyl-hander/blob/baecb4e/src/const.ts#L20)
 
 ___
 
@@ -135,7 +134,7 @@ ___
 
 server 数据存放目录
 
-Defined in: const.ts:14
+Defined in: [const.ts:14](https://github.com/jackness1208/yyl-hander/blob/baecb4e/src/const.ts#L14)
 
 ___
 
@@ -145,7 +144,7 @@ ___
 
 server 根目录
 
-Defined in: const.ts:11
+Defined in: [const.ts:11](https://github.com/jackness1208/yyl-hander/blob/baecb4e/src/const.ts#L11)
 
 ___
 
@@ -155,7 +154,7 @@ ___
 
 server plugins 存放目录
 
-Defined in: const.ts:17
+Defined in: [const.ts:17](https://github.com/jackness1208/yyl-hander/blob/baecb4e/src/const.ts#L17)
 
 ___
 
@@ -163,7 +162,7 @@ ___
 
 • `Const` **SUGAR\_REG**: *RegExp*
 
-Defined in: const.ts:5
+Defined in: [const.ts:5](https://github.com/jackness1208/yyl-hander/blob/baecb4e/src/const.ts#L5)
 
 ___
 
@@ -173,7 +172,7 @@ ___
 
 profile
 
-Defined in: const.ts:8
+Defined in: [const.ts:8](https://github.com/jackness1208/yyl-hander/blob/baecb4e/src/const.ts#L8)
 
 ## Functions
 
@@ -191,7 +190,7 @@ Name | Type |
 
 **Returns:** *string*
 
-Defined in: util.ts:16
+Defined in: [util.ts:16](https://github.com/jackness1208/yyl-hander/blob/baecb4e/src/util.ts#L16)
 
 ___
 
@@ -210,4 +209,4 @@ Name | Type |
 
 **Returns:** *string*
 
-Defined in: util.ts:25
+Defined in: [util.ts:25](https://github.com/jackness1208/yyl-hander/blob/baecb4e/src/util.ts#L25)
