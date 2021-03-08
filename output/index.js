@@ -1,5 +1,5 @@
 /*!
- * yyl-hander cjs 1.1.4
+ * yyl-hander cjs 1.1.5
  * (c) 2020 - 2021 
  * Released under the MIT License.
  */
@@ -333,21 +333,23 @@ class YylHander {
                                 /** 执行代码执行后配置项 */
                                 this.runAfterScripts(watch);
                                 logger('msg', 'success', [`${watch ? 'watch' : 'all'} ${LANG.OPTIMIZE_FINISHED}`]);
-                                const homePage = yield this.getHomePage({
-                                    files: (() => {
-                                        const r = [];
-                                        htmlSet.forEach((item) => {
-                                            r.push(item);
-                                        });
-                                        return r;
-                                    })()
-                                });
-                                logger('msg', 'success', [
-                                    `${LANG.PRINT_HOME_PAGE}: ${chalk__default['default'].yellow.bold(homePage)}`
-                                ]);
-                                // 第一次构建 打开 对应页面
-                                if (watch && !isUpdate && !env.silent && env.proxy && homePage) {
-                                    extOs__default['default'].openBrowser(homePage);
+                                if (watch) {
+                                    const homePage = yield this.getHomePage({
+                                        files: (() => {
+                                            const r = [];
+                                            htmlSet.forEach((item) => {
+                                                r.push(item);
+                                            });
+                                            return r;
+                                        })()
+                                    });
+                                    logger('msg', 'success', [
+                                        `${LANG.PRINT_HOME_PAGE}: ${chalk__default['default'].yellow.bold(homePage)}`
+                                    ]);
+                                    // 第一次构建 打开 对应页面
+                                    if (!isUpdate && !env.silent && env.proxy && homePage) {
+                                        extOs__default['default'].openBrowser(homePage);
+                                    }
                                 }
                                 if (isUpdate) {
                                     if (env.livereload) {
