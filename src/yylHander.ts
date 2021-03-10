@@ -257,7 +257,8 @@ export class YylHander {
         }
       })
     } catch (er) {
-      logger('msg', 'error', [new Error(LANG.SEED_INIT_FAIL)])
+      logger('msg', 'error', [new Error(LANG.SEED_INIT_FAIL), er])
+      logger('progress', 'finished')
     }
   }
 
