@@ -1,5 +1,5 @@
 /*!
- * yyl-hander cjs 1.1.6
+ * yyl-hander cjs 1.1.7
  * (c) 2020 - 2021 
  * Released under the MIT License.
  */
@@ -383,7 +383,8 @@ class YylHander {
                 });
             }
             catch (er) {
-                logger('msg', 'error', [new Error(LANG.SEED_INIT_FAIL)]);
+                logger('msg', 'error', [new Error(LANG.SEED_INIT_FAIL), er]);
+                logger('progress', 'finished');
             }
         });
     }
