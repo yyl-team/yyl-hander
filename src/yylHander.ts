@@ -202,6 +202,7 @@ export class YylHander {
               } else if (type === 'finished') {
                 if (!watch && isError) {
                   logger('msg', 'error', [isError])
+                  logger('progress', 'finished', infoType, args)
                   return
                 }
 

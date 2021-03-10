@@ -1,5 +1,5 @@
 /*!
- * yyl-hander cjs 1.1.5
+ * yyl-hander cjs 1.1.6
  * (c) 2020 - 2021 
  * Released under the MIT License.
  */
@@ -328,6 +328,7 @@ class YylHander {
                             else if (type === 'finished') {
                                 if (!watch && isError) {
                                     logger('msg', 'error', [isError]);
+                                    logger('progress', 'finished', infoType, args);
                                     return;
                                 }
                                 /** 执行代码执行后配置项 */
