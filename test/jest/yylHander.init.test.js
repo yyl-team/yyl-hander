@@ -65,7 +65,6 @@ test('yylHander.init', async () => {
     'msg',
     'msg',
     'msg',
-    'msg',
     'progress'
   ])
 })

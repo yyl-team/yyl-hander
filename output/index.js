@@ -1,5 +1,5 @@
 /*!
- * yyl-hander cjs 1.1.3
+ * yyl-hander cjs 1.1.7
  * (c) 2020 - 2021 
  * Released under the MIT License.
  */
@@ -321,49 +321,52 @@ class YylHander {
                             }
                             logger('msg', type, args);
                         })
-                            .on('progress', (subType) => __awaiter(this, void 0, void 0, function* () {
-                            if (subType === 'start') {
-                                logger('progress', 'start');
+                            .on('progress', (type, infoType, args) => __awaiter(this, void 0, void 0, function* () {
+                            if (type === 'start') {
+                                logger('progress', 'start', infoType, args);
                             }
-                            else if (subType === 'finished') {
+                            else if (type === 'finished') {
                                 if (!watch && isError) {
                                     logger('msg', 'error', [isError]);
+                                    logger('progress', 'finished', infoType, args);
                                     return;
                                 }
                                 /** 执行代码执行后配置项 */
                                 this.runAfterScripts(watch);
                                 logger('msg', 'success', [`${watch ? 'watch' : 'all'} ${LANG.OPTIMIZE_FINISHED}`]);
-                                const homePage = yield this.getHomePage({
-                                    files: (() => {
-                                        const r = [];
-                                        htmlSet.forEach((item) => {
-                                            r.push(item);
-                                        });
-                                        return r;
-                                    })()
-                                });
-                                logger('msg', 'success', [
-                                    `${LANG.PRINT_HOME_PAGE}: ${chalk__default['default'].yellow.bold(homePage)}`
-                                ]);
-                                // 第一次构建 打开 对应页面
-                                if (watch && !isUpdate && !env.silent && env.proxy && homePage) {
-                                    extOs__default['default'].openBrowser(homePage);
+                                if (watch) {
+                                    const homePage = yield this.getHomePage({
+                                        files: (() => {
+                                            const r = [];
+                                            htmlSet.forEach((item) => {
+                                                r.push(item);
+                                            });
+                                            return r;
+                                        })()
+                                    });
+                                    logger('msg', 'success', [
+                                        `${LANG.PRINT_HOME_PAGE}: ${chalk__default['default'].yellow.bold(homePage)}`
+                                    ]);
+                                    // 第一次构建 打开 对应页面
+                                    if (!isUpdate && !env.silent && env.proxy && homePage) {
+                                        extOs__default['default'].openBrowser(homePage);
+                                    }
                                 }
                                 if (isUpdate) {
                                     if (env.livereload) {
                                         logger('msg', 'success', [LANG.PAGE_RELOAD]);
                                         yield this.livereload();
                                     }
-                                    logger('progress', 'finished');
+                                    logger('progress', 'finished', infoType, args);
                                 }
                                 else {
                                     isUpdate = true;
-                                    logger('progress', 'finished');
+                                    logger('progress', 'finished', infoType, args);
                                     resolve([yylConfig, opzer]);
                                 }
                             }
                             else {
-                                logger('progress', subType);
+                                logger('progress', type, infoType, args);
                             }
                         }));
                         if (watch) {
@@ -380,7 +383,8 @@ class YylHander {
                 });
             }
             catch (er) {
-                logger('msg', 'error', [new Error(LANG.SEED_INIT_FAIL)]);
+                logger('msg', 'error', [new Error(LANG.SEED_INIT_FAIL), er]);
+                logger('progress', 'finished');
             }
         });
     }
