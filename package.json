@@ -76,8 +76,8 @@
     "yyl-config-types": "^0.3.18",
     "yyl-fs": "^0.3.3",
     "yyl-os": "^0.11.4",
-    "yyl-seed-base": "^0.2.4",
-    "yyl-server": "^0.3.23",
+    "yyl-seed-base": "^0.2.5",
+    "yyl-server": "^1.0.2",
     "yyl-util": "^2.3.9"
   }
 }

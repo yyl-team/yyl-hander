@@ -9,6 +9,7 @@ import chalk from 'chalk'
 import { LANG, SERVER_PLUGIN_PATH, SERVER_CONFIG_LOG_PATH, SERVER_PATH } from './const'
 import request from 'request-promise'
 import { MsgType, SeedEntry, SeedOptimizeResult, SeedEventName } from 'yyl-seed-base'
+import { Runner, YServerSetting } from 'yyl-server'
 
 export interface FormatConfigOption {
   yylConfig: YylConfig
@@ -80,18 +81,18 @@ export class YylHander {
     if (this.env.config) {
       const configPath = path.resolve(process.cwd(), this.env.config)
       this.context = path.dirname(configPath)
-      this.yylConfig = this.parseConfig({
+      this.yylConfig = YylHander.parseConfig({
         configPath,
         env: this.env
       })
     } else if (typeof yylConfig === 'string') {
       this.context = path.dirname(yylConfig)
-      this.yylConfig = this.parseConfig({
+      this.yylConfig = YylHander.parseConfig({
         configPath: yylConfig,
         env: this.env
       })
     } else if (yylConfig) {
-      this.yylConfig = this.formatConfig({ yylConfig, env: this.env, context: this.context })
+      this.yylConfig = YylHander.formatConfig({ yylConfig, env: this.env, context: this.context })
     } else {
       throw new Error(`${LANG.CONFIG_NOT_EXISTS}`)
     }
@@ -178,6 +179,30 @@ export class YylHander {
         root: context
       })
       logger('msg', 'info', [`${LANG.SEED_INIT_FINISHED}`])
+
+      // 启动本地 server
+      if (watch && opzer) {
+        const runner = new Runner({
+          // TODO: match logger type
+          logger: () => undefined,
+          yylConfig,
+          env,
+          cwd: this.context,
+          ignoreServer: !!opzer?.ignoreServer,
+          serverOption: (() => {
+            const r: YServerSetting = {}
+            if (opzer.appWillMount) {
+              r.appDidMount = opzer.appWillMount
+            }
+
+            if (opzer.appDidMount) {
+              r.appDidMount = opzer.appDidMount
+            }
+            return r
+          })()
+        })
+      }
+
       return await new Promise<[YylConfig, SeedOptimizeResult | undefined]>((resolve, reject) => {
         if (opzer) {
           let isUpdate = false
@@ -263,7 +288,7 @@ export class YylHander {
   }
 
   /** 解析配置 */
-  parseConfig(op: ParseConfigOption) {
+  static parseConfig(op: ParseConfigOption) {
     const { configPath, env } = op
     let yylConfig: any = {}
     if (!fs.existsSync(configPath)) {
@@ -305,7 +330,7 @@ export class YylHander {
   }
 
   /** 格式化配置 */
-  formatConfig(option: FormatConfigOption): YylConfig {
+  static formatConfig(option: FormatConfigOption): YylConfig {
     let { yylConfig, env, context } = option
 
     // 检查是否需要 env.name
