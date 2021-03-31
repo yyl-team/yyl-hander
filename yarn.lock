@@ -6740,10 +6740,10 @@ yyl-os@0.11.4, yyl-os@^0.11.4:
   dependencies:
     yyl-util "^2.3.5"
 
-yyl-seed-base@^0.2.5:
-  version "0.2.5"
-  resolved "https://registry.yarnpkg.com/yyl-seed-base/-/yyl-seed-base-0.2.5.tgz#588c2eeff1bb3eb6bb8fff66cff3de5960c62214"
-  integrity sha512-5rx45jpzFVlbFr3lsxOuUF6Mxzh82o7U6bzTAVqlwVILR6bgFQ5NLkxz/A5Al/aqkYc0nkpSS36YH6Tfpi3ZoA==
+yyl-seed-base@^0.2.6:
+  version "0.2.6"
+  resolved "https://registry.npmjs.org/yyl-seed-base/-/yyl-seed-base-0.2.6.tgz#c1702c41b3ae82162f0c64b7e30ca6f906ab91a1"
+  integrity sha512-Dc3JJ/y97vdfgWWQLdU2Fbllpio7/1dRsNcyDR2JKQg+hD5DFpfSKOzp7LNxRtfebZV3RMJaKv7nprKBx0ALaQ==
   dependencies:
     "@types/express" "^4.17.11"
 

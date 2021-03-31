@@ -4,7 +4,7 @@
 
 ## Hierarchy
 
-* **YylParserOption**
+- **YylParserOption**
 
 ## Table of contents
 
@@ -19,30 +19,30 @@
 
 ### context
 
-• `Optional` **context**: *undefined* \| *string*
+• `Optional` **context**: _undefined_ \| _string_
 
 Defined in: [yylHander.ts:38](https://github.com/jackness1208/yyl-hander/blob/4886e59/src/yylHander.ts#L38)
 
-___
+---
 
 ### env
 
-• `Optional` **env**: *undefined* \| Env
+• `Optional` **env**: _undefined_ \| Env
 
 Defined in: [yylHander.ts:36](https://github.com/jackness1208/yyl-hander/blob/4886e59/src/yylHander.ts#L36)
 
-___
+---
 
 ### logger
 
-• `Optional` **logger**: *undefined* \| [*Logger*](../modules.md#logger)<*msg* \| *progress*\>
+• `Optional` **logger**: _undefined_ \| [_Logger_](../modules.md#logger)<_msg_ \| _progress_\>
 
 Defined in: [yylHander.ts:37](https://github.com/jackness1208/yyl-hander/blob/4886e59/src/yylHander.ts#L37)
 
-___
+---
 
 ### yylConfig
 
-• `Optional` **yylConfig**: *undefined* \| *string* \| YylConfig
+• `Optional` **yylConfig**: _undefined_ \| _string_ \| YylConfig
 
 Defined in: [yylHander.ts:35](https://github.com/jackness1208/yyl-hander/blob/4886e59/src/yylHander.ts#L35)
