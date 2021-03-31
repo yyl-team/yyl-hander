@@ -8,7 +8,7 @@ import extFs from 'yyl-fs'
 import chalk from 'chalk'
 import { LANG, SERVER_PLUGIN_PATH, SERVER_CONFIG_LOG_PATH, SERVER_PATH } from './const'
 import request from 'request-promise'
-import { MsgType, SeedEntry, SeedOptimizeResult, SeedEventName } from 'yyl-seed-base'
+import { SeedEntry, SeedOptimizeResult, Logger } from 'yyl-seed-base'
 import { Runner, YServerSetting } from 'yyl-server'
 
 export interface FormatConfigOption {
@@ -24,13 +24,6 @@ export interface ParseConfigOption {
   configPath: string
   env: Env
 }
-
-export type Logger<T extends keyof SeedEventName = keyof SeedEventName> = (
-  type: T,
-  args01: SeedEventName[T]['Args01'],
-  args02?: SeedEventName[T]['Args02'],
-  args03?: SeedEventName[T]['Args03']
-) => void
 
 export interface YylParserOption {
   yylConfig?: YylConfig | string
@@ -183,8 +176,7 @@ export class YylHander {
       // 启动本地 server
       if (watch && opzer) {
         const runner = new Runner({
-          // TODO: match logger type
-          logger: () => undefined,
+          logger,
           yylConfig,
           env,
           cwd: this.context,
