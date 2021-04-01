@@ -1,23 +1,30 @@
 import { YylConfig, Env, YylConfigAlias } from 'yyl-config-types';
-import { SeedEntry, SeedOptimizeResult, SeedEventName } from 'yyl-seed-base';
+import { SeedEntry, SeedOptimizeResult, Logger } from 'yyl-seed-base';
+import { Runner } from 'yyl-server';
+/** 格式化配置 - 配置 */
 export interface FormatConfigOption {
     yylConfig: YylConfig;
     env: Env;
     context: string;
 }
+/** 获取 homepage - 配置 */
 export interface GetHomePageOption {
     files?: string[];
 }
+/** yyl.config 解析 - 配置 */
 export interface ParseConfigOption {
     configPath: string;
     env: Env;
 }
-export declare type Logger<T extends keyof SeedEventName = keyof SeedEventName> = (type: T, args01: SeedEventName[T]['Args01'], args02?: SeedEventName[T]['Args02'], args03?: SeedEventName[T]['Args03']) => void;
 export interface YylParserOption {
     yylConfig?: YylConfig | string;
     env?: Env;
     logger?: Logger;
     context?: string;
+}
+/** 启动服务器 - 配置 */
+export interface StartServerOption extends YylParserOption {
+    opzer?: SeedOptimizeResult;
 }
 export interface YylHanderInitOption {
     /** seed 包 */
@@ -34,13 +41,16 @@ export declare class YylHander {
     env: Env;
     seed: SeedEntry | undefined;
     logger: Logger;
+    runner?: Runner;
+    /** 解析配置 */
+    static parseConfig(op: ParseConfigOption): YylConfig;
+    /** 格式化配置 */
+    static formatConfig(option: FormatConfigOption): YylConfig;
+    /** 启动服务器 */
+    static startServer(op: StartServerOption): Promise<Runner>;
     constructor(option: YylParserOption);
     /** 初始化 */
     init(op: YylHanderInitOption): Promise<[YylConfig, SeedOptimizeResult | undefined] | undefined>;
-    /** 解析配置 */
-    parseConfig(op: ParseConfigOption): YylConfig;
-    /** 格式化配置 */
-    formatConfig(option: FormatConfigOption): YylConfig;
     /** 获取 yylConfig 内容 */
     getYylConfig(): YylConfig;
     /** 解析 yylConfig.plugins 内容 */

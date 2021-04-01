@@ -2,6 +2,8 @@
 
 # Interface: FormatConfigOption
 
+格式化配置 - 配置
+
 ## Hierarchy
 
 * **FormatConfigOption**
@@ -20,7 +22,7 @@
 
 • **context**: *string*
 
-Defined in: [yylHander.ts:16](https://github.com/jackness1208/yyl-hander/blob/4886e59/src/yylHander.ts#L16)
+Defined in: [yylHander.ts:18](https://github.com/jackness1208/yyl-hander/blob/3bfd810/src/yylHander.ts#L18)
 
 ___
 
@@ -28,7 +30,7 @@ ___
 
 • **env**: Env
 
-Defined in: [yylHander.ts:15](https://github.com/jackness1208/yyl-hander/blob/4886e59/src/yylHander.ts#L15)
+Defined in: [yylHander.ts:17](https://github.com/jackness1208/yyl-hander/blob/3bfd810/src/yylHander.ts#L17)
 
 ___
 
@@ -36,4 +38,4 @@ ___
 
 • **yylConfig**: YylConfig
 
-Defined in: [yylHander.ts:14](https://github.com/jackness1208/yyl-hander/blob/4886e59/src/yylHander.ts#L14)
+Defined in: [yylHander.ts:16](https://github.com/jackness1208/yyl-hander/blob/3bfd810/src/yylHander.ts#L16)

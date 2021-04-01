@@ -46,6 +46,10 @@ export const LANG = {
   OPTIMIZE_START: '开始构建项目',
   OPTIMIZE_FINISHED: '任务执行完成',
 
+  RUNNER_START: 'server 模块启动 开始',
+  RUNNER_START_FAIL: 'server 模块启动 失败',
+  RUNNER_START_FINISHED: 'server 模块启动 完成',
+
   MISS_NAME_OPTIONS: '缺少 --name 属性',
   NAME_OPTIONS_NOT_EXISTS: '--name 属性设置错误',
   CONFIG_ATTR_IS_NEEDFUL: 'config 中以下属性为必填项',
