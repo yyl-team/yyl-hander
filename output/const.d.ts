@@ -33,6 +33,9 @@ export declare const LANG: {
     NO_OPZER_HANDLE: string;
     OPTIMIZE_START: string;
     OPTIMIZE_FINISHED: string;
+    RUNNER_START: string;
+    RUNNER_START_FAIL: string;
+    RUNNER_START_FINISHED: string;
     MISS_NAME_OPTIONS: string;
     NAME_OPTIONS_NOT_EXISTS: string;
     CONFIG_ATTR_IS_NEEDFUL: string;

@@ -1,5 +1,5 @@
 /*!
- * yyl-hander cjs 1.1.7
+ * yyl-hander cjs 1.2.0
  * (c) 2020 - 2021 
  * Released under the MIT License.
  */
@@ -14,6 +14,7 @@ var extOs = require('yyl-os');
 var extFs = require('yyl-fs');
 var chalk = require('chalk');
 var request = require('request-promise');
+var yylServer = require('yyl-server');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -85,6 +86,9 @@ const LANG = {
     NO_OPZER_HANDLE: 'seed 包没返回 opzer',
     OPTIMIZE_START: '开始构建项目',
     OPTIMIZE_FINISHED: '任务执行完成',
+    RUNNER_START: 'server 模块启动 开始',
+    RUNNER_START_FAIL: 'server 模块启动 失败',
+    RUNNER_START_FINISHED: 'server 模块启动 完成',
     MISS_NAME_OPTIONS: '缺少 --name 属性',
     NAME_OPTIONS_NOT_EXISTS: '--name 属性设置错误',
     CONFIG_ATTR_IS_NEEDFUL: 'config 中以下属性为必填项',
@@ -210,24 +214,189 @@ class YylHander {
         if (this.env.config) {
             const configPath = path__default['default'].resolve(process.cwd(), this.env.config);
             this.context = path__default['default'].dirname(configPath);
-            this.yylConfig = this.parseConfig({
+            this.yylConfig = YylHander.parseConfig({
                 configPath,
                 env: this.env
             });
         }
         else if (typeof yylConfig === 'string') {
             this.context = path__default['default'].dirname(yylConfig);
-            this.yylConfig = this.parseConfig({
+            this.yylConfig = YylHander.parseConfig({
                 configPath: yylConfig,
                 env: this.env
             });
         }
         else if (yylConfig) {
-            this.yylConfig = this.formatConfig({ yylConfig, env: this.env, context: this.context });
+            this.yylConfig = YylHander.formatConfig({ yylConfig, env: this.env, context: this.context });
         }
         else {
             throw new Error(`${LANG.CONFIG_NOT_EXISTS}`);
         }
+    }
+    /** 解析配置 */
+    static parseConfig(op) {
+        const { configPath, env } = op;
+        let yylConfig = {};
+        if (!fs__default['default'].existsSync(configPath)) {
+            throw new Error(`${LANG.CONFIG_NOT_EXISTS}: ${chalk__default['default'].yellow(configPath)}`);
+        }
+        const context = path__default['default'].dirname(configPath);
+        try {
+            yylConfig = require(configPath);
+        }
+        catch (er) {
+            throw new Error(`${LANG.CONFIG_PARSE_ERROR}: ${configPath}, ${er.message}`);
+        }
+        if (typeof yylConfig === 'function') {
+            yylConfig = yylConfig({ env });
+        }
+        // extend config.mine.js
+        let mineConfig = {};
+        const mineConfigPath = configPath.replace(/\.js$/, '.mine.js');
+        if (fs__default['default'].existsSync(mineConfigPath)) {
+            try {
+                mineConfig = require(mineConfigPath);
+            }
+            catch (er) { }
+        }
+        if (typeof mineConfigPath === 'function') {
+            mineConfig = mineConfig({ env });
+        }
+        // deep extends
+        util__default['default'].extend(true, yylConfig, mineConfig);
+        return this.formatConfig({
+            context,
+            yylConfig,
+            env
+        });
+    }
+    /** 格式化配置 */
+    static formatConfig(option) {
+        var _a, _b, _c;
+        let { yylConfig, env, context } = option;
+        // 检查是否需要 env.name
+        const requiredNames = needEnvName(yylConfig);
+        if (requiredNames.length) {
+            if (env.name) {
+                if (requiredNames.includes(env.name)) {
+                    yylConfig = toCtx(yylConfig)[env.name];
+                }
+                else {
+                    throw new Error(`${LANG.NAME_OPTIONS_NOT_EXISTS}: ${env.name}, usage: ${requiredNames.join('|')}`);
+                }
+            }
+            else {
+                throw new Error(`${LANG.MISS_NAME_OPTIONS}: ${requiredNames.join('|')}`);
+            }
+        }
+        if (env.workflow) {
+            yylConfig.workflow = env.workflow;
+        }
+        if (!yylConfig.workflow) {
+            throw new Error(`${LANG.CONFIG_ATTR_IS_NEEDFUL}: workflow`);
+        }
+        if (!yylConfig.name) {
+            yylConfig.name = 'default';
+        }
+        // yylConfig 初始化
+        yylConfig.alias = Object.assign(Object.assign({}, DEFAULT_ALIAS), yylConfig.alias);
+        // alias format to absolute
+        Object.keys(yylConfig.alias).forEach((key) => {
+            if (yylConfig.alias && yylConfig.alias[key]) {
+                yylConfig.alias[key] = formatPath(path__default['default'].resolve(context, yylConfig.alias[key]));
+            }
+        });
+        // commit
+        if (!((_a = yylConfig.commit) === null || _a === void 0 ? void 0 : _a.hostname)) {
+            if (!yylConfig.commit) {
+                yylConfig.commit = {
+                    revAddr: '',
+                    hostname: '/'
+                };
+            }
+            else {
+                yylConfig.commit.hostname = '/';
+            }
+        }
+        if (yylConfig.webpackConfigPath) {
+            yylConfig.webpackConfigPath = util__default['default'].path.resolve(context, yylConfig.webpackConfigPath);
+        }
+        // config.resource to absolute
+        if (yylConfig.resource) {
+            Object.keys(yylConfig.resource).forEach((key) => {
+                let curKey = sugarReplace(key, yylConfig.alias);
+                if (curKey === key) {
+                    curKey = formatPath(path__default['default'].resolve(context, key));
+                }
+                if (yylConfig.resource) {
+                    const curVal = yylConfig.resource[key];
+                    let rVal = sugarReplace(curVal, yylConfig.alias);
+                    if (rVal === curVal) {
+                        rVal = formatPath(path__default['default'].resolve(context, yylConfig.resource[key]));
+                    }
+                    yylConfig.resource[curKey] = rVal;
+                    delete yylConfig.resource[key];
+                }
+            });
+        }
+        if (util.type(yylConfig.concat) === 'object') {
+            if (yylConfig.concat) {
+                deepReplace(yylConfig.concat, yylConfig.alias);
+            }
+        }
+        if (!yylConfig.platform) {
+            yylConfig.platform = 'pc';
+        }
+        if ((_b = yylConfig === null || yylConfig === void 0 ? void 0 : yylConfig.localserver) === null || _b === void 0 ? void 0 : _b.root) {
+            yylConfig.localserver.root = formatPath(path__default['default'].resolve(context, yylConfig.localserver.root));
+        }
+        // 配置 resolveModule (适用于 webpack)
+        if (!yylConfig.resolveModule && yylConfig.workflow && ((_c = yylConfig.plugins) === null || _c === void 0 ? void 0 : _c.length)) {
+            yylConfig.resolveModule = formatPath(path__default['default'].join(SERVER_PLUGIN_PATH, yylConfig.workflow, yylConfig.name, 'node_modules'));
+        }
+        return yylConfig;
+    }
+    /** 启动服务器 */
+    static startServer(op) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let { yylConfig, env, logger, context, opzer } = op;
+            if (typeof yylConfig === 'string') {
+                context = path__default['default'].dirname(yylConfig);
+                yylConfig = YylHander.parseConfig({
+                    configPath: yylConfig,
+                    env: env || {}
+                });
+            }
+            if (!logger) {
+                logger = () => { };
+            }
+            logger('msg', 'info', [`${LANG.RUNNER_START}`]);
+            const runner = new yylServer.Runner({
+                logger,
+                yylConfig,
+                env,
+                cwd: context,
+                ignoreServer: !!(opzer === null || opzer === void 0 ? void 0 : opzer.ignoreServer),
+                serverOption: (() => {
+                    const r = {};
+                    if (opzer === null || opzer === void 0 ? void 0 : opzer.appWillMount) {
+                        r.appDidMount = opzer.appWillMount;
+                    }
+                    if (opzer === null || opzer === void 0 ? void 0 : opzer.appDidMount) {
+                        r.appDidMount = opzer.appDidMount;
+                    }
+                    return r;
+                })()
+            });
+            try {
+                yield runner.start();
+                logger('msg', 'success', [`${LANG.RUNNER_START_FINISHED}`]);
+            }
+            catch (er) {
+                logger('msg', 'error', [`${LANG.RUNNER_START_FAIL}`, er]);
+            }
+            return runner;
+        });
     }
     /** 初始化 */
     init(op) {
@@ -303,6 +472,16 @@ class YylHander {
                     root: context
                 });
                 logger('msg', 'info', [`${LANG.SEED_INIT_FINISHED}`]);
+                // 启动本地 server
+                if (watch && opzer) {
+                    this.runner = yield YylHander.startServer({
+                        context: this.context,
+                        yylConfig,
+                        env,
+                        opzer,
+                        logger
+                    });
+                }
                 return yield new Promise((resolve, reject) => {
                     if (opzer) {
                         let isUpdate = false;
@@ -387,129 +566,6 @@ class YylHander {
                 logger('progress', 'finished');
             }
         });
-    }
-    /** 解析配置 */
-    parseConfig(op) {
-        const { configPath, env } = op;
-        let yylConfig = {};
-        if (!fs__default['default'].existsSync(configPath)) {
-            throw new Error(`${LANG.CONFIG_NOT_EXISTS}: ${chalk__default['default'].yellow(configPath)}`);
-        }
-        const context = path__default['default'].dirname(configPath);
-        try {
-            yylConfig = require(configPath);
-        }
-        catch (er) {
-            throw new Error(`${LANG.CONFIG_PARSE_ERROR}: ${configPath}, ${er.message}`);
-        }
-        if (typeof yylConfig === 'function') {
-            yylConfig = yylConfig({ env });
-        }
-        // extend config.mine.js
-        let mineConfig = {};
-        const mineConfigPath = configPath.replace(/\.js$/, '.mine.js');
-        if (fs__default['default'].existsSync(mineConfigPath)) {
-            try {
-                mineConfig = require(mineConfigPath);
-            }
-            catch (er) { }
-        }
-        if (typeof mineConfigPath === 'function') {
-            mineConfig = mineConfig({ env });
-        }
-        // deep extends
-        util__default['default'].extend(true, yylConfig, mineConfig);
-        return this.formatConfig({
-            context,
-            yylConfig,
-            env
-        });
-    }
-    /** 格式化配置 */
-    formatConfig(option) {
-        var _a, _b, _c;
-        let { yylConfig, env, context } = option;
-        // 检查是否需要 env.name
-        const requiredNames = needEnvName(yylConfig);
-        if (requiredNames.length) {
-            if (env.name) {
-                if (requiredNames.includes(env.name)) {
-                    yylConfig = toCtx(yylConfig)[env.name];
-                }
-                else {
-                    throw new Error(`${LANG.NAME_OPTIONS_NOT_EXISTS}: ${env.name}, usage: ${requiredNames.join('|')}`);
-                }
-            }
-            else {
-                throw new Error(`${LANG.MISS_NAME_OPTIONS}: ${requiredNames.join('|')}`);
-            }
-        }
-        if (env.workflow) {
-            yylConfig.workflow = env.workflow;
-        }
-        if (!yylConfig.workflow) {
-            throw new Error(`${LANG.CONFIG_ATTR_IS_NEEDFUL}: workflow`);
-        }
-        if (!yylConfig.name) {
-            yylConfig.name = 'default';
-        }
-        // yylConfig 初始化
-        yylConfig.alias = Object.assign(Object.assign({}, DEFAULT_ALIAS), yylConfig.alias);
-        // alias format to absolute
-        Object.keys(yylConfig.alias).forEach((key) => {
-            if (yylConfig.alias && yylConfig.alias[key]) {
-                yylConfig.alias[key] = formatPath(path__default['default'].resolve(context, yylConfig.alias[key]));
-            }
-        });
-        // commit
-        if (!((_a = yylConfig.commit) === null || _a === void 0 ? void 0 : _a.hostname)) {
-            if (!yylConfig.commit) {
-                yylConfig.commit = {
-                    revAddr: '',
-                    hostname: '/'
-                };
-            }
-            else {
-                yylConfig.commit.hostname = '/';
-            }
-        }
-        if (yylConfig.webpackConfigPath) {
-            yylConfig.webpackConfigPath = util__default['default'].path.resolve(context, yylConfig.webpackConfigPath);
-        }
-        // config.resource to absolute
-        if (yylConfig.resource) {
-            Object.keys(yylConfig.resource).forEach((key) => {
-                let curKey = sugarReplace(key, yylConfig.alias);
-                if (curKey === key) {
-                    curKey = formatPath(path__default['default'].resolve(context, key));
-                }
-                if (yylConfig.resource) {
-                    const curVal = yylConfig.resource[key];
-                    let rVal = sugarReplace(curVal, yylConfig.alias);
-                    if (rVal === curVal) {
-                        rVal = formatPath(path__default['default'].resolve(context, yylConfig.resource[key]));
-                    }
-                    yylConfig.resource[curKey] = rVal;
-                    delete yylConfig.resource[key];
-                }
-            });
-        }
-        if (util.type(yylConfig.concat) === 'object') {
-            if (yylConfig.concat) {
-                deepReplace(yylConfig.concat, yylConfig.alias);
-            }
-        }
-        if (!yylConfig.platform) {
-            yylConfig.platform = 'pc';
-        }
-        if ((_b = yylConfig === null || yylConfig === void 0 ? void 0 : yylConfig.localserver) === null || _b === void 0 ? void 0 : _b.root) {
-            yylConfig.localserver.root = formatPath(path__default['default'].resolve(context, yylConfig.localserver.root));
-        }
-        // 配置 resolveModule (适用于 webpack)
-        if (!yylConfig.resolveModule && yylConfig.workflow && ((_c = yylConfig.plugins) === null || _c === void 0 ? void 0 : _c.length)) {
-            yylConfig.resolveModule = formatPath(path__default['default'].join(SERVER_PLUGIN_PATH, yylConfig.workflow, yylConfig.name, 'node_modules'));
-        }
-        return yylConfig;
     }
     /** 获取 yylConfig 内容 */
     getYylConfig() {

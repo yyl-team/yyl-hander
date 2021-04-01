@@ -2,9 +2,11 @@
 
 # Interface: GetHomePageOption
 
+获取 homepage - 配置
+
 ## Hierarchy
 
-- **GetHomePageOption**
+* **GetHomePageOption**
 
 ## Table of contents
 
@@ -16,6 +18,6 @@
 
 ### files
 
-• `Optional` **files**: _undefined_ \| _string_[]
+• `Optional` **files**: *undefined* \| *string*[]
 
-Defined in: [yylHander.ts:19](https://github.com/jackness1208/yyl-hander/blob/4886e59/src/yylHander.ts#L19)
+Defined in: [yylHander.ts:22](https://github.com/jackness1208/yyl-hander/blob/3bfd810/src/yylHander.ts#L22)
