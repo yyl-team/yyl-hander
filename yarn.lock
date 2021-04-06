@@ -6731,10 +6731,10 @@ yyl-seed-response@^0.2.0:
   resolved "https://registry.npmjs.org/yyl-seed-response/-/yyl-seed-response-0.2.0.tgz#91a5f43e32f37ea6ee820f07bb9ea315772e012c"
   integrity sha512-9IdVLB6ZglVGwWC/eQitM5wCY+m9kcJ5nQrCj4N9/GtchoM3re22e8Uxcft1uz8Ok2tfNzh4e4kFZEmBFDZTrQ==
 
-yyl-server@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/yyl-server/-/yyl-server-1.0.3.tgz#435225048165e199ea754e99d4a55c5f69fcb1fd"
-  integrity sha512-R08AqWIWhnw1PYdnzEKgGJIUzqMRd/PUTGkqL/wLVIZMXCWi5EcEBzMAf3g8CZPtHEdXqk73Vg34TmPEhMb4Yw==
+yyl-server@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.npmjs.org/yyl-server/-/yyl-server-1.0.4.tgz#b7388862fe8ff878522da25c4ea41d3c8382e608"
+  integrity sha512-gLxUxXlhCAd1T3SKJ/iUttHUn2p0Jw8UzAfpCnPmyrzG8pEy7tp3c8yAaiBSlF5/tNYqiR3ecMWWMuNA8muIww==
   dependencies:
     "@types/anyproxy" "^4.1.1"
     "@types/connect" "^3.4.34"

@@ -28,7 +28,7 @@
 
 Inherited from: [YylParserOption](yylparseroption.md).[context](yylparseroption.md#context)
 
-Defined in: [yylHander.ts:35](https://github.com/jackness1208/yyl-hander/blob/3bfd810/src/yylHander.ts#L35)
+Defined in: [yylHander.ts:35](https://github.com/jackness1208/yyl-hander/blob/7fcda46/src/yylHander.ts#L35)
 
 ___
 
@@ -38,7 +38,7 @@ ___
 
 Inherited from: [YylParserOption](yylparseroption.md).[env](yylparseroption.md#env)
 
-Defined in: [yylHander.ts:33](https://github.com/jackness1208/yyl-hander/blob/3bfd810/src/yylHander.ts#L33)
+Defined in: [yylHander.ts:33](https://github.com/jackness1208/yyl-hander/blob/7fcda46/src/yylHander.ts#L33)
 
 ___
 
@@ -48,7 +48,7 @@ ___
 
 Inherited from: [YylParserOption](yylparseroption.md).[logger](yylparseroption.md#logger)
 
-Defined in: [yylHander.ts:34](https://github.com/jackness1208/yyl-hander/blob/3bfd810/src/yylHander.ts#L34)
+Defined in: [yylHander.ts:34](https://github.com/jackness1208/yyl-hander/blob/7fcda46/src/yylHander.ts#L34)
 
 ___
 
@@ -56,7 +56,7 @@ ___
 
 • `Optional` **opzer**: *undefined* \| SeedOptimizeResult
 
-Defined in: [yylHander.ts:40](https://github.com/jackness1208/yyl-hander/blob/3bfd810/src/yylHander.ts#L40)
+Defined in: [yylHander.ts:40](https://github.com/jackness1208/yyl-hander/blob/7fcda46/src/yylHander.ts#L40)
 
 ___
 
@@ -66,4 +66,4 @@ ___
 
 Inherited from: [YylParserOption](yylparseroption.md).[yylConfig](yylparseroption.md#yylconfig)
 
-Defined in: [yylHander.ts:32](https://github.com/jackness1208/yyl-hander/blob/3bfd810/src/yylHander.ts#L32)
+Defined in: [yylHander.ts:32](https://github.com/jackness1208/yyl-hander/blob/7fcda46/src/yylHander.ts#L32)
