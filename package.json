@@ -69,10 +69,8 @@
   "license": "MIT",
   "dependencies": {
     "@types/request": "^2.48.5",
-    "@types/request-promise": "^4.1.47",
     "chalk": "^4.1.0",
     "request": "^2.88.2",
-    "request-promise": "^4.2.6",
     "yyl-config-types": "^0.3.18",
     "yyl-fs": "^0.3.3",
     "yyl-os": "^0.11.4",
