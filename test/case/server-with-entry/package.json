@@ -1,0 +1,7 @@
+{
+  "name": "server-with-entry",
+  "dependencies": {
+    "express": "^4.17.1",
+    "init-yyl-config": "^0.1.2"
+  }
+}

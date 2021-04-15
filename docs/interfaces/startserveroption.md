@@ -6,7 +6,7 @@
 
 ## Hierarchy
 
-* [*YylParserOption*](yylparseroption.md)
+- [_YylParserOption_](yylparseroption.md)
 
   ↳ **StartServerOption**
 
@@ -24,45 +24,45 @@
 
 ### context
 
-• `Optional` **context**: *undefined* \| *string*
+• `Optional` **context**: _undefined_ \| _string_
 
 Inherited from: [YylParserOption](yylparseroption.md).[context](yylparseroption.md#context)
 
 Defined in: [yylHander.ts:35](https://github.com/jackness1208/yyl-hander/blob/7fcda46/src/yylHander.ts#L35)
 
-___
+---
 
 ### env
 
-• `Optional` **env**: *undefined* \| Env
+• `Optional` **env**: _undefined_ \| Env
 
 Inherited from: [YylParserOption](yylparseroption.md).[env](yylparseroption.md#env)
 
 Defined in: [yylHander.ts:33](https://github.com/jackness1208/yyl-hander/blob/7fcda46/src/yylHander.ts#L33)
 
-___
+---
 
 ### logger
 
-• `Optional` **logger**: *undefined* \| *Logger*<*msg* \| *progress*\>
+• `Optional` **logger**: _undefined_ \| _Logger_<_msg_ \| _progress_\>
 
 Inherited from: [YylParserOption](yylparseroption.md).[logger](yylparseroption.md#logger)
 
 Defined in: [yylHander.ts:34](https://github.com/jackness1208/yyl-hander/blob/7fcda46/src/yylHander.ts#L34)
 
-___
+---
 
 ### opzer
 
-• `Optional` **opzer**: *undefined* \| SeedOptimizeResult
+• `Optional` **opzer**: _undefined_ \| SeedOptimizeResult
 
 Defined in: [yylHander.ts:40](https://github.com/jackness1208/yyl-hander/blob/7fcda46/src/yylHander.ts#L40)
 
-___
+---
 
 ### yylConfig
 
-• `Optional` **yylConfig**: *undefined* \| *string* \| YylConfig
+• `Optional` **yylConfig**: _undefined_ \| _string_ \| YylConfig
 
 Inherited from: [YylParserOption](yylparseroption.md).[yylConfig](yylparseroption.md#yylconfig)
 

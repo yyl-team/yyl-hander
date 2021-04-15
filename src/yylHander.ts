@@ -1,15 +1,17 @@
 import fs from 'fs'
 import path from 'path'
-import { YylConfig, Env, YylConfigAlias } from 'yyl-config-types'
+import { YylConfig, Env, YylConfigAlias, YylConfigEntry } from 'yyl-config-types'
 import { deepReplace, formatPath, needEnvName, toCtx, sugarReplace } from './util'
 import extOs, { runSpawn } from 'yyl-os'
 import util, { type } from 'yyl-util'
 import extFs from 'yyl-fs'
 import chalk from 'chalk'
 import { LANG, SERVER_PLUGIN_PATH, SERVER_CONFIG_LOG_PATH, SERVER_PATH } from './const'
-import request from 'request-promise'
+import request from 'request'
 import { SeedEntry, SeedOptimizeResult, Logger } from 'yyl-seed-base'
 import { Runner, YServerSetting } from 'yyl-server'
+import { tsParser, TsParserOption } from 'node-ts-parser'
+export { tsParser, TsParserOption } from 'node-ts-parser'
 
 /** 格式化配置 - 配置 */
 export interface FormatConfigOption {
@@ -73,11 +75,22 @@ export class YylHander {
   /** 解析配置 */
   static parseConfig(op: ParseConfigOption) {
     const { configPath, env } = op
-    let yylConfig: any = {}
+    let yylConfig: YylConfigEntry
     if (!fs.existsSync(configPath)) {
       throw new Error(`${LANG.CONFIG_NOT_EXISTS}: ${chalk.yellow(configPath)}`)
     }
     const context = path.dirname(configPath)
+
+    // ts 解析
+    if (path.extname(configPath) === '.ts') {
+      const rs = tsParser<YylConfigEntry>({ file: configPath, context })
+      if (rs[0]) {
+        throw rs[0]
+      }
+      if (rs[1]) {
+        yylConfig = rs[1]
+      }
+    }
 
     try {
       yylConfig = require(configPath)
@@ -640,7 +653,11 @@ export class YylHander {
     if (yylConfig.localserver?.port) {
       const reloadPath = `http://${extOs.LOCAL_IP}:${yylConfig.localserver.port}1/changed?files=1`
       try {
-        await request(reloadPath)
+        await new Promise((resolve) => {
+          request(reloadPath, undefined, () => {
+            resolve(undefined)
+          })
+        })
       } catch (er) {}
     }
   }
