@@ -1,6 +1,7 @@
 import { YylConfig, Env, YylConfigAlias } from 'yyl-config-types';
 import { SeedEntry, SeedOptimizeResult, Logger } from 'yyl-seed-base';
 import { Runner } from 'yyl-server';
+export { tsParser, TsParserOption } from 'node-ts-parser';
 /** 格式化配置 - 配置 */
 export interface FormatConfigOption {
     yylConfig: YylConfig;

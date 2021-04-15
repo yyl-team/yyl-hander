@@ -1,4 +1,5 @@
 import { YylConfigAlias, YylConfig } from 'yyl-config-types';
+export declare const SUGAR_REG: RegExp;
 export declare function toCtx<T = any>(ctx: any): T;
 /** 路径格式化 */
 export declare function formatPath(url: string): string;

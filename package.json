@@ -42,7 +42,8 @@
     "test:initPlugins": "jest ./test/jest/yylHander.initPlugins.test.js",
     "test:initScripts": "jest ./test/jest/yylHander.initScripts.test.js",
     "test:init": "jest ./test/jest/yylHander.init.test.js",
-    "test:parseConfig": "jest ./test/jest/yylHander.parseConfig.test.js"
+    "test:parseConfig": "jest ./test/jest/yylHander.parseConfig.test.js",
+    "test:parseTsConfig": "jest ./test/jest/yylHander.parseTsConfig.test.js"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.1.0",
@@ -72,7 +73,7 @@
     "@babel/preset-typescript": "^7.13.0",
     "@types/request": "^2.48.5",
     "chalk": "^4.1.0",
-    "node-ts-parser": "^0.1.1",
+    "node-ts-parser": "^0.1.2",
     "request": "^2.88.2",
     "yyl-config-types": "^0.4.2",
     "yyl-fs": "^0.3.3",

@@ -10,7 +10,7 @@ import { LANG, SERVER_PLUGIN_PATH, SERVER_CONFIG_LOG_PATH, SERVER_PATH } from '.
 import request from 'request'
 import { SeedEntry, SeedOptimizeResult, Logger } from 'yyl-seed-base'
 import { Runner, YServerSetting } from 'yyl-server'
-import { tsParser, TsParserOption } from 'node-ts-parser'
+import { tsParser } from 'node-ts-parser'
 export { tsParser, TsParserOption } from 'node-ts-parser'
 
 /** 格式化配置 - 配置 */
@@ -75,14 +75,14 @@ export class YylHander {
   /** 解析配置 */
   static parseConfig(op: ParseConfigOption) {
     const { configPath, env } = op
-    let yylConfig: YylConfigEntry
+    let yylConfig: YylConfigEntry = {}
     if (!fs.existsSync(configPath)) {
       throw new Error(`${LANG.CONFIG_NOT_EXISTS}: ${chalk.yellow(configPath)}`)
     }
     const context = path.dirname(configPath)
 
-    // ts 解析
     if (path.extname(configPath) === '.ts') {
+      // ts 解析
       const rs = tsParser<YylConfigEntry>({ file: configPath, context })
       if (rs[0]) {
         throw rs[0]
@@ -90,12 +90,13 @@ export class YylHander {
       if (rs[1]) {
         yylConfig = rs[1]
       }
-    }
-
-    try {
-      yylConfig = require(configPath)
-    } catch (er) {
-      throw new Error(`${LANG.CONFIG_PARSE_ERROR}: ${configPath}, ${er.message}`)
+    } else {
+      // js 解析
+      try {
+        yylConfig = require(configPath)
+      } catch (er) {
+        throw new Error(`${LANG.CONFIG_PARSE_ERROR}: ${configPath}, ${er.message}`)
+      }
     }
 
     if (typeof yylConfig === 'function') {

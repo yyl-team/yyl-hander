@@ -2,7 +2,6 @@ import { format } from 'prettier'
 import extOs from 'yyl-os'
 import path from 'path'
 import { formatPath } from './util'
-export const SUGAR_REG = /(\{\$)([a-zA-Z0-9@_\-$.~]+)(\})/g
 
 /** profile */
 export const USERPROFILE = `${process.env[process.platform === 'win32' ? 'USERPROFILE' : 'HOME']}`

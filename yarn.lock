@@ -4758,10 +4758,10 @@ node-releases@^1.1.71:
   resolved "https://registry.npmjs.org/node-releases/-/node-releases-1.1.71.tgz#cb1334b179896b1c89ecfdd4b725fb7bbdfc7dbb"
   integrity sha512-zR6HoT6LrLCRBwukmrVbHv0EpEQjksO6GmFcZQQuCAy139BEsoVKPYnf3jongYW83fAa1torLGYwxxky/p28sg==
 
-node-ts-parser@^0.1.1:
-  version "0.1.1"
-  resolved "https://registry.npmjs.org/node-ts-parser/-/node-ts-parser-0.1.1.tgz#e968d5e1f630dae917de1609b9999b9abaf52d83"
-  integrity sha512-kbQjoMdxsoXpkC1sd9+WYj4F8sXAJ8XKY7LU0xdJ1VhQsK2al8+poeYD+6IvTPmk2QZdv688yisKj8Dsa41BtA==
+node-ts-parser@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.npmjs.org/node-ts-parser/-/node-ts-parser-0.1.2.tgz#21780444a4d4102fb807d22898bb5bc834a749bb"
+  integrity sha512-Uo6FDlY+4l5f6PerVsbLF+0miXLbCnk2BwBBeITfD98Etx+YCf5alate4cXGCejEKwbiMW33m25qtZ8PGU3NfA==
 
 normalize-package-data@^2.3.2, normalize-package-data@^2.5.0:
   version "2.5.0"
