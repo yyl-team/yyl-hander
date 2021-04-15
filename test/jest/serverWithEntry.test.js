@@ -68,5 +68,5 @@ test('server with entry', async () => {
     seed: testSeed,
     watch: true
   })
-  expect(typeof app.use !== undefined).toEqual(true)
+  expect(!!app).toEqual(true)
 })

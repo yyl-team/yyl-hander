@@ -42,8 +42,7 @@ const testSeed = {
 
 const logger = new YylCmdLogger()
 
-
-async function watch () {
+async function watch() {
   const configPath = path.join(__dirname, 'yyl.config.ts')
   logger.setLogLevel(2)
   const yylHander = new YylHander({
