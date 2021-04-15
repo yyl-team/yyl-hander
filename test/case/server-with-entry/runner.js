@@ -45,10 +45,12 @@ const logger = new YylCmdLogger()
 
 async function watch () {
   const configPath = path.join(__dirname, 'yyl.config.ts')
+  logger.setLogLevel(2)
   const yylHander = new YylHander({
     yylConfig: configPath,
     env: {
-      proxy: true
+      proxy: true,
+      logLevel: 2
     },
     logger(type, $1, $2, $3) {
       if (type === 'msg') {
