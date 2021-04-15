@@ -617,7 +617,7 @@ class YylHander {
     }
     /** 获取 homePage */
     getHomePage(op) {
-        var _a, _b, _c, _d, _e, _f, _g;
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j;
         return __awaiter(this, void 0, void 0, function* () {
             const { yylConfig, env } = this;
             const files = (op === null || op === void 0 ? void 0 : op.files) || [];
@@ -674,7 +674,12 @@ class YylHander {
                         }
                     }
                     if (!addr) {
-                        addr = (_f = yylConfig.commit) === null || _f === void 0 ? void 0 : _f.hostname;
+                        if (!((_f = yylConfig.commit) === null || _f === void 0 ? void 0 : _f.hostname) || ((_g = yylConfig.commit) === null || _g === void 0 ? void 0 : _g.hostname) === '/') {
+                            addr = localServerAddr;
+                        }
+                        else {
+                            addr = (_h = yylConfig.commit) === null || _h === void 0 ? void 0 : _h.hostname;
+                        }
                     }
                 }
                 else {
@@ -682,7 +687,7 @@ class YylHander {
                 }
                 if (htmls.length) {
                     if (yylConfig.alias && addr) {
-                        addr = util__default['default'].path.join(addr, path__default['default'].relative((_g = yylConfig.alias) === null || _g === void 0 ? void 0 : _g.destRoot, htmls[0]));
+                        addr = util__default['default'].path.join(addr, path__default['default'].relative((_j = yylConfig.alias) === null || _j === void 0 ? void 0 : _j.destRoot, htmls[0]));
                     }
                 }
             }

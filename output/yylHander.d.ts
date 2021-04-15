@@ -57,9 +57,9 @@ export declare class YylHander {
     /** 解析 yylConfig.plugins 内容 */
     initPlugins(): Promise<any>;
     /** 获取 homePage */
-    getHomePage(op?: GetHomePageOption): Promise<string | undefined>;
+    getHomePage(op?: GetHomePageOption): Promise<string>;
     /** 打开 homePage */
-    openHomePage(op: GetHomePageOption): Promise<string | undefined>;
+    openHomePage(op: GetHomePageOption): Promise<string>;
     /** scripts 执行 */
     initScripts(ctx: any): Promise<any>;
     /** 执行 before script */

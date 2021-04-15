@@ -570,7 +570,11 @@ export class YylHander {
           }
         }
         if (!addr) {
-          addr = yylConfig.commit?.hostname
+          if (!yylConfig.commit?.hostname || yylConfig.commit?.hostname === '/') {
+            addr = localServerAddr
+          } else {
+            addr = yylConfig.commit?.hostname
+          }
         }
       } else {
         addr = localServerAddr
