@@ -26,6 +26,10 @@ export const LANG = {
   OPEN_ADDR: '打开 url',
   CONFIG_SAVED: '配置已保存',
 
+  PARSE_TS_START: '开始 解析 ts 文件',
+  PARSE_TS_FAIL: '解析 ts 文件 失败',
+  PARSE_TS_FINISHED: '解析 ts 文件 完成',
+
   CONFIG_NOT_EXISTS: 'yyl.config 路径不存在',
   CONFIG_NOT_SET: 'new yylHander 入参不存在: op.yylConfig',
   CONFIG_PARSE_ERROR: '配置解析错误',

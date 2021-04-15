@@ -6,7 +6,7 @@
 
 ## Hierarchy
 
-* **GetHomePageOption**
+- **GetHomePageOption**
 
 ## Table of contents
 
@@ -18,6 +18,6 @@
 
 ### files
 
-• `Optional` **files**: *undefined* \| *string*[]
+• `Optional` **files**: _undefined_ \| _string_[]
 
 Defined in: [yylHander.ts:22](https://github.com/jackness1208/yyl-hander/blob/7fcda46/src/yylHander.ts#L22)

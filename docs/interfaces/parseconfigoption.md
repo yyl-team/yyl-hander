@@ -6,7 +6,7 @@ yyl.config 解析 - 配置
 
 ## Hierarchy
 
-* **ParseConfigOption**
+- **ParseConfigOption**
 
 ## Table of contents
 
@@ -19,11 +19,11 @@ yyl.config 解析 - 配置
 
 ### configPath
 
-• **configPath**: *string*
+• **configPath**: _string_
 
 Defined in: [yylHander.ts:27](https://github.com/jackness1208/yyl-hander/blob/7fcda46/src/yylHander.ts#L27)
 
-___
+---
 
 ### env
 
