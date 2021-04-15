@@ -1,4 +1,3 @@
-export declare const SUGAR_REG: RegExp;
 /** profile */
 export declare const USERPROFILE: string;
 /** server 根目录 */
@@ -14,6 +13,9 @@ export declare const PROXY_CACHE_PATH: string;
 export declare const LANG: {
     OPEN_ADDR: string;
     CONFIG_SAVED: string;
+    PARSE_TS_START: string;
+    PARSE_TS_FAIL: string;
+    PARSE_TS_FINISHED: string;
     CONFIG_NOT_EXISTS: string;
     CONFIG_NOT_SET: string;
     CONFIG_PARSE_ERROR: string;

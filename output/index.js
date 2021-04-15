@@ -1,5 +1,5 @@
 /*!
- * yyl-hander cjs 1.2.1
+ * yyl-hander cjs 1.2.2
  * (c) 2020 - 2021 
  * Released under the MIT License.
  */
@@ -13,8 +13,9 @@ var util = require('yyl-util');
 var extOs = require('yyl-os');
 var extFs = require('yyl-fs');
 var chalk = require('chalk');
-var request = require('request-promise');
+var request = require('request');
 var yylServer = require('yyl-server');
+var nodeTsParser = require('node-ts-parser');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -52,58 +53,6 @@ function __awaiter(thisArg, _arguments, P, generator) {
 }
 
 const SUGAR_REG = /(\{\$)([a-zA-Z0-9@_\-$.~]+)(\})/g;
-/** profile */
-const USERPROFILE = `${process.env[process.platform === 'win32' ? 'USERPROFILE' : 'HOME']}`;
-/** server 根目录 */
-const SERVER_PATH = formatPath(path__default['default'].join(USERPROFILE, '.yyl'));
-/** server 数据存放目录 */
-const SERVER_DATA_PATH = formatPath(path__default['default'].join(SERVER_PATH, 'data'));
-/** server plugins 存放目录 */
-const SERVER_PLUGIN_PATH = formatPath(path__default['default'].join(SERVER_PATH, 'plugins'));
-/** server 存放构建生成的 config 的缓存文件 */
-const SERVER_CONFIG_LOG_PATH = formatPath(path__default['default'].join(SERVER_PATH, 'config-log'));
-/** proxy 缓存目录 */
-const PROXY_CACHE_PATH = formatPath(path__default['default'].join(USERPROFILE, '.anyproxy/cache'));
-const LANG = {
-    OPEN_ADDR: '打开 url',
-    CONFIG_SAVED: '配置已保存',
-    CONFIG_NOT_EXISTS: 'yyl.config 路径不存在',
-    CONFIG_NOT_SET: 'new yylHander 入参不存在: op.yylConfig',
-    CONFIG_PARSE_ERROR: '配置解析错误',
-    REQUIRE_ATLEAST_VERSION: '项目要求 yyl 版本 不能低于',
-    DEL_PKG_LOCK_FILE: '存在 package-lock.json, 与 yarn 冲突，删之',
-    INSTALL_YARN: '请先安装 yarn',
-    YARN_VERSION: 'yarn 版本',
-    SEED_NOT_SET: '没有传入 seed 配置',
-    PRINT_HOME_PAGE: '主页地址',
-    PAGE_RELOAD: '页面刷新',
-    SAVE_CONFIG_TO_SERVER_FAIL: '保存配置到本地服务失败',
-    CLEAN_DIST_FAIL: '清除本地输出目录失败',
-    CLEAN_DIST_FINISHED: '清除本地输出目录完成',
-    SEED_INIT_START: '正在初始化 seed包构建部分',
-    SEED_INIT_FINISHED: '初始化 seed包构建部分完成',
-    SEED_INIT_FAIL: '初始化 seed包构建部分失败',
-    NO_OPZER_HANDLE: 'seed 包没返回 opzer',
-    OPTIMIZE_START: '开始构建项目',
-    OPTIMIZE_FINISHED: '任务执行完成',
-    RUNNER_START: 'server 模块启动 开始',
-    RUNNER_START_FAIL: 'server 模块启动 失败',
-    RUNNER_START_FINISHED: 'server 模块启动 完成',
-    MISS_NAME_OPTIONS: '缺少 --name 属性',
-    NAME_OPTIONS_NOT_EXISTS: '--name 属性设置错误',
-    CONFIG_ATTR_IS_NEEDFUL: 'config 中以下属性为必填项',
-    RUN_ALL_BEFORE_SCRIPT_START: '开始执行 config.all.beforeScripts',
-    RUN_ALL_BEFORE_SCRIPT_FINISHED: '执行 config.all.beforeScripts 完成',
-    RUN_ALL_AFTER_SCRIPT_START: '开始执行 config.all.afterScripts',
-    RUN_ALL_AFTER_SCRIPT_FINISHED: '执行 config.all.afterScripts 完成',
-    RUN_WATCH_BEFORE_SCRIPT_START: '开始执行 config.watch.beforeScripts',
-    RUN_WATCH_BEFORE_SCRIPT_FINISHED: '执行 config.watch.beforeScripts 完成',
-    RUN_WATCH_AFTER_SCRIPT_START: '开始执行 config.watch.afterScripts',
-    RUN_WATCH_AFTER_SCRIPT_FINISHED: '执行 config.watch.afterScripts 完成',
-    RUN_SCRIPT_FN_START: '开始执行回调方法',
-    RUN_SCRIPT_FN_FINISHED: '执行回调完成'
-};
-
 function toCtx(ctx) {
     return ctx;
 }
@@ -182,6 +131,61 @@ function deepReplace(obj, alias) {
     });
 }
 
+/** profile */
+const USERPROFILE = `${process.env[process.platform === 'win32' ? 'USERPROFILE' : 'HOME']}`;
+/** server 根目录 */
+const SERVER_PATH = formatPath(path__default['default'].join(USERPROFILE, '.yyl'));
+/** server 数据存放目录 */
+const SERVER_DATA_PATH = formatPath(path__default['default'].join(SERVER_PATH, 'data'));
+/** server plugins 存放目录 */
+const SERVER_PLUGIN_PATH = formatPath(path__default['default'].join(SERVER_PATH, 'plugins'));
+/** server 存放构建生成的 config 的缓存文件 */
+const SERVER_CONFIG_LOG_PATH = formatPath(path__default['default'].join(SERVER_PATH, 'config-log'));
+/** proxy 缓存目录 */
+const PROXY_CACHE_PATH = formatPath(path__default['default'].join(USERPROFILE, '.anyproxy/cache'));
+const LANG = {
+    OPEN_ADDR: '打开 url',
+    CONFIG_SAVED: '配置已保存',
+    PARSE_TS_START: '开始 解析 ts 文件',
+    PARSE_TS_FAIL: '解析 ts 文件 失败',
+    PARSE_TS_FINISHED: '解析 ts 文件 完成',
+    CONFIG_NOT_EXISTS: 'yyl.config 路径不存在',
+    CONFIG_NOT_SET: 'new yylHander 入参不存在: op.yylConfig',
+    CONFIG_PARSE_ERROR: '配置解析错误',
+    REQUIRE_ATLEAST_VERSION: '项目要求 yyl 版本 不能低于',
+    DEL_PKG_LOCK_FILE: '存在 package-lock.json, 与 yarn 冲突，删之',
+    INSTALL_YARN: '请先安装 yarn',
+    YARN_VERSION: 'yarn 版本',
+    SEED_NOT_SET: '没有传入 seed 配置',
+    PRINT_HOME_PAGE: '主页地址',
+    PAGE_RELOAD: '页面刷新',
+    SAVE_CONFIG_TO_SERVER_FAIL: '保存配置到本地服务失败',
+    CLEAN_DIST_FAIL: '清除本地输出目录失败',
+    CLEAN_DIST_FINISHED: '清除本地输出目录完成',
+    SEED_INIT_START: '正在初始化 seed包构建部分',
+    SEED_INIT_FINISHED: '初始化 seed包构建部分完成',
+    SEED_INIT_FAIL: '初始化 seed包构建部分失败',
+    NO_OPZER_HANDLE: 'seed 包没返回 opzer',
+    OPTIMIZE_START: '开始构建项目',
+    OPTIMIZE_FINISHED: '任务执行完成',
+    RUNNER_START: 'server 模块启动 开始',
+    RUNNER_START_FAIL: 'server 模块启动 失败',
+    RUNNER_START_FINISHED: 'server 模块启动 完成',
+    MISS_NAME_OPTIONS: '缺少 --name 属性',
+    NAME_OPTIONS_NOT_EXISTS: '--name 属性设置错误',
+    CONFIG_ATTR_IS_NEEDFUL: 'config 中以下属性为必填项',
+    RUN_ALL_BEFORE_SCRIPT_START: '开始执行 config.all.beforeScripts',
+    RUN_ALL_BEFORE_SCRIPT_FINISHED: '执行 config.all.beforeScripts 完成',
+    RUN_ALL_AFTER_SCRIPT_START: '开始执行 config.all.afterScripts',
+    RUN_ALL_AFTER_SCRIPT_FINISHED: '执行 config.all.afterScripts 完成',
+    RUN_WATCH_BEFORE_SCRIPT_START: '开始执行 config.watch.beforeScripts',
+    RUN_WATCH_BEFORE_SCRIPT_FINISHED: '执行 config.watch.beforeScripts 完成',
+    RUN_WATCH_AFTER_SCRIPT_START: '开始执行 config.watch.afterScripts',
+    RUN_WATCH_AFTER_SCRIPT_FINISHED: '执行 config.watch.afterScripts 完成',
+    RUN_SCRIPT_FN_START: '开始执行回调方法',
+    RUN_SCRIPT_FN_FINISHED: '执行回调完成'
+};
+
 const DEFAULT_ALIAS = {
     root: './dist',
     srcRoot: './src',
@@ -241,25 +245,49 @@ class YylHander {
             throw new Error(`${LANG.CONFIG_NOT_EXISTS}: ${chalk__default['default'].yellow(configPath)}`);
         }
         const context = path__default['default'].dirname(configPath);
-        try {
-            yylConfig = require(configPath);
+        if (path__default['default'].extname(configPath) === '.ts') {
+            // ts 解析
+            const rs = nodeTsParser.tsParser({ file: configPath, context });
+            if (rs[0]) {
+                throw rs[0];
+            }
+            if (rs[1]) {
+                yylConfig = rs[1];
+            }
         }
-        catch (er) {
-            throw new Error(`${LANG.CONFIG_PARSE_ERROR}: ${configPath}, ${er.message}`);
+        else {
+            // js 解析
+            try {
+                yylConfig = require(configPath);
+            }
+            catch (er) {
+                throw new Error(`${LANG.CONFIG_PARSE_ERROR}: ${configPath}, ${er.message}`);
+            }
         }
         if (typeof yylConfig === 'function') {
             yylConfig = yylConfig({ env });
         }
         // extend config.mine.js
         let mineConfig = {};
-        const mineConfigPath = configPath.replace(/\.js$/, '.mine.js');
-        if (fs__default['default'].existsSync(mineConfigPath)) {
-            try {
-                mineConfig = require(mineConfigPath);
+        if (path__default['default'].extname(configPath) === '.ts') {
+            const mineConfigPath = configPath.replace(/\.ts$/, '.mine.ts');
+            if (fs__default['default'].existsSync(mineConfigPath)) {
+                const [err, result] = nodeTsParser.tsParser({ context, file: mineConfigPath });
+                if (result) {
+                    mineConfig = result;
+                }
             }
-            catch (er) { }
         }
-        if (typeof mineConfigPath === 'function') {
+        else {
+            const mineConfigPath = configPath.replace(/\.js$/, '.mine.js');
+            if (fs__default['default'].existsSync(mineConfigPath)) {
+                try {
+                    mineConfig = require(mineConfigPath);
+                }
+                catch (er) { }
+            }
+        }
+        if (typeof mineConfig === 'function') {
             mineConfig = mineConfig({ env });
         }
         // deep extends
@@ -589,7 +617,7 @@ class YylHander {
     }
     /** 获取 homePage */
     getHomePage(op) {
-        var _a, _b, _c, _d, _e, _f, _g;
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j;
         return __awaiter(this, void 0, void 0, function* () {
             const { yylConfig, env } = this;
             const files = (op === null || op === void 0 ? void 0 : op.files) || [];
@@ -646,7 +674,12 @@ class YylHander {
                         }
                     }
                     if (!addr) {
-                        addr = (_f = yylConfig.commit) === null || _f === void 0 ? void 0 : _f.hostname;
+                        if (!((_f = yylConfig.commit) === null || _f === void 0 ? void 0 : _f.hostname) || ((_g = yylConfig.commit) === null || _g === void 0 ? void 0 : _g.hostname) === '/') {
+                            addr = localServerAddr;
+                        }
+                        else {
+                            addr = (_h = yylConfig.commit) === null || _h === void 0 ? void 0 : _h.hostname;
+                        }
                     }
                 }
                 else {
@@ -654,7 +687,7 @@ class YylHander {
                 }
                 if (htmls.length) {
                     if (yylConfig.alias && addr) {
-                        addr = util__default['default'].path.join(addr, path__default['default'].relative((_g = yylConfig.alias) === null || _g === void 0 ? void 0 : _g.destRoot, htmls[0]));
+                        addr = util__default['default'].path.join(addr, path__default['default'].relative((_j = yylConfig.alias) === null || _j === void 0 ? void 0 : _j.destRoot, htmls[0]));
                     }
                 }
             }
@@ -745,7 +778,11 @@ class YylHander {
             if ((_a = yylConfig.localserver) === null || _a === void 0 ? void 0 : _a.port) {
                 const reloadPath = `http://${extOs__default['default'].LOCAL_IP}:${yylConfig.localserver.port}1/changed?files=1`;
                 try {
-                    yield request__default['default'](reloadPath);
+                    yield new Promise((resolve) => {
+                        request__default['default'](reloadPath, undefined, () => {
+                            resolve(undefined);
+                        });
+                    });
                 }
                 catch (er) { }
             }
@@ -768,6 +805,12 @@ class YylHander {
     }
 }
 
+Object.defineProperty(exports, 'tsParser', {
+    enumerable: true,
+    get: function () {
+        return nodeTsParser.tsParser;
+    }
+});
 exports.DEFAULT_ALIAS = DEFAULT_ALIAS;
 exports.LANG = LANG;
 exports.PROXY_CACHE_PATH = PROXY_CACHE_PATH;
@@ -775,7 +818,6 @@ exports.SERVER_CONFIG_LOG_PATH = SERVER_CONFIG_LOG_PATH;
 exports.SERVER_DATA_PATH = SERVER_DATA_PATH;
 exports.SERVER_PATH = SERVER_PATH;
 exports.SERVER_PLUGIN_PATH = SERVER_PLUGIN_PATH;
-exports.SUGAR_REG = SUGAR_REG;
 exports.USERPROFILE = USERPROFILE;
 exports.YylHander = YylHander;
 exports.hideProtocol = hideProtocol;

@@ -1,6 +1,7 @@
 import { YylConfig, Env, YylConfigAlias } from 'yyl-config-types';
 import { SeedEntry, SeedOptimizeResult, Logger } from 'yyl-seed-base';
 import { Runner } from 'yyl-server';
+export { tsParser, TsParserOption } from 'node-ts-parser';
 /** 格式化配置 - 配置 */
 export interface FormatConfigOption {
     yylConfig: YylConfig;
@@ -56,9 +57,9 @@ export declare class YylHander {
     /** 解析 yylConfig.plugins 内容 */
     initPlugins(): Promise<any>;
     /** 获取 homePage */
-    getHomePage(op?: GetHomePageOption): Promise<string | undefined>;
+    getHomePage(op?: GetHomePageOption): Promise<string>;
     /** 打开 homePage */
-    openHomePage(op: GetHomePageOption): Promise<string | undefined>;
+    openHomePage(op: GetHomePageOption): Promise<string>;
     /** scripts 执行 */
     initScripts(ctx: any): Promise<any>;
     /** 执行 before script */

@@ -1,5 +1,5 @@
 {
-  "version": "1.2.1",
+  "version": "1.2.2",
   "main": "output/index.js",
   "types": "output/index.d.ts",
   "eslintConfig": {
@@ -42,7 +42,9 @@
     "test:initPlugins": "jest ./test/jest/yylHander.initPlugins.test.js",
     "test:initScripts": "jest ./test/jest/yylHander.initScripts.test.js",
     "test:init": "jest ./test/jest/yylHander.init.test.js",
-    "test:parseConfig": "jest ./test/jest/yylHander.parseConfig.test.js"
+    "test:parseConfig": "jest ./test/jest/yylHander.parseConfig.test.js",
+    "test:parseTsConfig": "jest ./test/jest/yylHander.parseTsConfig.test.js",
+    "test:serverWithEntry": "jest ./test/jest/serverWithEntry.test.js"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.1.0",
@@ -72,13 +74,13 @@
     "@babel/preset-typescript": "^7.13.0",
     "@types/request": "^2.48.5",
     "chalk": "^4.1.0",
-    "node-ts-parser": "^0.1.1",
+    "node-ts-parser": "^0.1.2",
     "request": "^2.88.2",
-    "yyl-config-types": "^0.4.1",
+    "yyl-config-types": "^0.4.3",
     "yyl-fs": "^0.3.3",
     "yyl-os": "^0.11.4",
     "yyl-seed-base": "^0.2.6",
-    "yyl-server": "^1.0.4",
+    "yyl-server": "^1.0.5",
     "yyl-util": "^2.3.9"
   }
 }

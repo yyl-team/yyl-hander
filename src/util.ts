@@ -1,7 +1,7 @@
 import path from 'path'
 import { type } from 'yyl-util'
 import { YylConfigAlias, YylConfig } from 'yyl-config-types'
-import { SUGAR_REG } from './const'
+export const SUGAR_REG = /(\{\$)([a-zA-Z0-9@_\-$.~]+)(\})/g
 
 export function toCtx<T = any>(ctx: any) {
   return ctx as T
