@@ -103,15 +103,24 @@ export class YylHander {
     }
 
     // extend config.mine.js
-    let mineConfig: any = {}
-    const mineConfigPath = configPath.replace(/\.js$/, '.mine.js')
-    if (fs.existsSync(mineConfigPath)) {
-      try {
-        mineConfig = require(mineConfigPath)
-      } catch (er) {}
+    let mineConfig: YylConfigEntry = {}
+    if (path.extname(configPath) === '.ts') {
+      const mineConfigPath = configPath.replace(/\.ts$/, '.mine.ts')
+      if (fs.existsSync(mineConfigPath)) {
+        const [err, result] = tsParser<YylConfigEntry>({ context, file: mineConfigPath })
+        if (result) {
+          mineConfig = result
+        }
+      }
+    } else {
+      const mineConfigPath = configPath.replace(/\.js$/, '.mine.js')
+      if (fs.existsSync(mineConfigPath)) {
+        try {
+          mineConfig = require(mineConfigPath)
+        } catch (er) {}
+      }
     }
-
-    if (typeof mineConfigPath === 'function') {
+    if (typeof mineConfig === 'function') {
       mineConfig = mineConfig({ env })
     }
 

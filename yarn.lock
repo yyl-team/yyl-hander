@@ -6916,10 +6916,10 @@ yyl-config-types@^0.3.19:
   resolved "https://registry.yarnpkg.com/yyl-config-types/-/yyl-config-types-0.3.19.tgz#fd7027c47bce2a45ad15facac6e9de9e8af142d1"
   integrity sha512-zkLJdzQu8mk3dh9dgCa4j5MU/pd01ZCxZiUMZW0lavFYd3/pXSTRCF/qRoycGkS1ejNKROmN8H/nAofusOthWQ==
 
-yyl-config-types@^0.4.1:
-  version "0.4.1"
-  resolved "https://registry.npmjs.org/yyl-config-types/-/yyl-config-types-0.4.1.tgz#9185f7f9dae66497bb44079aae3f62b9a55a3f7a"
-  integrity sha512-sz9SvEdsRiWRMqZqqjKbjIgN264TOM/vEskMRRLDrYPBH7986YzrmqR2V/AVxjW69HwfPA3IS38eoslOUYSRyg==
+yyl-config-types@^0.4.2:
+  version "0.4.2"
+  resolved "https://registry.npmjs.org/yyl-config-types/-/yyl-config-types-0.4.2.tgz#ddb1df56993db757171e8bd7cad949ecc8cf8000"
+  integrity sha512-RLW2pcCbU43o5sfbF1lpOvs4Rtz+nYJiDFhIpM2n8Q3d/K1LusIPCu2RJNDsN3wboy+GxJVOg344wivTF6nDLQ==
 
 yyl-fs@0.3.3, yyl-fs@^0.3.3:
   version "0.3.3"

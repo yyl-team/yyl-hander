@@ -1,5 +1,5 @@
 {
-  "version": "1.2.1",
+  "version": "1.2.2",
   "main": "output/index.js",
   "types": "output/index.d.ts",
   "eslintConfig": {
@@ -74,7 +74,7 @@
     "chalk": "^4.1.0",
     "node-ts-parser": "^0.1.1",
     "request": "^2.88.2",
-    "yyl-config-types": "^0.4.1",
+    "yyl-config-types": "^0.4.2",
     "yyl-fs": "^0.3.3",
     "yyl-os": "^0.11.4",
     "yyl-seed-base": "^0.2.6",
