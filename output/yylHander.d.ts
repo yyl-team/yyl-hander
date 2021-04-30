@@ -1,3 +1,4 @@
+/// <reference types="node" />
 import { YylConfig, Env, YylConfigAlias } from 'yyl-config-types';
 import { SeedEntry, SeedOptimizeResult, Logger } from 'yyl-seed-base';
 import { Runner } from 'yyl-server';
@@ -55,7 +56,7 @@ export declare class YylHander {
     /** 获取 yylConfig 内容 */
     getYylConfig(): YylConfig;
     /** 解析 yylConfig.plugins 内容 */
-    initPlugins(): Promise<any>;
+    initPlugins(): Promise<Buffer | undefined>;
     /** 获取 homePage */
     getHomePage(op?: GetHomePageOption): Promise<string>;
     /** 打开 homePage */

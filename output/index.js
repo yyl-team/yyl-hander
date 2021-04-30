@@ -1,5 +1,5 @@
 /*!
- * yyl-hander cjs 1.2.2
+ * yyl-hander cjs 1.2.3
  * (c) 2020 - 2021 
  * Released under the MIT License.
  */
@@ -464,9 +464,18 @@ class YylHander {
                 return;
             }
             // config.plugins 插件初始化
-            yield this.initPlugins().catch((er) => {
+            try {
+                const installMsgBuffer = yield this.initPlugins();
+                if (installMsgBuffer) {
+                    const strs = installMsgBuffer.toString().split(/[\r\n]+/);
+                    strs.forEach((str) => {
+                        logger('msg', 'info', [str]);
+                    });
+                }
+            }
+            catch (er) {
                 logger('msg', 'error', [er]);
-            });
+            }
             // 保存配置到服务器
             try {
                 this.saveConfigToServer();
