@@ -6923,10 +6923,17 @@ yyl-fs@0.3.3, yyl-fs@^0.3.3:
   resolved "https://registry.yarnpkg.com/yyl-fs/-/yyl-fs-0.3.3.tgz#aa409a5ea451cd0da287315665f338b1a24d4324"
   integrity sha512-3I+zY97ZJz91whuiBcdv3qdTQzErI8Dm2YSfJNK3XIAXmzWOSj1nSf6x59KrG4buzIaS3t2LEHVq4kPSYqu/9Q==
 
-yyl-os@0.11.4, yyl-os@^0.11.4:
+yyl-os@0.11.4:
   version "0.11.4"
   resolved "https://registry.yarnpkg.com/yyl-os/-/yyl-os-0.11.4.tgz#635172b344ab92d2a517bc8c011b8836a30f4e40"
   integrity sha512-R2YvkA4BMCCk6BdJliBThG3ISN6FZOqeqfiuTXATG8XXF6XVdcL+Ik1H1udWZS99WMLLz+783iKs88KM5CQR0Q==
+  dependencies:
+    yyl-util "^2.3.5"
+
+yyl-os@^0.12.0:
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/yyl-os/-/yyl-os-0.12.0.tgz#1e01b96d03769ec5794409c80130008e36a0b13e"
+  integrity sha512-GOcHpOwIPMYCmfEv0yIaQRrFReJInDkByQSvki9QbiZ5b4AJ4vTOuT9OpIcNqXMVpZtSgI4J5fxTwyGndu0C9g==
   dependencies:
     yyl-util "^2.3.5"
 

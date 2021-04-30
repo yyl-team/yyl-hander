@@ -51,7 +51,7 @@ Name | Type |
 
 **Returns:** [*YylHander*](yylhander.md)
 
-Defined in: [src/yylHander.ts:283](https://github.com/jackness1208/yyl-hander/blob/6a5cdc9/src/yylHander.ts#L283)
+Defined in: [src/yylHander.ts:283](https://github.com/yyl-team/yyl-hander/blob/b508f30/src/yylHander.ts#L283)
 
 ## Properties
 
@@ -59,7 +59,7 @@ Defined in: [src/yylHander.ts:283](https://github.com/jackness1208/yyl-hander/bl
 
 • **context**: *string*
 
-Defined in: [src/yylHander.ts:68](https://github.com/jackness1208/yyl-hander/blob/6a5cdc9/src/yylHander.ts#L68)
+Defined in: [src/yylHander.ts:68](https://github.com/yyl-team/yyl-hander/blob/b508f30/src/yylHander.ts#L68)
 
 ___
 
@@ -67,7 +67,7 @@ ___
 
 • **env**: Env
 
-Defined in: [src/yylHander.ts:70](https://github.com/jackness1208/yyl-hander/blob/6a5cdc9/src/yylHander.ts#L70)
+Defined in: [src/yylHander.ts:70](https://github.com/yyl-team/yyl-hander/blob/b508f30/src/yylHander.ts#L70)
 
 ___
 
@@ -75,7 +75,7 @@ ___
 
 • **logger**: *Logger*<keyof *any*\>
 
-Defined in: [src/yylHander.ts:72](https://github.com/jackness1208/yyl-hander/blob/6a5cdc9/src/yylHander.ts#L72)
+Defined in: [src/yylHander.ts:72](https://github.com/yyl-team/yyl-hander/blob/b508f30/src/yylHander.ts#L72)
 
 ___
 
@@ -83,7 +83,7 @@ ___
 
 • `Optional` **runner**: *undefined* \| *Runner*
 
-Defined in: [src/yylHander.ts:73](https://github.com/jackness1208/yyl-hander/blob/6a5cdc9/src/yylHander.ts#L73)
+Defined in: [src/yylHander.ts:73](https://github.com/yyl-team/yyl-hander/blob/b508f30/src/yylHander.ts#L73)
 
 ___
 
@@ -91,7 +91,7 @@ ___
 
 • **seed**: *undefined* \| SeedEntry
 
-Defined in: [src/yylHander.ts:71](https://github.com/jackness1208/yyl-hander/blob/6a5cdc9/src/yylHander.ts#L71)
+Defined in: [src/yylHander.ts:71](https://github.com/yyl-team/yyl-hander/blob/b508f30/src/yylHander.ts#L71)
 
 ___
 
@@ -99,7 +99,7 @@ ___
 
 • **yylConfig**: YylConfig
 
-Defined in: [src/yylHander.ts:69](https://github.com/jackness1208/yyl-hander/blob/6a5cdc9/src/yylHander.ts#L69)
+Defined in: [src/yylHander.ts:69](https://github.com/yyl-team/yyl-hander/blob/b508f30/src/yylHander.ts#L69)
 
 ## Methods
 
@@ -117,7 +117,7 @@ Name | Type |
 
 **Returns:** *Promise*<*string*\>
 
-Defined in: [src/yylHander.ts:515](https://github.com/jackness1208/yyl-hander/blob/6a5cdc9/src/yylHander.ts#L515)
+Defined in: [src/yylHander.ts:523](https://github.com/yyl-team/yyl-hander/blob/b508f30/src/yylHander.ts#L523)
 
 ___
 
@@ -129,7 +129,7 @@ ___
 
 **Returns:** YylConfig
 
-Defined in: [src/yylHander.ts:495](https://github.com/jackness1208/yyl-hander/blob/6a5cdc9/src/yylHander.ts#L495)
+Defined in: [src/yylHander.ts:503](https://github.com/yyl-team/yyl-hander/blob/b508f30/src/yylHander.ts#L503)
 
 ___
 
@@ -147,19 +147,19 @@ Name | Type |
 
 **Returns:** *Promise*<*undefined* \| [YylConfig, *undefined* \| SeedOptimizeResult]\>
 
-Defined in: [src/yylHander.ts:318](https://github.com/jackness1208/yyl-hander/blob/6a5cdc9/src/yylHander.ts#L318)
+Defined in: [src/yylHander.ts:318](https://github.com/yyl-team/yyl-hander/blob/b508f30/src/yylHander.ts#L318)
 
 ___
 
 ### initPlugins
 
-▸ **initPlugins**(): *Promise*<*any*\>
+▸ **initPlugins**(): *Promise*<*undefined* \| *Buffer*\>
 
 解析 yylConfig.plugins 内容
 
-**Returns:** *Promise*<*any*\>
+**Returns:** *Promise*<*undefined* \| *Buffer*\>
 
-Defined in: [src/yylHander.ts:500](https://github.com/jackness1208/yyl-hander/blob/6a5cdc9/src/yylHander.ts#L500)
+Defined in: [src/yylHander.ts:508](https://github.com/yyl-team/yyl-hander/blob/b508f30/src/yylHander.ts#L508)
 
 ___
 
@@ -177,7 +177,7 @@ Name | Type |
 
 **Returns:** *Promise*<*any*\>
 
-Defined in: [src/yylHander.ts:607](https://github.com/jackness1208/yyl-hander/blob/6a5cdc9/src/yylHander.ts#L607)
+Defined in: [src/yylHander.ts:615](https://github.com/yyl-team/yyl-hander/blob/b508f30/src/yylHander.ts#L615)
 
 ___
 
@@ -189,7 +189,7 @@ ___
 
 **Returns:** *Promise*<*void*\>
 
-Defined in: [src/yylHander.ts:665](https://github.com/jackness1208/yyl-hander/blob/6a5cdc9/src/yylHander.ts#L665)
+Defined in: [src/yylHander.ts:673](https://github.com/yyl-team/yyl-hander/blob/b508f30/src/yylHander.ts#L673)
 
 ___
 
@@ -207,7 +207,7 @@ Name | Type |
 
 **Returns:** *Promise*<*string*\>
 
-Defined in: [src/yylHander.ts:593](https://github.com/jackness1208/yyl-hander/blob/6a5cdc9/src/yylHander.ts#L593)
+Defined in: [src/yylHander.ts:601](https://github.com/yyl-team/yyl-hander/blob/b508f30/src/yylHander.ts#L601)
 
 ___
 
@@ -225,7 +225,7 @@ Name | Type |
 
 **Returns:** *Promise*<*any*\>
 
-Defined in: [src/yylHander.ts:646](https://github.com/jackness1208/yyl-hander/blob/6a5cdc9/src/yylHander.ts#L646)
+Defined in: [src/yylHander.ts:654](https://github.com/yyl-team/yyl-hander/blob/b508f30/src/yylHander.ts#L654)
 
 ___
 
@@ -243,7 +243,7 @@ Name | Type |
 
 **Returns:** *Promise*<*any*\>
 
-Defined in: [src/yylHander.ts:627](https://github.com/jackness1208/yyl-hander/blob/6a5cdc9/src/yylHander.ts#L627)
+Defined in: [src/yylHander.ts:635](https://github.com/yyl-team/yyl-hander/blob/b508f30/src/yylHander.ts#L635)
 
 ___
 
@@ -255,7 +255,7 @@ ___
 
 **Returns:** *Promise*<*void*\>
 
-Defined in: [src/yylHander.ts:680](https://github.com/jackness1208/yyl-hander/blob/6a5cdc9/src/yylHander.ts#L680)
+Defined in: [src/yylHander.ts:688](https://github.com/yyl-team/yyl-hander/blob/b508f30/src/yylHander.ts#L688)
 
 ___
 
@@ -273,7 +273,7 @@ Name | Type |
 
 **Returns:** YylConfig
 
-Defined in: [src/yylHander.ts:139](https://github.com/jackness1208/yyl-hander/blob/6a5cdc9/src/yylHander.ts#L139)
+Defined in: [src/yylHander.ts:139](https://github.com/yyl-team/yyl-hander/blob/b508f30/src/yylHander.ts#L139)
 
 ___
 
@@ -291,7 +291,7 @@ Name | Type |
 
 **Returns:** YylConfig
 
-Defined in: [src/yylHander.ts:76](https://github.com/jackness1208/yyl-hander/blob/6a5cdc9/src/yylHander.ts#L76)
+Defined in: [src/yylHander.ts:76](https://github.com/yyl-team/yyl-hander/blob/b508f30/src/yylHander.ts#L76)
 
 ___
 
@@ -309,4 +309,4 @@ Name | Type |
 
 **Returns:** *Promise*<*Runner*\>
 
-Defined in: [src/yylHander.ts:240](https://github.com/jackness1208/yyl-hander/blob/6a5cdc9/src/yylHander.ts#L240)
+Defined in: [src/yylHander.ts:240](https://github.com/yyl-team/yyl-hander/blob/b508f30/src/yylHander.ts#L240)

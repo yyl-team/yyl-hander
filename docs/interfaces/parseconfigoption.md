@@ -21,7 +21,7 @@ yyl.config 解析 - 配置
 
 • **configPath**: *string*
 
-Defined in: [src/yylHander.ts:29](https://github.com/jackness1208/yyl-hander/blob/6a5cdc9/src/yylHander.ts#L29)
+Defined in: [src/yylHander.ts:29](https://github.com/yyl-team/yyl-hander/blob/b508f30/src/yylHander.ts#L29)
 
 ___
 
@@ -29,4 +29,4 @@ ___
 
 • **env**: Env
 
-Defined in: [src/yylHander.ts:30](https://github.com/jackness1208/yyl-hander/blob/6a5cdc9/src/yylHander.ts#L30)
+Defined in: [src/yylHander.ts:30](https://github.com/yyl-team/yyl-hander/blob/b508f30/src/yylHander.ts#L30)

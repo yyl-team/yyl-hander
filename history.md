@@ -1,5 +1,9 @@
 # 版本变更
 
+## 1.2.3 (2021-05-01)
+
+- feat: 隐藏掉 installPackage 的 log
+
 ## 1.2.2 (2021-04-15)
 
 - feat: 更新 `yyl-server@1.0.5`

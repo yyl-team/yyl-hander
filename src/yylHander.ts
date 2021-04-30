@@ -355,9 +355,17 @@ export class YylHander {
     }
 
     // config.plugins 插件初始化
-    await this.initPlugins().catch((er) => {
+    try {
+      const installMsgBuffer = await this.initPlugins()
+      if (installMsgBuffer) {
+        const strs = installMsgBuffer.toString().split(/[\r\n]+/)
+        strs.forEach((str) => {
+          logger('msg', 'info', [str])
+        })
+      }
+    } catch (er) {
       logger('msg', 'error', [er])
-    })
+    }
 
     // 保存配置到服务器
     try {
