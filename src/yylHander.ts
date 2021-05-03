@@ -2,7 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import { YylConfig, Env, YylConfigAlias, YylConfigEntry } from 'yyl-config-types'
 import { deepReplace, formatPath, needEnvName, toCtx, sugarReplace } from './util'
-import extOs, { runSpawn } from 'yyl-os'
+import extOs, { runExec, runSpawn } from 'yyl-os'
 import util, { type } from 'yyl-util'
 import extFs from 'yyl-fs'
 import chalk from 'chalk'
@@ -11,6 +11,7 @@ import request from 'request'
 import { SeedEntry, SeedOptimizeResult, Logger } from 'yyl-seed-base'
 import { Runner, YServerSetting } from 'yyl-server'
 import { tsParser } from 'node-ts-parser'
+import { execSync } from 'child_process'
 export { tsParser, TsParserOption } from 'node-ts-parser'
 
 /** 格式化配置 - 配置 */
@@ -616,13 +617,19 @@ export class YylHander {
     const { yylConfig, env, logger, context } = this
     if (typeof ctx === 'string') {
       logger('msg', 'cmd', [ctx])
-      return await runSpawn(ctx, context)
+      const rs = await runExec({ cmd: ctx, cwd: context })
+      if (rs) {
+        logger('msg', 'info', rs.split(/[\r\n]+/))
+      }
     } else if (typeof ctx === 'function') {
       logger('msg', 'info', [LANG.RUN_SCRIPT_FN_START])
       const rFn = ctx({ config: yylConfig, env })
       if (typeof rFn === 'string') {
         logger('msg', 'cmd', [rFn])
-        return await runSpawn(rFn, context)
+        const rs = await runExec({ cmd: ctx, cwd: context })
+        if (rs) {
+          logger('msg', 'info', rs.split(/[\r\n]+/))
+        }
       } else {
         const r = await rFn
         logger('msg', 'success', [LANG.RUN_SCRIPT_FN_FINISHED])
