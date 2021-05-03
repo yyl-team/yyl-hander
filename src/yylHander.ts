@@ -626,7 +626,7 @@ export class YylHander {
       const rFn = ctx({ config: yylConfig, env })
       if (typeof rFn === 'string') {
         logger('msg', 'cmd', [rFn])
-        const rs = await runExec({ cmd: ctx, cwd: context })
+        const rs = await runExec({ cmd: rFn, cwd: context })
         if (rs) {
           logger('msg', 'info', rs.split(/[\r\n]+/))
         }
