@@ -1,5 +1,9 @@
 # 版本变更
 
+## 1.2.4 (2021-05-03)
+
+- feat: 调整 initScript 逻辑
+
 ## 1.2.3 (2021-05-01)
 
 - feat: 隐藏掉 installPackage 的 log

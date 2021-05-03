@@ -1,5 +1,5 @@
 /*!
- * yyl-hander cjs 1.2.3
+ * yyl-hander cjs 1.2.4
  * (c) 2020 - 2021 
  * Released under the MIT License.
  */
@@ -722,14 +722,20 @@ class YylHander {
             const { yylConfig, env, logger, context } = this;
             if (typeof ctx === 'string') {
                 logger('msg', 'cmd', [ctx]);
-                return yield extOs.runSpawn(ctx, context);
+                const rs = yield extOs.runExec({ cmd: ctx, cwd: context });
+                if (rs) {
+                    logger('msg', 'info', rs.split(/[\r\n]+/));
+                }
             }
             else if (typeof ctx === 'function') {
                 logger('msg', 'info', [LANG.RUN_SCRIPT_FN_START]);
                 const rFn = ctx({ config: yylConfig, env });
                 if (typeof rFn === 'string') {
                     logger('msg', 'cmd', [rFn]);
-                    return yield extOs.runSpawn(rFn, context);
+                    const rs = yield extOs.runExec({ cmd: ctx, cwd: context });
+                    if (rs) {
+                        logger('msg', 'info', rs.split(/[\r\n]+/));
+                    }
                 }
                 else {
                     const r = yield rFn;
