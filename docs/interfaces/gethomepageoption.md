@@ -20,4 +20,4 @@
 
 • `Optional` **files**: *undefined* \| *string*[]
 
-Defined in: [src/yylHander.ts:25](https://github.com/yyl-team/yyl-hander/blob/55002ea/src/yylHander.ts#L25)
+Defined in: [src/yylHander.ts:25](https://github.com/yyl-team/yyl-hander/blob/1e1faf9/src/yylHander.ts#L25)

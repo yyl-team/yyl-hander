@@ -1,5 +1,5 @@
 /*!
- * yyl-hander cjs 1.2.5
+ * yyl-hander cjs 1.2.6
  * (c) 2020 - 2021 
  * Released under the MIT License.
  */
@@ -722,20 +722,18 @@ class YylHander {
             const { yylConfig, env, logger, context } = this;
             if (typeof ctx === 'string') {
                 logger('msg', 'cmd', [ctx]);
-                const rs = yield extOs.runExec({ cmd: ctx, cwd: context });
-                if (rs) {
-                    logger('msg', 'info', rs.split(/[\r\n]+/));
-                }
+                return yield extOs.runSpawn(ctx, context, (dataBuffer) => {
+                    logger('msg', 'info', dataBuffer.toString().split(/[\r\n]+/));
+                });
             }
             else if (typeof ctx === 'function') {
                 logger('msg', 'info', [LANG.RUN_SCRIPT_FN_START]);
                 const rFn = ctx({ config: yylConfig, env });
                 if (typeof rFn === 'string') {
                     logger('msg', 'cmd', [rFn]);
-                    const rs = yield extOs.runExec({ cmd: rFn, cwd: context });
-                    if (rs) {
-                        logger('msg', 'info', rs.split(/[\r\n]+/));
-                    }
+                    return yield extOs.runSpawn(rFn, context, (dataBuffer) => {
+                        logger('msg', 'info', dataBuffer.toString().split(/[\r\n]+/));
+                    });
                 }
                 else {
                     const r = yield rFn;

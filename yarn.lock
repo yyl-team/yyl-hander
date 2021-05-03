@@ -6930,10 +6930,10 @@ yyl-os@0.11.4:
   dependencies:
     yyl-util "^2.3.5"
 
-yyl-os@^0.13.0:
-  version "0.13.0"
-  resolved "https://registry.yarnpkg.com/yyl-os/-/yyl-os-0.13.0.tgz#0625ff0e1e7c1f9d88ed4cab9cd7cf526e744b13"
-  integrity sha512-xWzWQMYPr9HtNgbyP2ZJOlYv+0gw3y3FU7+pw9g3BB7rGX231CrcoOVrbAGYjLvXzLUOHDjvcINpeKwydj8iww==
+yyl-os@^0.14.0:
+  version "0.14.0"
+  resolved "https://registry.yarnpkg.com/yyl-os/-/yyl-os-0.14.0.tgz#4452e55ebd56f02b3b4d0d01c8f0a3d6185e5a25"
+  integrity sha512-qxAi3wiFRKLsQ95j5Oun6H2uiIwKGAn5U8fjaq7kFmQT7pSaEEKhJnALUkFDf4TLlXYVJbmtIgxfYtqnEHwuCw==
   dependencies:
     yyl-util "^2.3.5"
 
