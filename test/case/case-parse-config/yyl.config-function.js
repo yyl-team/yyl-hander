@@ -35,18 +35,18 @@ const makeConfig = function ({ env }) {
     proxy: {
       port: 8887,
       localRemote: {
-        'http://web.yy.com/': 'http://127.0.0.1:5000/',
-        'http://webtest.yy.com/': 'http://127.0.0.1:5000/'
+        'http://web.testhost.com/': 'http://127.0.0.1:5000/',
+        'http://webtest.testhost.com/': 'http://127.0.0.1:5000/'
       },
-      homePage: `http://www.yy.com/web/${PROJECT_NAME}/`
+      homePage: `http://www.testhost.com/web/${PROJECT_NAME}/`
     }
   }
 
   setting.proxy.localRemote[
-    `http://www.yy.com/web/${PROJECT_NAME}`
+    `http://www.testhost.com/web/${PROJECT_NAME}`
   ] = `http://127.0.0.1:5000/project/${PROJECT_NAME}/${PLATFORM}/html`
 
-  setting.proxy.localRemote['http://www.yy.com/api/mock'] = 'http://127.0.0.1:5000/api/mock'
+  setting.proxy.localRemote['http://www.testhost.com/api/mock'] = 'http://127.0.0.1:5000/api/mock'
 
   // - setting
 
@@ -121,11 +121,11 @@ const makeConfig = function ({ env }) {
   // - alias
 
   // + commit
-  let mainHost = '//www.yy.com/web'
+  let mainHost = '//www.testhost.com/web'
   let staticHost = '//web.yystatic.com'
   if (env.mode !== 'master') {
     // 测试环境
-    mainHost = '//webtest.yy.com'
+    mainHost = '//webtest.testhost.com'
     staticHost = '//webtest.yystatic.com'
   }
   Object.assign(config, {

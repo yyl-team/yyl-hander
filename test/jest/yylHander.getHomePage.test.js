@@ -41,7 +41,7 @@ test('yylHander.getHomePage() with proxy', async () => {
         port: 5000
       },
       commit: {
-        hostname: '//web.yy.com'
+        hostname: '//web.testhost.com'
       }
     }
   })
@@ -49,7 +49,7 @@ test('yylHander.getHomePage() with proxy', async () => {
     await yylHander.getHomePage({
       files: [path.join(I_FRAG_PATH, 'dist/project/1/pc/html/any.html')]
     })
-  ).toEqual(`//web.yy.com/project/1/pc/html/any.html`)
+  ).toEqual(`//web.testhost.com/project/1/pc/html/any.html`)
 }, 0)
 
 test('yylHander.getHomePage() with proxy.homePage', async () => {
@@ -65,7 +65,7 @@ test('yylHander.getHomePage() with proxy.homePage', async () => {
         port: 5000
       },
       proxy: {
-        homePage: 'http://www.yy.com/web/1/'
+        homePage: 'http://www.testhost.com/web/1/'
       }
     }
   })
@@ -86,7 +86,7 @@ test('yylHander.getHomePage() with proxy.homePage and --proxy', async () => {
       name,
       workflow: 'webpack',
       proxy: {
-        homePage: 'http://www.yy.com/web/1/'
+        homePage: 'http://www.testhost.com/web/1/'
       }
     },
     env: {
@@ -97,5 +97,5 @@ test('yylHander.getHomePage() with proxy.homePage and --proxy', async () => {
     await yylHander.getHomePage({
       files: [path.join(I_FRAG_PATH, 'dist/project/1/pc/html/any.html')]
     })
-  ).toEqual('http://www.yy.com/web/1/')
+  ).toEqual('http://www.testhost.com/web/1/')
 }, 0)

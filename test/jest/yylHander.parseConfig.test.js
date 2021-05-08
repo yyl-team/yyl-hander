@@ -22,11 +22,11 @@ test('yylHander.parseConfig(): object', async () => {
     proxy: {
       port: 8887,
       localRemote: {
-        'http://web.yy.com/': 'http://127.0.0.1:5000/',
-        'http://www.yy.com/web/1': 'http://127.0.0.1:5000/project/1/mobile/html',
-        'http://www.yy.com/api/mock': 'http://127.0.0.1:5000/api/mock'
+        'http://web.testhost.com/': 'http://127.0.0.1:5000/',
+        'http://www.testhost.com/web/1': 'http://127.0.0.1:5000/project/1/mobile/html',
+        'http://www.testhost.com/api/mock': 'http://127.0.0.1:5000/api/mock'
       },
-      homePage: 'http://www.yy.com/web/1/'
+      homePage: 'http://www.testhost.com/web/1/'
     },
     localserver: {
       root: `${configDir}/dist`,
@@ -47,7 +47,7 @@ test('yylHander.parseConfig(): object', async () => {
       revAddr: 'http://web.yystatic.com/project/1/mobile/assets/rev-manifest.json',
       hostname: '//web.yystatic.com',
       staticHost: '//web.yystatic.com',
-      mainHost: '//www.yy.com/web'
+      mainHost: '//www.testhost.com/web'
     },
     concat: {},
     resource: {},
@@ -101,11 +101,11 @@ test('yylHander.parseConfig(): env.config', async () => {
     proxy: {
       port: 8887,
       localRemote: {
-        'http://web.yy.com/': 'http://127.0.0.1:5000/',
-        'http://www.yy.com/web/1': 'http://127.0.0.1:5000/project/1/mobile/html',
-        'http://www.yy.com/api/mock': 'http://127.0.0.1:5000/api/mock'
+        'http://web.testhost.com/': 'http://127.0.0.1:5000/',
+        'http://www.testhost.com/web/1': 'http://127.0.0.1:5000/project/1/mobile/html',
+        'http://www.testhost.com/api/mock': 'http://127.0.0.1:5000/api/mock'
       },
-      homePage: 'http://www.yy.com/web/1/'
+      homePage: 'http://www.testhost.com/web/1/'
     },
     localserver: {
       root: `${configDir}/dist`,
@@ -126,7 +126,7 @@ test('yylHander.parseConfig(): env.config', async () => {
       revAddr: 'http://web.yystatic.com/project/1/mobile/assets/rev-manifest.json',
       hostname: '//web.yystatic.com',
       staticHost: '//web.yystatic.com',
-      mainHost: '//www.yy.com/web'
+      mainHost: '//www.testhost.com/web'
     },
     concat: {},
     resource: {},
@@ -177,11 +177,11 @@ test('yylHander.parseConfig(): object no plugins', async () => {
     proxy: {
       port: 8887,
       localRemote: {
-        'http://web.yy.com/': 'http://127.0.0.1:5000/',
-        'http://www.yy.com/web/1': 'http://127.0.0.1:5000/project/1/mobile/html',
-        'http://www.yy.com/api/mock': 'http://127.0.0.1:5000/api/mock'
+        'http://web.testhost.com/': 'http://127.0.0.1:5000/',
+        'http://www.testhost.com/web/1': 'http://127.0.0.1:5000/project/1/mobile/html',
+        'http://www.testhost.com/api/mock': 'http://127.0.0.1:5000/api/mock'
       },
-      homePage: 'http://www.yy.com/web/1/'
+      homePage: 'http://www.testhost.com/web/1/'
     },
     localserver: {
       root: `${configDir}/dist`,
@@ -202,7 +202,7 @@ test('yylHander.parseConfig(): object no plugins', async () => {
       revAddr: 'http://web.yystatic.com/project/1/mobile/assets/rev-manifest.json',
       hostname: '//web.yystatic.com',
       staticHost: '//web.yystatic.com',
-      mainHost: '//www.yy.com/web'
+      mainHost: '//www.testhost.com/web'
     },
     concat: {},
     resource: {},
@@ -255,11 +255,11 @@ test('yylHander.parseConfig(): configPath is function', async () => {
 
   expect(r1.commit.hostname).toEqual('//web.yystatic.com')
   expect(r1.commit.staticHost).toEqual('//web.yystatic.com')
-  expect(r1.commit.mainHost).toEqual('//www.yy.com/web')
+  expect(r1.commit.mainHost).toEqual('//www.testhost.com/web')
 
   expect(r2.commit.hostname).toEqual('//webtest.yystatic.com')
   expect(r2.commit.staticHost).toEqual('//webtest.yystatic.com')
-  expect(r2.commit.mainHost).toEqual('//webtest.yy.com')
+  expect(r2.commit.mainHost).toEqual('//webtest.testhost.com')
 })
 
 test('yylHander.parseConfig(): resource sugar', async () => {

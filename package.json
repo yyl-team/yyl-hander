@@ -67,7 +67,7 @@
   "name": "yyl-hander",
   "description": "yyl hander",
   "repository": "https://github.com/jackness1208/yyl-hander.git",
-  "author": "liudaojie <liudaojie@yy.com>",
+  "author": "jackness1208",
   "license": "MIT",
   "dependencies": {
     "@babel/core": "^7.13.15",
