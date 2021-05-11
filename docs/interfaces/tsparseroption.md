@@ -2,10 +2,6 @@
 
 # Interface: TsParserOption
 
-## Hierarchy
-
-* **TsParserOption**
-
 ## Table of contents
 
 ### Properties
@@ -17,7 +13,7 @@
 
 ### context
 
-• `Optional` **context**: *undefined* \| *string*
+• `Optional` **context**: *string*
 
 作用域
 
