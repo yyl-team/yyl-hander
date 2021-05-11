@@ -2,10 +2,6 @@
 
 # Class: YylHander
 
-## Hierarchy
-
-* **YylHander**
-
 ## Table of contents
 
 ### Constructors
@@ -43,15 +39,15 @@
 
 \+ **new YylHander**(`option`: [*YylParserOption*](../interfaces/yylparseroption.md)): [*YylHander*](yylhander.md)
 
-#### Parameters:
+#### Parameters
 
-Name | Type |
------- | ------ |
-`option` | [*YylParserOption*](../interfaces/yylparseroption.md) |
+| Name | Type |
+| :------ | :------ |
+| `option` | [*YylParserOption*](../interfaces/yylparseroption.md) |
 
 **Returns:** [*YylHander*](yylhander.md)
 
-Defined in: [src/yylHander.ts:284](https://github.com/yyl-team/yyl-hander/blob/b964d78/src/yylHander.ts#L284)
+Defined in: [src/yylHander.ts:284](https://github.com/yyl-team/yyl-hander/blob/170c63b/src/yylHander.ts#L284)
 
 ## Properties
 
@@ -59,31 +55,31 @@ Defined in: [src/yylHander.ts:284](https://github.com/yyl-team/yyl-hander/blob/b
 
 • **context**: *string*
 
-Defined in: [src/yylHander.ts:69](https://github.com/yyl-team/yyl-hander/blob/b964d78/src/yylHander.ts#L69)
+Defined in: [src/yylHander.ts:69](https://github.com/yyl-team/yyl-hander/blob/170c63b/src/yylHander.ts#L69)
 
 ___
 
 ### env
 
-• **env**: Env
+• **env**: Env= {}
 
-Defined in: [src/yylHander.ts:71](https://github.com/yyl-team/yyl-hander/blob/b964d78/src/yylHander.ts#L71)
+Defined in: [src/yylHander.ts:71](https://github.com/yyl-team/yyl-hander/blob/170c63b/src/yylHander.ts#L71)
 
 ___
 
 ### logger
 
-• **logger**: *Logger*<keyof *any*\>
+• **logger**: *Logger*<keyof SeedEventName\>
 
-Defined in: [src/yylHander.ts:73](https://github.com/yyl-team/yyl-hander/blob/b964d78/src/yylHander.ts#L73)
+Defined in: [src/yylHander.ts:73](https://github.com/yyl-team/yyl-hander/blob/170c63b/src/yylHander.ts#L73)
 
 ___
 
 ### runner
 
-• `Optional` **runner**: *undefined* \| *Runner*
+• `Optional` **runner**: *Runner*
 
-Defined in: [src/yylHander.ts:74](https://github.com/yyl-team/yyl-hander/blob/b964d78/src/yylHander.ts#L74)
+Defined in: [src/yylHander.ts:74](https://github.com/yyl-team/yyl-hander/blob/170c63b/src/yylHander.ts#L74)
 
 ___
 
@@ -91,33 +87,33 @@ ___
 
 • **seed**: *undefined* \| SeedEntry
 
-Defined in: [src/yylHander.ts:72](https://github.com/yyl-team/yyl-hander/blob/b964d78/src/yylHander.ts#L72)
+Defined in: [src/yylHander.ts:72](https://github.com/yyl-team/yyl-hander/blob/170c63b/src/yylHander.ts#L72)
 
 ___
 
 ### yylConfig
 
-• **yylConfig**: YylConfig
+• **yylConfig**: YylConfig= {}
 
-Defined in: [src/yylHander.ts:70](https://github.com/yyl-team/yyl-hander/blob/b964d78/src/yylHander.ts#L70)
+Defined in: [src/yylHander.ts:70](https://github.com/yyl-team/yyl-hander/blob/170c63b/src/yylHander.ts#L70)
 
 ## Methods
 
 ### getHomePage
 
-▸ **getHomePage**(`op?`: [*GetHomePageOption*](../interfaces/gethomepageoption.md)): *Promise*<*string*\>
+▸ **getHomePage**(`op?`: [*GetHomePageOption*](../interfaces/gethomepageoption.md)): *Promise*<string\>
 
 获取 homePage
 
-#### Parameters:
+#### Parameters
 
-Name | Type |
------- | ------ |
-`op?` | [*GetHomePageOption*](../interfaces/gethomepageoption.md) |
+| Name | Type |
+| :------ | :------ |
+| `op?` | [*GetHomePageOption*](../interfaces/gethomepageoption.md) |
 
-**Returns:** *Promise*<*string*\>
+**Returns:** *Promise*<string\>
 
-Defined in: [src/yylHander.ts:524](https://github.com/yyl-team/yyl-hander/blob/b964d78/src/yylHander.ts#L524)
+Defined in: [src/yylHander.ts:524](https://github.com/yyl-team/yyl-hander/blob/170c63b/src/yylHander.ts#L524)
 
 ___
 
@@ -129,184 +125,184 @@ ___
 
 **Returns:** YylConfig
 
-Defined in: [src/yylHander.ts:504](https://github.com/yyl-team/yyl-hander/blob/b964d78/src/yylHander.ts#L504)
+Defined in: [src/yylHander.ts:504](https://github.com/yyl-team/yyl-hander/blob/170c63b/src/yylHander.ts#L504)
 
 ___
 
 ### init
 
-▸ **init**(`op`: [*YylHanderInitOption*](../interfaces/yylhanderinitoption.md)): *Promise*<*undefined* \| [YylConfig, *undefined* \| SeedOptimizeResult]\>
+▸ **init**(`op`: [*YylHanderInitOption*](../interfaces/yylhanderinitoption.md)): *Promise*<undefined \| [YylConfig, *undefined* \| SeedOptimizeResult]\>
 
 初始化
 
-#### Parameters:
+#### Parameters
 
-Name | Type |
------- | ------ |
-`op` | [*YylHanderInitOption*](../interfaces/yylhanderinitoption.md) |
+| Name | Type |
+| :------ | :------ |
+| `op` | [*YylHanderInitOption*](../interfaces/yylhanderinitoption.md) |
 
-**Returns:** *Promise*<*undefined* \| [YylConfig, *undefined* \| SeedOptimizeResult]\>
+**Returns:** *Promise*<undefined \| [YylConfig, *undefined* \| SeedOptimizeResult]\>
 
-Defined in: [src/yylHander.ts:319](https://github.com/yyl-team/yyl-hander/blob/b964d78/src/yylHander.ts#L319)
+Defined in: [src/yylHander.ts:319](https://github.com/yyl-team/yyl-hander/blob/170c63b/src/yylHander.ts#L319)
 
 ___
 
 ### initPlugins
 
-▸ **initPlugins**(): *Promise*<*undefined* \| *Buffer*\>
+▸ **initPlugins**(): *Promise*<undefined \| Buffer\>
 
 解析 yylConfig.plugins 内容
 
-**Returns:** *Promise*<*undefined* \| *Buffer*\>
+**Returns:** *Promise*<undefined \| Buffer\>
 
-Defined in: [src/yylHander.ts:509](https://github.com/yyl-team/yyl-hander/blob/b964d78/src/yylHander.ts#L509)
+Defined in: [src/yylHander.ts:509](https://github.com/yyl-team/yyl-hander/blob/170c63b/src/yylHander.ts#L509)
 
 ___
 
 ### initScripts
 
-▸ **initScripts**(`ctx`: *any*): *Promise*<*any*\>
+▸ **initScripts**(`ctx`: *any*): *Promise*<any\>
 
 scripts 执行
 
-#### Parameters:
+#### Parameters
 
-Name | Type |
------- | ------ |
-`ctx` | *any* |
+| Name | Type |
+| :------ | :------ |
+| `ctx` | *any* |
 
-**Returns:** *Promise*<*any*\>
+**Returns:** *Promise*<any\>
 
-Defined in: [src/yylHander.ts:616](https://github.com/yyl-team/yyl-hander/blob/b964d78/src/yylHander.ts#L616)
+Defined in: [src/yylHander.ts:616](https://github.com/yyl-team/yyl-hander/blob/170c63b/src/yylHander.ts#L616)
 
 ___
 
 ### livereload
 
-▸ **livereload**(): *Promise*<*void*\>
+▸ **livereload**(): *Promise*<void\>
 
 热更新
 
-**Returns:** *Promise*<*void*\>
+**Returns:** *Promise*<void\>
 
-Defined in: [src/yylHander.ts:678](https://github.com/yyl-team/yyl-hander/blob/b964d78/src/yylHander.ts#L678)
+Defined in: [src/yylHander.ts:678](https://github.com/yyl-team/yyl-hander/blob/170c63b/src/yylHander.ts#L678)
 
 ___
 
 ### openHomePage
 
-▸ **openHomePage**(`op`: [*GetHomePageOption*](../interfaces/gethomepageoption.md)): *Promise*<*string*\>
+▸ **openHomePage**(`op`: [*GetHomePageOption*](../interfaces/gethomepageoption.md)): *Promise*<string\>
 
 打开 homePage
 
-#### Parameters:
+#### Parameters
 
-Name | Type |
------- | ------ |
-`op` | [*GetHomePageOption*](../interfaces/gethomepageoption.md) |
+| Name | Type |
+| :------ | :------ |
+| `op` | [*GetHomePageOption*](../interfaces/gethomepageoption.md) |
 
-**Returns:** *Promise*<*string*\>
+**Returns:** *Promise*<string\>
 
-Defined in: [src/yylHander.ts:602](https://github.com/yyl-team/yyl-hander/blob/b964d78/src/yylHander.ts#L602)
+Defined in: [src/yylHander.ts:602](https://github.com/yyl-team/yyl-hander/blob/170c63b/src/yylHander.ts#L602)
 
 ___
 
 ### runAfterScripts
 
-▸ **runAfterScripts**(`watch?`: *boolean*): *Promise*<*any*\>
+▸ **runAfterScripts**(`watch?`: *boolean*): *Promise*<any\>
 
 执行 after script
 
-#### Parameters:
+#### Parameters
 
-Name | Type |
------- | ------ |
-`watch?` | *boolean* |
+| Name | Type |
+| :------ | :------ |
+| `watch?` | *boolean* |
 
-**Returns:** *Promise*<*any*\>
+**Returns:** *Promise*<any\>
 
-Defined in: [src/yylHander.ts:659](https://github.com/yyl-team/yyl-hander/blob/b964d78/src/yylHander.ts#L659)
+Defined in: [src/yylHander.ts:659](https://github.com/yyl-team/yyl-hander/blob/170c63b/src/yylHander.ts#L659)
 
 ___
 
 ### runBeforeScripts
 
-▸ **runBeforeScripts**(`watch?`: *boolean*): *Promise*<*any*\>
+▸ **runBeforeScripts**(`watch?`: *boolean*): *Promise*<any\>
 
 执行 before script
 
-#### Parameters:
+#### Parameters
 
-Name | Type |
------- | ------ |
-`watch?` | *boolean* |
+| Name | Type |
+| :------ | :------ |
+| `watch?` | *boolean* |
 
-**Returns:** *Promise*<*any*\>
+**Returns:** *Promise*<any\>
 
-Defined in: [src/yylHander.ts:640](https://github.com/yyl-team/yyl-hander/blob/b964d78/src/yylHander.ts#L640)
+Defined in: [src/yylHander.ts:640](https://github.com/yyl-team/yyl-hander/blob/170c63b/src/yylHander.ts#L640)
 
 ___
 
 ### saveConfigToServer
 
-▸ **saveConfigToServer**(): *Promise*<*void*\>
+▸ **saveConfigToServer**(): *Promise*<void\>
 
 保存配置到缓存目录
 
-**Returns:** *Promise*<*void*\>
+**Returns:** *Promise*<void\>
 
-Defined in: [src/yylHander.ts:693](https://github.com/yyl-team/yyl-hander/blob/b964d78/src/yylHander.ts#L693)
+Defined in: [src/yylHander.ts:693](https://github.com/yyl-team/yyl-hander/blob/170c63b/src/yylHander.ts#L693)
 
 ___
 
 ### formatConfig
 
-▸ `Static`**formatConfig**(`option`: [*FormatConfigOption*](../interfaces/formatconfigoption.md)): YylConfig
+▸ `Static` **formatConfig**(`option`: [*FormatConfigOption*](../interfaces/formatconfigoption.md)): YylConfig
 
 格式化配置
 
-#### Parameters:
+#### Parameters
 
-Name | Type |
------- | ------ |
-`option` | [*FormatConfigOption*](../interfaces/formatconfigoption.md) |
+| Name | Type |
+| :------ | :------ |
+| `option` | [*FormatConfigOption*](../interfaces/formatconfigoption.md) |
 
 **Returns:** YylConfig
 
-Defined in: [src/yylHander.ts:140](https://github.com/yyl-team/yyl-hander/blob/b964d78/src/yylHander.ts#L140)
+Defined in: [src/yylHander.ts:140](https://github.com/yyl-team/yyl-hander/blob/170c63b/src/yylHander.ts#L140)
 
 ___
 
 ### parseConfig
 
-▸ `Static`**parseConfig**(`op`: [*ParseConfigOption*](../interfaces/parseconfigoption.md)): YylConfig
+▸ `Static` **parseConfig**(`op`: [*ParseConfigOption*](../interfaces/parseconfigoption.md)): YylConfig
 
 解析配置
 
-#### Parameters:
+#### Parameters
 
-Name | Type |
------- | ------ |
-`op` | [*ParseConfigOption*](../interfaces/parseconfigoption.md) |
+| Name | Type |
+| :------ | :------ |
+| `op` | [*ParseConfigOption*](../interfaces/parseconfigoption.md) |
 
 **Returns:** YylConfig
 
-Defined in: [src/yylHander.ts:77](https://github.com/yyl-team/yyl-hander/blob/b964d78/src/yylHander.ts#L77)
+Defined in: [src/yylHander.ts:77](https://github.com/yyl-team/yyl-hander/blob/170c63b/src/yylHander.ts#L77)
 
 ___
 
 ### startServer
 
-▸ `Static`**startServer**(`op`: [*StartServerOption*](../interfaces/startserveroption.md)): *Promise*<*Runner*\>
+▸ `Static` **startServer**(`op`: [*StartServerOption*](../interfaces/startserveroption.md)): *Promise*<Runner\>
 
 启动服务器
 
-#### Parameters:
+#### Parameters
 
-Name | Type |
------- | ------ |
-`op` | [*StartServerOption*](../interfaces/startserveroption.md) |
+| Name | Type |
+| :------ | :------ |
+| `op` | [*StartServerOption*](../interfaces/startserveroption.md) |
 
-**Returns:** *Promise*<*Runner*\>
+**Returns:** *Promise*<Runner\>
 
-Defined in: [src/yylHander.ts:241](https://github.com/yyl-team/yyl-hander/blob/b964d78/src/yylHander.ts#L241)
+Defined in: [src/yylHander.ts:241](https://github.com/yyl-team/yyl-hander/blob/170c63b/src/yylHander.ts#L241)

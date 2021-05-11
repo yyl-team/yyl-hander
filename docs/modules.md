@@ -41,7 +41,7 @@
 
 • `Const` **DEFAULT\_ALIAS**: YylConfigAlias
 
-Defined in: [src/yylHander.ts:55](https://github.com/yyl-team/yyl-hander/blob/b964d78/src/yylHander.ts#L55)
+Defined in: [src/yylHander.ts:55](https://github.com/yyl-team/yyl-hander/blob/170c63b/src/yylHander.ts#L55)
 
 ___
 
@@ -49,52 +49,52 @@ ___
 
 • `Const` **LANG**: *object*
 
-#### Type declaration:
+#### Type declaration
 
-Name | Type |
------- | ------ |
-`CLEAN_DIST_FAIL` | *string* |
-`CLEAN_DIST_FINISHED` | *string* |
-`CONFIG_ATTR_IS_NEEDFUL` | *string* |
-`CONFIG_NOT_EXISTS` | *string* |
-`CONFIG_NOT_SET` | *string* |
-`CONFIG_PARSE_ERROR` | *string* |
-`CONFIG_SAVED` | *string* |
-`DEL_PKG_LOCK_FILE` | *string* |
-`INSTALL_YARN` | *string* |
-`MISS_NAME_OPTIONS` | *string* |
-`NAME_OPTIONS_NOT_EXISTS` | *string* |
-`NO_OPZER_HANDLE` | *string* |
-`OPEN_ADDR` | *string* |
-`OPTIMIZE_FINISHED` | *string* |
-`OPTIMIZE_START` | *string* |
-`PAGE_RELOAD` | *string* |
-`PARSE_TS_FAIL` | *string* |
-`PARSE_TS_FINISHED` | *string* |
-`PARSE_TS_START` | *string* |
-`PRINT_HOME_PAGE` | *string* |
-`REQUIRE_ATLEAST_VERSION` | *string* |
-`RUNNER_START` | *string* |
-`RUNNER_START_FAIL` | *string* |
-`RUNNER_START_FINISHED` | *string* |
-`RUN_ALL_AFTER_SCRIPT_FINISHED` | *string* |
-`RUN_ALL_AFTER_SCRIPT_START` | *string* |
-`RUN_ALL_BEFORE_SCRIPT_FINISHED` | *string* |
-`RUN_ALL_BEFORE_SCRIPT_START` | *string* |
-`RUN_SCRIPT_FN_FINISHED` | *string* |
-`RUN_SCRIPT_FN_START` | *string* |
-`RUN_WATCH_AFTER_SCRIPT_FINISHED` | *string* |
-`RUN_WATCH_AFTER_SCRIPT_START` | *string* |
-`RUN_WATCH_BEFORE_SCRIPT_FINISHED` | *string* |
-`RUN_WATCH_BEFORE_SCRIPT_START` | *string* |
-`SAVE_CONFIG_TO_SERVER_FAIL` | *string* |
-`SEED_INIT_FAIL` | *string* |
-`SEED_INIT_FINISHED` | *string* |
-`SEED_INIT_START` | *string* |
-`SEED_NOT_SET` | *string* |
-`YARN_VERSION` | *string* |
+| Name | Type |
+| :------ | :------ |
+| `CLEAN_DIST_FAIL` | *string* |
+| `CLEAN_DIST_FINISHED` | *string* |
+| `CONFIG_ATTR_IS_NEEDFUL` | *string* |
+| `CONFIG_NOT_EXISTS` | *string* |
+| `CONFIG_NOT_SET` | *string* |
+| `CONFIG_PARSE_ERROR` | *string* |
+| `CONFIG_SAVED` | *string* |
+| `DEL_PKG_LOCK_FILE` | *string* |
+| `INSTALL_YARN` | *string* |
+| `MISS_NAME_OPTIONS` | *string* |
+| `NAME_OPTIONS_NOT_EXISTS` | *string* |
+| `NO_OPZER_HANDLE` | *string* |
+| `OPEN_ADDR` | *string* |
+| `OPTIMIZE_FINISHED` | *string* |
+| `OPTIMIZE_START` | *string* |
+| `PAGE_RELOAD` | *string* |
+| `PARSE_TS_FAIL` | *string* |
+| `PARSE_TS_FINISHED` | *string* |
+| `PARSE_TS_START` | *string* |
+| `PRINT_HOME_PAGE` | *string* |
+| `REQUIRE_ATLEAST_VERSION` | *string* |
+| `RUNNER_START` | *string* |
+| `RUNNER_START_FAIL` | *string* |
+| `RUNNER_START_FINISHED` | *string* |
+| `RUN_ALL_AFTER_SCRIPT_FINISHED` | *string* |
+| `RUN_ALL_AFTER_SCRIPT_START` | *string* |
+| `RUN_ALL_BEFORE_SCRIPT_FINISHED` | *string* |
+| `RUN_ALL_BEFORE_SCRIPT_START` | *string* |
+| `RUN_SCRIPT_FN_FINISHED` | *string* |
+| `RUN_SCRIPT_FN_START` | *string* |
+| `RUN_WATCH_AFTER_SCRIPT_FINISHED` | *string* |
+| `RUN_WATCH_AFTER_SCRIPT_START` | *string* |
+| `RUN_WATCH_BEFORE_SCRIPT_FINISHED` | *string* |
+| `RUN_WATCH_BEFORE_SCRIPT_START` | *string* |
+| `SAVE_CONFIG_TO_SERVER_FAIL` | *string* |
+| `SEED_INIT_FAIL` | *string* |
+| `SEED_INIT_FINISHED` | *string* |
+| `SEED_INIT_START` | *string* |
+| `SEED_NOT_SET` | *string* |
+| `YARN_VERSION` | *string* |
 
-Defined in: [src/const.ts:24](https://github.com/yyl-team/yyl-hander/blob/b964d78/src/const.ts#L24)
+Defined in: [src/const.ts:24](https://github.com/yyl-team/yyl-hander/blob/170c63b/src/const.ts#L24)
 
 ___
 
@@ -104,7 +104,7 @@ ___
 
 proxy 缓存目录
 
-Defined in: [src/const.ts:22](https://github.com/yyl-team/yyl-hander/blob/b964d78/src/const.ts#L22)
+Defined in: [src/const.ts:22](https://github.com/yyl-team/yyl-hander/blob/170c63b/src/const.ts#L22)
 
 ___
 
@@ -114,7 +114,7 @@ ___
 
 server 存放构建生成的 config 的缓存文件
 
-Defined in: [src/const.ts:19](https://github.com/yyl-team/yyl-hander/blob/b964d78/src/const.ts#L19)
+Defined in: [src/const.ts:19](https://github.com/yyl-team/yyl-hander/blob/170c63b/src/const.ts#L19)
 
 ___
 
@@ -124,7 +124,7 @@ ___
 
 server 数据存放目录
 
-Defined in: [src/const.ts:13](https://github.com/yyl-team/yyl-hander/blob/b964d78/src/const.ts#L13)
+Defined in: [src/const.ts:13](https://github.com/yyl-team/yyl-hander/blob/170c63b/src/const.ts#L13)
 
 ___
 
@@ -134,7 +134,7 @@ ___
 
 server 根目录
 
-Defined in: [src/const.ts:10](https://github.com/yyl-team/yyl-hander/blob/b964d78/src/const.ts#L10)
+Defined in: [src/const.ts:10](https://github.com/yyl-team/yyl-hander/blob/170c63b/src/const.ts#L10)
 
 ___
 
@@ -144,7 +144,7 @@ ___
 
 server plugins 存放目录
 
-Defined in: [src/const.ts:16](https://github.com/yyl-team/yyl-hander/blob/b964d78/src/const.ts#L16)
+Defined in: [src/const.ts:16](https://github.com/yyl-team/yyl-hander/blob/170c63b/src/const.ts#L16)
 
 ___
 
@@ -154,7 +154,7 @@ ___
 
 profile
 
-Defined in: [src/const.ts:7](https://github.com/yyl-team/yyl-hander/blob/b964d78/src/const.ts#L7)
+Defined in: [src/const.ts:7](https://github.com/yyl-team/yyl-hander/blob/170c63b/src/const.ts#L7)
 
 ## Functions
 
@@ -164,15 +164,15 @@ Defined in: [src/const.ts:7](https://github.com/yyl-team/yyl-hander/blob/b964d78
 
 去掉 protocol
 
-#### Parameters:
+#### Parameters
 
-Name | Type |
------- | ------ |
-`url` | *string* |
+| Name | Type |
+| :------ | :------ |
+| `url` | *string* |
 
 **Returns:** *string*
 
-Defined in: [src/util.ts:16](https://github.com/yyl-team/yyl-hander/blob/b964d78/src/util.ts#L16)
+Defined in: [src/util.ts:16](https://github.com/yyl-team/yyl-hander/blob/170c63b/src/util.ts#L16)
 
 ___
 
@@ -182,16 +182,16 @@ ___
 
 sugar 替换
 
-#### Parameters:
+#### Parameters
 
-Name | Type |
------- | ------ |
-`str` | *string* |
-`alias?` | YylConfigAlias |
+| Name | Type |
+| :------ | :------ |
+| `str` | *string* |
+| `alias?` | YylConfigAlias |
 
 **Returns:** *string*
 
-Defined in: [src/util.ts:25](https://github.com/yyl-team/yyl-hander/blob/b964d78/src/util.ts#L25)
+Defined in: [src/util.ts:25](https://github.com/yyl-team/yyl-hander/blob/170c63b/src/util.ts#L25)
 
 ___
 
@@ -199,17 +199,17 @@ ___
 
 ▸ **tsParser**<T\>(`op`: [*TsParserOption*](interfaces/tsparseroption.md)): *TsParserResult*<T\>
 
-#### Type parameters:
+#### Type parameters
 
-Name | Default |
------- | ------ |
-`T` | *any* |
+| Name | Default |
+| :------ | :------ |
+| `T` | *any* |
 
-#### Parameters:
+#### Parameters
 
-Name | Type |
------- | ------ |
-`op` | [*TsParserOption*](interfaces/tsparseroption.md) |
+| Name | Type |
+| :------ | :------ |
+| `op` | [*TsParserOption*](interfaces/tsparseroption.md) |
 
 **Returns:** *TsParserResult*<T\>
 

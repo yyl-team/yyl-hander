@@ -4,7 +4,7 @@
 
 ## Hierarchy
 
-* **YylParserOption**
+- **YylParserOption**
 
   ↳ [*StartServerOption*](startserveroption.md)
 
@@ -21,30 +21,30 @@
 
 ### context
 
-• `Optional` **context**: *undefined* \| *string*
+• `Optional` **context**: *string*
 
-Defined in: [src/yylHander.ts:38](https://github.com/yyl-team/yyl-hander/blob/b964d78/src/yylHander.ts#L38)
+Defined in: [src/yylHander.ts:38](https://github.com/yyl-team/yyl-hander/blob/170c63b/src/yylHander.ts#L38)
 
 ___
 
 ### env
 
-• `Optional` **env**: *undefined* \| Env
+• `Optional` **env**: Env
 
-Defined in: [src/yylHander.ts:36](https://github.com/yyl-team/yyl-hander/blob/b964d78/src/yylHander.ts#L36)
+Defined in: [src/yylHander.ts:36](https://github.com/yyl-team/yyl-hander/blob/170c63b/src/yylHander.ts#L36)
 
 ___
 
 ### logger
 
-• `Optional` **logger**: *undefined* \| *Logger*<keyof *any*\>
+• `Optional` **logger**: *Logger*<keyof SeedEventName\>
 
-Defined in: [src/yylHander.ts:37](https://github.com/yyl-team/yyl-hander/blob/b964d78/src/yylHander.ts#L37)
+Defined in: [src/yylHander.ts:37](https://github.com/yyl-team/yyl-hander/blob/170c63b/src/yylHander.ts#L37)
 
 ___
 
 ### yylConfig
 
-• `Optional` **yylConfig**: *undefined* \| *string* \| YylConfig
+• `Optional` **yylConfig**: *string* \| YylConfig
 
-Defined in: [src/yylHander.ts:35](https://github.com/yyl-team/yyl-hander/blob/b964d78/src/yylHander.ts#L35)
+Defined in: [src/yylHander.ts:35](https://github.com/yyl-team/yyl-hander/blob/170c63b/src/yylHander.ts#L35)

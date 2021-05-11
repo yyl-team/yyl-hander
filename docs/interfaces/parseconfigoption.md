@@ -4,10 +4,6 @@
 
 yyl.config 解析 - 配置
 
-## Hierarchy
-
-* **ParseConfigOption**
-
 ## Table of contents
 
 ### Properties
@@ -21,7 +17,7 @@ yyl.config 解析 - 配置
 
 • **configPath**: *string*
 
-Defined in: [src/yylHander.ts:30](https://github.com/yyl-team/yyl-hander/blob/b964d78/src/yylHander.ts#L30)
+Defined in: [src/yylHander.ts:30](https://github.com/yyl-team/yyl-hander/blob/170c63b/src/yylHander.ts#L30)
 
 ___
 
@@ -29,4 +25,4 @@ ___
 
 • **env**: Env
 
-Defined in: [src/yylHander.ts:31](https://github.com/yyl-team/yyl-hander/blob/b964d78/src/yylHander.ts#L31)
+Defined in: [src/yylHander.ts:31](https://github.com/yyl-team/yyl-hander/blob/170c63b/src/yylHander.ts#L31)
