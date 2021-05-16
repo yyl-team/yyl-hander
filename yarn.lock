@@ -6579,10 +6579,10 @@ yargs@~3.10.0:
     decamelize "^1.0.0"
     window-size "0.1.0"
 
-yyl-config-types@^0.5.2:
-  version "0.5.2"
-  resolved "https://registry.yarnpkg.com/yyl-config-types/-/yyl-config-types-0.5.2.tgz#5deccdad04aaee78bb93d26bb272a77801a994de"
-  integrity sha512-53psEXWt954RuZ2Rh/ryfhaLMv3NJtqv6/nZBbM3z53dutub9q40ABigNZ3fsN36XUTznUpkf141d2qDy7qLjg==
+yyl-config-types@^0.5.3:
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/yyl-config-types/-/yyl-config-types-0.5.3.tgz#50c84ab9a634bd9423c3ead5f07282078cefa457"
+  integrity sha512-vBbCv+B64+uWJyyuIj7J5TnbaCAGpcSLenZQSO36JDM8ZiHnTIhbHayvtVRkTmV6tCPl/XVSxw6sUUhYFE3bEg==
   dependencies:
     "@types/express" "^4.17.11"
 
@@ -6610,10 +6610,10 @@ yyl-seed-response@^0.2.0:
   resolved "https://registry.yarnpkg.com/yyl-seed-response/-/yyl-seed-response-0.2.0.tgz#91a5f43e32f37ea6ee820f07bb9ea315772e012c"
   integrity sha512-9IdVLB6ZglVGwWC/eQitM5wCY+m9kcJ5nQrCj4N9/GtchoM3re22e8Uxcft1uz8Ok2tfNzh4e4kFZEmBFDZTrQ==
 
-yyl-server@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/yyl-server/-/yyl-server-1.0.6.tgz#1d53c973cfe899f6389e8c146e658d614ddb4f0a"
-  integrity sha512-Ii0XXza2h5OCP2nfl/gExQUxgQHI9VhQO/MAWZVvJbCENunuGBwWE3a7KefWeBxWutnHrwYLpi1Es4RWpGxYcQ==
+yyl-server@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/yyl-server/-/yyl-server-1.0.7.tgz#bdb344969a5cd12807521316dbaef2f47393cce7"
+  integrity sha512-iIl7agnobhXD5pbi4RsSKLsm1nYju5C2P4hZXZW0nfzlozYEgUni400HbKs5v6gFuiuq8nfHjnRXoGwOSeZn7w==
   dependencies:
     "@types/anyproxy" "^4.1.1"
     "@types/connect" "^3.4.34"
@@ -6632,7 +6632,7 @@ yyl-server@^1.0.6:
     serve-favicon "2.5.0"
     serve-index "1.9.1"
     serve-static "1.13.2"
-    yyl-config-types "^0.5.2"
+    yyl-config-types "^0.5.3"
     yyl-fs "0.3.3"
     yyl-os "0.14.1"
     yyl-seed-response "^0.2.0"

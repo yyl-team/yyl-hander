@@ -439,7 +439,7 @@ export class YylHander {
               if (type === 'error') {
                 isError = toCtx<Error>(args[0])
               }
-              if (['create', 'update'].includes(type)) {
+              if (['create', 'update', 'add'].includes(type)) {
                 if (/\.html$/.test(args[0])) {
                   htmlSet.add(args[0])
                 }
@@ -476,7 +476,7 @@ export class YylHander {
                   ])
 
                   // 第一次构建 打开 对应页面
-                  if (!isUpdate && !env.silent && env.proxy && homePage) {
+                  if (!isUpdate && !env.silent && homePage && env.open) {
                     extOs.openBrowser(homePage)
                   }
                 }
