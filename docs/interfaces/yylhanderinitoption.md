@@ -18,7 +18,7 @@
 
 seed 包
 
-Defined in: [src/yylHander.ts:47](https://github.com/yyl-team/yyl-hander/blob/5655bfb/src/yylHander.ts#L47)
+Defined in: [src/yylHander.ts:47](https://github.com/yyl-team/yyl-hander/blob/7616fb8/src/yylHander.ts#L47)
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 是否执行 watch
 
-Defined in: [src/yylHander.ts:49](https://github.com/yyl-team/yyl-hander/blob/5655bfb/src/yylHander.ts#L49)
+Defined in: [src/yylHander.ts:49](https://github.com/yyl-team/yyl-hander/blob/7616fb8/src/yylHander.ts#L49)
 
 ___
 
@@ -38,4 +38,4 @@ ___
 
 yyl 版本 - 用于与 yylConfig.version 进行比较
 
-Defined in: [src/yylHander.ts:51](https://github.com/yyl-team/yyl-hander/blob/5655bfb/src/yylHander.ts#L51)
+Defined in: [src/yylHander.ts:51](https://github.com/yyl-team/yyl-hander/blob/7616fb8/src/yylHander.ts#L51)

@@ -1,5 +1,10 @@
 # 版本变更
 
+## 1.3.9 (2021-05-16)
+
+- feat: 优化 openBrowser 逻辑
+- feat: 更新 `yyl-config-types@0.5.3`
+
 ## 1.3.8 (2021-05-16)
 
 - feat: 调整 progress finished 逻辑
