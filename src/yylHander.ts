@@ -1,17 +1,16 @@
 import fs from 'fs'
 import path from 'path'
-import { YylConfig, Env, YylConfigAlias, YylConfigEntry } from 'yyl-config-types'
+import { YylConfig, Env, YylConfigAlias, YylConfigEntry, Logger } from 'yyl-config-types'
 import { deepReplace, formatPath, needEnvName, toCtx, sugarReplace } from './util'
-import extOs, { runExec, runSpawn } from 'yyl-os'
+import extOs, { runSpawn } from 'yyl-os'
 import util, { type } from 'yyl-util'
 import extFs from 'yyl-fs'
 import chalk from 'chalk'
 import { LANG, SERVER_PLUGIN_PATH, SERVER_CONFIG_LOG_PATH, SERVER_PATH } from './const'
 import request from 'request'
-import { SeedEntry, SeedOptimizeResult, Logger } from 'yyl-seed-base'
+import { SeedEntry, SeedOptimizeResult } from 'yyl-seed-base'
 import { Runner, YServerSetting } from 'yyl-server'
 import { tsParser } from 'node-ts-parser'
-import { execSync } from 'child_process'
 export { tsParser, TsParserOption } from 'node-ts-parser'
 
 /** 格式化配置 - 配置 */
@@ -336,8 +335,6 @@ export class YylHander {
     const { seed, watch, yylVersion } = op
     const { yylConfig, context, logger, env } = this
 
-    logger('progress', 'start')
-
     // 版本检查
     if (yylVersion && yylConfig.version) {
       if (util.compareVersion(yylConfig.version, yylVersion) > 0) {
@@ -373,13 +370,12 @@ export class YylHander {
 
     // config.plugins 插件初始化
     try {
-      const installMsgBuffer = await this.initPlugins()
-      if (installMsgBuffer) {
+      await this.initPlugins((installMsgBuffer) => {
         const strs = installMsgBuffer.toString().split(/[\r\n]+/)
         strs.forEach((str) => {
           logger('msg', 'info', [str])
         })
-      }
+      })
     } catch (er) {
       logger('msg', 'error', [er])
     }
@@ -453,10 +449,10 @@ export class YylHander {
             .on('progress', async (type, infoType, args) => {
               if (type === 'start') {
                 logger('progress', 'start', infoType, args)
-              } else if (type === 'finished') {
+              } else if (type === 'finished' || type === 'forceFinished') {
                 if (!watch && isError) {
                   logger('msg', 'error', [isError])
-                  logger('progress', 'finished', infoType, args)
+                  logger('progress', type, infoType, args)
                   return
                 }
 
@@ -490,10 +486,8 @@ export class YylHander {
                     logger('msg', 'success', [LANG.PAGE_RELOAD])
                     await this.livereload()
                   }
-                  logger('progress', 'finished', infoType, args)
                 } else {
                   isUpdate = true
-                  logger('progress', 'finished', infoType, args)
                   resolve([yylConfig, opzer])
                 }
               } else {
@@ -522,7 +516,7 @@ export class YylHander {
   }
 
   /** 解析 yylConfig.plugins 内容 */
-  async initPlugins() {
+  async initPlugins(cb: (msg: Buffer) => any) {
     const { yylConfig } = this
     let pluginPath = null
     if (yylConfig.resolveModule) {
@@ -532,7 +526,7 @@ export class YylHander {
       }
     }
     if (yylConfig.plugins && pluginPath) {
-      return await extOs.installNodeModules(yylConfig.plugins, pluginPath, !!yylConfig.yarn)
+      return await extOs.installNodeModules(yylConfig.plugins, pluginPath, !!yylConfig.yarn, cb)
     }
   }
 
@@ -638,7 +632,7 @@ export class YylHander {
       })
     } else if (typeof ctx === 'function') {
       logger('msg', 'info', [LANG.RUN_SCRIPT_FN_START])
-      const rFn = ctx({ config: yylConfig, env })
+      const rFn = ctx({ config: yylConfig, env, logger })
       if (typeof rFn === 'string') {
         logger('msg', 'cmd', [rFn])
         return await runSpawn(rFn, context, (dataBuffer) => {

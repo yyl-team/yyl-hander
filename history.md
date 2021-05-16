@@ -1,5 +1,14 @@
 # 版本变更
 
+## 1.3.7 (2021-05-16)
+
+- feat: 更新 `yyl-config-types@0.5.2`
+- feat: 更新 `yyl-seed-base@0.4.1`
+- feat: 更新 `yyl-server@1.0.6`
+- feat: 更新 `yyl-os@0.14.1`
+- feat: 调整 initPlugins() 逻辑
+- fix: 修复 progress 多个 start 与 finished 问题
+
 ## 1.3.4 (2021-05-16)
 
 - feat: 补充 当 new YylHander() 没传入 yyl.config 时， 自动寻找

@@ -28,7 +28,7 @@
 
 Inherited from: [YylParserOption](yylparseroption.md).[context](yylparseroption.md#context)
 
-Defined in: [src/yylHander.ts:38](https://github.com/yyl-team/yyl-hander/blob/9e6463d/src/yylHander.ts#L38)
+Defined in: [src/yylHander.ts:37](https://github.com/yyl-team/yyl-hander/blob/a8c02b2/src/yylHander.ts#L37)
 
 ___
 
@@ -38,17 +38,17 @@ ___
 
 Inherited from: [YylParserOption](yylparseroption.md).[env](yylparseroption.md#env)
 
-Defined in: [src/yylHander.ts:36](https://github.com/yyl-team/yyl-hander/blob/9e6463d/src/yylHander.ts#L36)
+Defined in: [src/yylHander.ts:35](https://github.com/yyl-team/yyl-hander/blob/a8c02b2/src/yylHander.ts#L35)
 
 ___
 
 ### logger
 
-• `Optional` **logger**: *Logger*<keyof SeedEventName\>
+• `Optional` **logger**: *Logger*<keyof LoggerType\>
 
 Inherited from: [YylParserOption](yylparseroption.md).[logger](yylparseroption.md#logger)
 
-Defined in: [src/yylHander.ts:37](https://github.com/yyl-team/yyl-hander/blob/9e6463d/src/yylHander.ts#L37)
+Defined in: [src/yylHander.ts:36](https://github.com/yyl-team/yyl-hander/blob/a8c02b2/src/yylHander.ts#L36)
 
 ___
 
@@ -56,7 +56,7 @@ ___
 
 • `Optional` **opzer**: SeedOptimizeResult
 
-Defined in: [src/yylHander.ts:43](https://github.com/yyl-team/yyl-hander/blob/9e6463d/src/yylHander.ts#L43)
+Defined in: [src/yylHander.ts:42](https://github.com/yyl-team/yyl-hander/blob/a8c02b2/src/yylHander.ts#L42)
 
 ___
 
@@ -66,4 +66,4 @@ ___
 
 Inherited from: [YylParserOption](yylparseroption.md).[yylConfig](yylparseroption.md#yylconfig)
 
-Defined in: [src/yylHander.ts:35](https://github.com/yyl-team/yyl-hander/blob/9e6463d/src/yylHander.ts#L35)
+Defined in: [src/yylHander.ts:34](https://github.com/yyl-team/yyl-hander/blob/a8c02b2/src/yylHander.ts#L34)
