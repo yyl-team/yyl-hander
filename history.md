@@ -1,5 +1,9 @@
 # 版本变更
 
+## 1.3.3 (2021-05-16)
+
+- feat: 补充 当 new YylHander() 没传入 yyl.config 时， 自动寻找
+
 ## 1.3.2 (2021-05-12)
 
 - feat: 更新 `node-ts-parser@0.1.3`
