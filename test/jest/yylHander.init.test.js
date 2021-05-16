@@ -23,12 +23,14 @@ const testSeed = {
         return opzer
       },
       all() {
+        iRes.trigger('progress', ['start'])
         setTimeout(() => {
           iRes.trigger('progress', ['finished'])
         }, 200)
         return opzer
       },
       watch() {
+        iRes.trigger('progress', ['start'])
         setTimeout(() => {
           iRes.trigger('progress', ['finished'])
         }, 200)
@@ -57,5 +59,14 @@ test('yylHander.init', async () => {
     seed: testSeed,
     watch: false
   })
-  expect(loggerTypeResults).toEqual(['msg', 'msg', 'msg', 'msg', 'msg', 'msg'])
+  expect(loggerTypeResults).toEqual([
+    'msg',
+    'msg',
+    'msg',
+    'msg',
+    'msg',
+    'progress',
+    'msg',
+    'progress'
+  ])
 })

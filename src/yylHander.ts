@@ -486,8 +486,10 @@ export class YylHander {
                     logger('msg', 'success', [LANG.PAGE_RELOAD])
                     await this.livereload()
                   }
+                  logger('progress', type, infoType, args)
                 } else {
                   isUpdate = true
+                  logger('progress', type, infoType, args)
                   resolve([yylConfig, opzer])
                 }
               } else {
