@@ -57,14 +57,5 @@ test('yylHander.init', async () => {
     seed: testSeed,
     watch: false
   })
-  expect(loggerTypeResults).toEqual([
-    'progress',
-    'msg',
-    'msg',
-    'msg',
-    'msg',
-    'msg',
-    'msg',
-    'progress'
-  ])
+  expect(loggerTypeResults).toEqual(['msg', 'msg', 'msg', 'msg', 'msg', 'msg'])
 })
