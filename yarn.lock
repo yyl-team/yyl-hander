@@ -6621,7 +6621,7 @@ yyl-seed-base@^0.2.6:
 
 yyl-seed-response@^0.2.0:
   version "0.2.0"
-  resolved "https://registry.npmjs.org/yyl-seed-response/-/yyl-seed-response-0.2.0.tgz#91a5f43e32f37ea6ee820f07bb9ea315772e012c"
+  resolved "https://registry.yarnpkg.com/yyl-seed-response/-/yyl-seed-response-0.2.0.tgz#91a5f43e32f37ea6ee820f07bb9ea315772e012c"
   integrity sha512-9IdVLB6ZglVGwWC/eQitM5wCY+m9kcJ5nQrCj4N9/GtchoM3re22e8Uxcft1uz8Ok2tfNzh4e4kFZEmBFDZTrQ==
 
 yyl-server@^1.0.5:
