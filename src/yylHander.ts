@@ -284,7 +284,7 @@ export class YylHander {
   }
 
   constructor(option: YylParserOption) {
-    const { yylConfig, env, logger, context } = option
+    let { yylConfig, env, logger, context } = option
     if (logger) {
       this.logger = logger
     }
@@ -293,6 +293,22 @@ export class YylHander {
     }
     if (context) {
       this.context = context
+    }
+
+    // 寻找 context 下 yyl.config
+    if (!yylConfig && !this.env.config) {
+      const yylConfigTsPath = path.join(this.context, 'yyl.config.ts')
+      const yylConfigPath = path.join(this.context, 'yyl.config.js')
+      const yylConfigLegacyPath = path.join(this.context, 'config.js')
+      if (fs.existsSync(yylConfigTsPath)) {
+        yylConfig = yylConfigTsPath
+      } else if (fs.existsSync(yylConfigPath)) {
+        yylConfig = yylConfigPath
+      } else if (fs.existsSync(yylConfigLegacyPath)) {
+        yylConfig = yylConfigLegacyPath
+      } else {
+        throw new Error(`${LANG.CONFIG_NOT_EXISTS}: yy.config.ts / yyl.config.js / config.js`)
+      }
     }
 
     if (this.env.config) {
