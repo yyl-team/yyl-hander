@@ -65,5 +65,6 @@ export const LANG = {
   RUN_WATCH_AFTER_SCRIPT_START: '开始执行 config.watch.afterScripts',
   RUN_WATCH_AFTER_SCRIPT_FINISHED: '执行 config.watch.afterScripts 完成',
   RUN_SCRIPT_FN_START: '开始执行回调方法',
-  RUN_SCRIPT_FN_FINISHED: '执行回调完成'
+  RUN_SCRIPT_FN_FINISHED: '执行回调完成',
+  RUN_PEER_CHECK_FINISHED: '执行 前置脚本 完成'
 }
