@@ -60,10 +60,18 @@ test('yylHander.init', async () => {
     watch: false
   })
   expect(loggerTypeResults).toEqual([
+    'progress',
+    'progress',
+    'progress',
+    'progress',
+    'progress',
     'msg',
     'msg',
+    'progress',
+    'progress',
     'msg',
     'msg',
+    'progress',
     'msg',
     'progress',
     'msg',

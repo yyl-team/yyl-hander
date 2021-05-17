@@ -334,14 +334,20 @@ export class YylHander {
   async init(op: YylHanderInitOption) {
     const { seed, watch, yylVersion } = op
     const { yylConfig, context, logger, env } = this
+    // 关键成功信息收集
+    const mainSuccessInfos: any[][] = []
+
+    logger('progress', 'start')
 
     // 版本检查
     if (yylVersion && yylConfig.version) {
       if (util.compareVersion(yylConfig.version, yylVersion) > 0) {
         logger('msg', 'error', [new Error(`${LANG.REQUIRE_ATLEAST_VERSION}: ${yylConfig.version}`)])
+        logger('progress', 'finished')
         return
       }
     }
+    logger('progress', 0.1)
 
     // yarn 安装检查
     if (yylConfig.yarn) {
@@ -359,12 +365,15 @@ export class YylHander {
         logger('msg', 'error', [
           new Error(`${LANG.INSTALL_YARN}: ${chalk.yellow('npm i yarn -g')}`)
         ])
+        logger('progress', 'finished')
         return
       }
     }
+    logger('progress', 0.2)
 
     if (!seed) {
       logger('msg', 'error', [new Error(LANG.SEED_NOT_SET)])
+      logger('progress', 'finished')
       return
     }
 
@@ -379,6 +388,7 @@ export class YylHander {
     } catch (er) {
       logger('msg', 'error', [er])
     }
+    logger('progress', 0.3)
 
     // 保存配置到服务器
     try {
@@ -386,6 +396,7 @@ export class YylHander {
     } catch (er) {
       logger('msg', 'error', [new Error(LANG.SAVE_CONFIG_TO_SERVER_FAIL)])
     }
+    logger('progress', 0.4)
 
     // clean dist
     if (
@@ -401,13 +412,16 @@ export class YylHander {
         `${LANG.CLEAN_DIST_FINISHED}: ${chalk.yellow(yylConfig.localserver?.root)}`
       ])
     }
+    logger('progress', 'finished')
 
     // 执行代码前配置项
     await this.runBeforeScripts().catch((er) => {
       logger('msg', 'error', [er])
+      throw er
     })
 
     try {
+      logger('progress', 'start')
       logger('msg', 'info', [`${LANG.SEED_INIT_START}`])
       const opzer = await seed.optimize({
         yylConfig,
@@ -424,9 +438,17 @@ export class YylHander {
           yylConfig,
           env,
           opzer,
-          logger
+          logger(type, args01, args02, args03) {
+            if (type === 'msg' && args01 === 'success') {
+              // 收集成功信息
+              mainSuccessInfos.push(args02 as any[])
+            } else {
+              logger(type, args01, args02, args03)
+            }
+          }
         })
       }
+      logger('progress', 'finished')
 
       return await new Promise<[YylConfig, SeedOptimizeResult | undefined]>((resolve, reject) => {
         if (opzer) {
@@ -458,7 +480,6 @@ export class YylHander {
 
                 /** 执行代码执行后配置项 */
                 this.runAfterScripts(watch)
-                logger('msg', 'success', [`${watch ? 'watch' : 'all'} ${LANG.OPTIMIZE_FINISHED}`])
 
                 if (watch) {
                   const homePage = await this.getHomePage({
@@ -480,6 +501,13 @@ export class YylHander {
                     extOs.openBrowser(homePage)
                   }
                 }
+
+                // 输出关键成功信息
+                mainSuccessInfos.forEach((args) => {
+                  logger('msg', 'success', args)
+                })
+
+                logger('msg', 'success', [`${watch ? 'watch' : 'all'} ${LANG.OPTIMIZE_FINISHED}`])
 
                 if (isUpdate) {
                   if (env.livereload) {
@@ -508,7 +536,7 @@ export class YylHander {
       })
     } catch (er) {
       logger('msg', 'error', [new Error(LANG.SEED_INIT_FAIL), er])
-      logger('progress', 'finished')
+      logger('progress', 'forceFinished')
     }
   }
 
