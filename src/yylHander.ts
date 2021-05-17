@@ -448,7 +448,7 @@ export class YylHander {
           }
         })
       }
-      logger('progress', 'finished')
+      logger('progress', 'finished', 'success', [LANG.RUN_PEER_CHECK_FINISHED])
 
       return await new Promise<[YylConfig, SeedOptimizeResult | undefined]>((resolve, reject) => {
         if (opzer) {
@@ -472,8 +472,7 @@ export class YylHander {
               if (type === 'start') {
                 logger('progress', 'start', infoType, args)
               } else if (type === 'finished' || type === 'forceFinished') {
-                if (!watch && isError) {
-                  logger('msg', 'error', [isError])
+                if (isError) {
                   logger('progress', type, infoType, args)
                   return
                 }
