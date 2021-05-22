@@ -6586,6 +6586,13 @@ yyl-config-types@^0.5.3:
   dependencies:
     "@types/express" "^4.17.11"
 
+yyl-config-types@^0.5.4:
+  version "0.5.4"
+  resolved "https://registry.yarnpkg.com/yyl-config-types/-/yyl-config-types-0.5.4.tgz#21f0c0191e8f1b5345f16929c174d0991a0dc017"
+  integrity sha512-VNjQTo8wlCGaXovTJFfYfKYhh/qO3UFx7tFw9L2toMY0skDoVcCacszwXF/6N7zPZOGCIGup7AM9PYRDa4N+UA==
+  dependencies:
+    "@types/express" "^4.17.11"
+
 yyl-fs@0.3.3, yyl-fs@^0.3.3:
   version "0.3.3"
   resolved "https://registry.npmjs.org/yyl-fs/-/yyl-fs-0.3.3.tgz#aa409a5ea451cd0da287315665f338b1a24d4324"

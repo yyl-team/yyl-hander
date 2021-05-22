@@ -1,5 +1,10 @@
 # 版本变更
 
+## 1.3.12 (2021-05-23)
+
+- feat: 更新 `yyl-config-types@0.5.4`
+- feat: 补充 cleanScreen 相关逻辑
+
 ## 1.3.11 (2021-05-18)
 
 - feat: 优化 log 显示

@@ -51,8 +51,8 @@ test('yylHander.init', async () => {
   const yylHander = new YylHander({
     yylConfig: configPath,
     env: {},
-    logger(type) {
-      loggerTypeResults.push(type)
+    logger(type, args01) {
+      loggerTypeResults.push(`${type}-${args01}`)
     }
   })
   await yylHander.init({
@@ -60,21 +60,22 @@ test('yylHander.init', async () => {
     watch: false
   })
   expect(loggerTypeResults).toEqual([
-    'progress',
-    'progress',
-    'progress',
-    'progress',
-    'progress',
-    'msg',
-    'msg',
-    'progress',
-    'progress',
-    'msg',
-    'msg',
-    'progress',
-    'msg',
-    'progress',
-    'msg',
-    'progress'
+    'progress-start',
+    'progress-0.1',
+    'progress-0.2',
+    'progress-0.3',
+    'progress-0.4',
+    'msg-success',
+    'msg-success',
+    'progress-finished',
+    'progress-start',
+    'msg-info',
+    'msg-info',
+    'progress-finished',
+    'msg-info',
+    'cleanScreen-undefined',
+    'progress-start',
+    'msg-success',
+    'progress-finished'
   ])
 })

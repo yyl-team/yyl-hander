@@ -470,6 +470,7 @@ export class YylHander {
             })
             .on('progress', async (type, infoType, args) => {
               if (type === 'start') {
+                logger('cleanScreen', undefined)
                 logger('progress', 'start', infoType, args)
               } else if (type === 'finished' || type === 'forceFinished') {
                 if (isError) {
