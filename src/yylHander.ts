@@ -687,7 +687,9 @@ export class YylHander {
       logger('msg', 'info', [
         watch ? LANG.RUN_WATCH_BEFORE_SCRIPT_START : LANG.RUN_ALL_BEFORE_SCRIPT_START
       ])
+      logger('progress', 'start')
       const r = await this.initScripts(entry.beforeScripts)
+      logger('progress', 'finished')
       logger('msg', 'success', [
         watch ? LANG.RUN_WATCH_BEFORE_SCRIPT_FINISHED : LANG.RUN_ALL_BEFORE_SCRIPT_FINISHED
       ])
@@ -706,7 +708,9 @@ export class YylHander {
       logger('msg', 'info', [
         watch ? LANG.RUN_WATCH_AFTER_SCRIPT_START : LANG.RUN_ALL_AFTER_SCRIPT_START
       ])
+      logger('progress', 'start')
       const r = await this.initScripts(entry.afterScripts)
+      logger('progress', 'finished')
       logger('msg', 'success', [
         watch ? LANG.RUN_WATCH_AFTER_SCRIPT_FINISHED : LANG.RUN_ALL_AFTER_SCRIPT_FINISHED
       ])
