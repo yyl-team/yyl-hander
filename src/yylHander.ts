@@ -434,6 +434,7 @@ export class YylHander {
       // 启动本地 server
       if (watch && opzer) {
         let hasError = false
+        logger('progress', 'start', 'info', [`${LANG.RUNNER_START}`])
         this.runner = await YylHander.startServer({
           context: this.context,
           yylConfig,
@@ -451,7 +452,7 @@ export class YylHander {
             }
           }
         })
-        logger('progress', 'finished', 'success', [LANG.RUN_PEER_CHECK_FINISHED])
+        logger('progress', 'finished', 'success', [LANG.RUNNER_START_FINISHED])
         if (hasError) {
           return
         }
