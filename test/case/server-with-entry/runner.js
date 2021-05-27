@@ -21,13 +21,13 @@ const testSeed = {
       },
       all() {
         setTimeout(() => {
-          iRes.trigger('progress', ['finished'])
+          iRes.trigger('progress', ['finished', 'success', ['done']])
         }, 200)
         return opzer
       },
       watch() {
         setTimeout(() => {
-          iRes.trigger('progress', ['finished'])
+          iRes.trigger('progress', ['finished', 'success', ['done']])
         }, 200)
         return opzer
       }

@@ -1,5 +1,9 @@
 # 版本变更
 
+## 1.3.14 (2021-05-27)
+
+- feat: 添加特殊构建结束标识 `progress,finished,success,[done]`
+
 ## 1.3.13 (2021-05-27)
 
 - feat: logger 优化

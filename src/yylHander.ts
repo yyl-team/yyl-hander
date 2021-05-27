@@ -470,7 +470,6 @@ export class YylHander {
             })
             .on('progress', async (type, infoType, args) => {
               if (type === 'start') {
-                logger('cleanScreen', undefined)
                 logger('progress', 'start', infoType, args)
               } else if (type === 'finished' || type === 'forceFinished') {
                 if (isError) {
@@ -478,47 +477,52 @@ export class YylHander {
                   return
                 }
 
-                /** 执行代码执行后配置项 */
-                this.runAfterScripts(watch)
+                // 特殊的结束标识
+                if (infoType === 'success' && args[0] === 'done') {
+                  /** 执行代码执行后配置项 */
+                  this.runAfterScripts(watch)
 
-                if (watch) {
-                  const homePage = await this.getHomePage({
-                    files: (() => {
-                      const r: string[] = []
-                      htmlSet.forEach((item) => {
-                        r.push(item)
-                      })
-                      return r
-                    })()
+                  if (watch) {
+                    const homePage = await this.getHomePage({
+                      files: (() => {
+                        const r: string[] = []
+                        htmlSet.forEach((item) => {
+                          r.push(item)
+                        })
+                        return r
+                      })()
+                    })
+
+                    logger('msg', 'success', [
+                      `${LANG.PRINT_HOME_PAGE}: ${chalk.yellow.bold(homePage)}`
+                    ])
+
+                    // 第一次构建 打开 对应页面
+                    if (!isUpdate && !env.silent && homePage && env.open) {
+                      extOs.openBrowser(homePage)
+                    }
+                  }
+
+                  // 输出关键成功信息
+                  mainSuccessInfos.forEach((args) => {
+                    logger('msg', 'success', args)
                   })
 
-                  logger('msg', 'success', [
-                    `${LANG.PRINT_HOME_PAGE}: ${chalk.yellow.bold(homePage)}`
-                  ])
+                  logger('msg', 'success', [`${watch ? 'watch' : 'all'} ${LANG.OPTIMIZE_FINISHED}`])
 
-                  // 第一次构建 打开 对应页面
-                  if (!isUpdate && !env.silent && homePage && env.open) {
-                    extOs.openBrowser(homePage)
+                  if (isUpdate) {
+                    if (env.livereload) {
+                      logger('msg', 'success', [LANG.PAGE_RELOAD])
+                      await this.livereload()
+                    }
+                    logger('progress', type)
+                  } else {
+                    isUpdate = true
+                    logger('progress', type)
+                    resolve([yylConfig, opzer])
                   }
-                }
-
-                // 输出关键成功信息
-                mainSuccessInfos.forEach((args) => {
-                  logger('msg', 'success', args)
-                })
-
-                logger('msg', 'success', [`${watch ? 'watch' : 'all'} ${LANG.OPTIMIZE_FINISHED}`])
-
-                if (isUpdate) {
-                  if (env.livereload) {
-                    logger('msg', 'success', [LANG.PAGE_RELOAD])
-                    await this.livereload()
-                  }
-                  logger('progress', type, infoType, args)
                 } else {
-                  isUpdate = true
                   logger('progress', type, infoType, args)
-                  resolve([yylConfig, opzer])
                 }
               } else {
                 logger('progress', type, infoType, args)
