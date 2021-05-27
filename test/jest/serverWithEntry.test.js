@@ -30,7 +30,7 @@ const testSeed = {
       },
       watch() {
         setTimeout(() => {
-          iRes.trigger('progress', ['finished'])
+          iRes.trigger('progress', ['finished', 'success', ['done']])
         }, 200)
         return opzer
       }
@@ -55,11 +55,6 @@ test('server with entry', async () => {
       localserver: {
         port: 5000,
         entry({ env }) {
-          console.log(2222)
-          console.log(2222)
-          console.log(2222)
-          console.log(2222)
-          console.log(2222)
           app = express()
           const distPath = path.join(oriPath, 'site')
           app.use(express.static(distPath))
@@ -73,5 +68,5 @@ test('server with entry', async () => {
     seed: testSeed,
     watch: true
   })
-  // expect(!!app).toEqual(true)
+  expect(!!app).toEqual(true)
 })

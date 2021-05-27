@@ -25,14 +25,14 @@ const testSeed = {
       all() {
         iRes.trigger('progress', ['start'])
         setTimeout(() => {
-          iRes.trigger('progress', ['finished'])
+          iRes.trigger('progress', ['finished', 'success', ['done']])
         }, 200)
         return opzer
       },
       watch() {
         iRes.trigger('progress', ['start'])
         setTimeout(() => {
-          iRes.trigger('progress', ['finished'])
+          iRes.trigger('progress', ['finished', 'success', ['done']])
         }, 200)
         return opzer
       }
@@ -48,10 +48,12 @@ const testSeed = {
 test('yylHander.init', async () => {
   const configPath = path.join(configDir, 'yyl.config-init.js')
   const loggerTypeResults = []
+  const loggerOris = []
   const yylHander = new YylHander({
     yylConfig: configPath,
     env: {},
     logger(type, args01) {
+      loggerOris.push(arguments)
       loggerTypeResults.push(`${type}-${args01}`)
     }
   })
@@ -59,6 +61,7 @@ test('yylHander.init', async () => {
     seed: testSeed,
     watch: false
   })
+  // console.log('loggerOris', loggerOris)
   expect(loggerTypeResults).toEqual([
     'progress-start',
     'progress-0.1',
@@ -70,10 +73,8 @@ test('yylHander.init', async () => {
     'progress-finished',
     'progress-start',
     'msg-info',
-    'msg-info',
     'progress-finished',
     'msg-info',
-    'cleanScreen-undefined',
     'progress-start',
     'msg-success',
     'progress-finished'

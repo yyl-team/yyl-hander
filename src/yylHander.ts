@@ -429,10 +429,11 @@ export class YylHander {
         ctx: watch ? 'watch' : 'all',
         root: context
       })
-      logger('msg', 'info', [`${LANG.SEED_INIT_FINISHED}`])
+      logger('progress', 'finished', 'success', [`${LANG.SEED_INIT_FINISHED}`])
 
       // 启动本地 server
       if (watch && opzer) {
+        let hasError = false
         this.runner = await YylHander.startServer({
           context: this.context,
           yylConfig,
@@ -445,10 +446,16 @@ export class YylHander {
             } else {
               logger(type, args01, args02, args03)
             }
+            if (type === 'msg' && args01 === 'error') {
+              hasError = true
+            }
           }
         })
+        logger('progress', 'finished', 'success', [LANG.RUN_PEER_CHECK_FINISHED])
+        if (hasError) {
+          return
+        }
       }
-      logger('progress', 'finished', 'success', [LANG.RUN_PEER_CHECK_FINISHED])
 
       return await new Promise<[YylConfig, SeedOptimizeResult | undefined]>((resolve, reject) => {
         if (opzer) {
@@ -474,7 +481,7 @@ export class YylHander {
               } else if (type === 'finished' || type === 'forceFinished') {
                 if (isError) {
                   logger('progress', type, infoType, args)
-                  return
+                  return reject(isError)
                 }
 
                 // 特殊的结束标识
