@@ -18,7 +18,7 @@
 
 • **context**: *string*
 
-Defined in: [src/yylHander.ts:20](https://github.com/yyl-team/yyl-hander/blob/62e61b6/src/yylHander.ts#L20)
+Defined in: [src/yylHander.ts:20](https://github.com/yyl-team/yyl-hander/blob/24fb367/src/yylHander.ts#L20)
 
 ___
 
@@ -26,7 +26,7 @@ ___
 
 • **env**: Env
 
-Defined in: [src/yylHander.ts:19](https://github.com/yyl-team/yyl-hander/blob/62e61b6/src/yylHander.ts#L19)
+Defined in: [src/yylHander.ts:19](https://github.com/yyl-team/yyl-hander/blob/24fb367/src/yylHander.ts#L19)
 
 ___
 
@@ -34,4 +34,4 @@ ___
 
 • **yylConfig**: YylConfig
 
-Defined in: [src/yylHander.ts:18](https://github.com/yyl-team/yyl-hander/blob/62e61b6/src/yylHander.ts#L18)
+Defined in: [src/yylHander.ts:18](https://github.com/yyl-team/yyl-hander/blob/24fb367/src/yylHander.ts#L18)
