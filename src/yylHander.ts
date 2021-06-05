@@ -2,12 +2,12 @@ import fs from 'fs'
 import path from 'path'
 import { YylConfig, Env, YylConfigAlias, YylConfigEntry, Logger } from 'yyl-config-types'
 import { deepReplace, formatPath, needEnvName, toCtx, sugarReplace } from './util'
-import extOs, { runSpawn } from 'yyl-os'
+import extOs from 'yyl-os'
 import util, { type } from 'yyl-util'
 import extFs from 'yyl-fs'
 import chalk from 'chalk'
 import { LANG, SERVER_PLUGIN_PATH, SERVER_CONFIG_LOG_PATH, SERVER_PATH } from './const'
-import request from 'request'
+import axios from 'axios'
 import { SeedEntry, SeedOptimizeResult } from 'yyl-seed-base'
 import { Runner, YServerSetting } from 'yyl-server'
 import { tsParser } from 'node-ts-parser'
@@ -516,6 +516,12 @@ export class YylHander {
                     logger('msg', 'success', args)
                   })
 
+                  const memoryInfo = process.memoryUsage()
+
+                  const total = Math.round((memoryInfo.rss / 1024 / 1024) * 100) / 100
+
+                  logger('msg', 'success', [`${LANG.MOMERY_USE}: ${chalk.green(total)} MB`])
+
                   logger('msg', 'success', [`${watch ? 'watch' : 'all'} ${LANG.OPTIMIZE_FINISHED}`])
 
                   if (isUpdate) {
@@ -669,7 +675,7 @@ export class YylHander {
     const { yylConfig, env, logger, context } = this
     if (typeof ctx === 'string') {
       logger('msg', 'cmd', [ctx])
-      return await runSpawn(ctx, context, (dataBuffer) => {
+      return await extOs.runSpawn(ctx, context, (dataBuffer) => {
         logger('msg', 'info', dataBuffer.toString().split(/[\r\n]+/))
       })
     } else if (typeof ctx === 'function') {
@@ -677,7 +683,7 @@ export class YylHander {
       const rFn = ctx({ config: yylConfig, env, logger })
       if (typeof rFn === 'string') {
         logger('msg', 'cmd', [rFn])
-        return await runSpawn(rFn, context, (dataBuffer) => {
+        return await extOs.runSpawn(rFn, context, (dataBuffer) => {
           logger('msg', 'info', dataBuffer.toString().split(/[\r\n]+/))
         })
       } else {
@@ -736,11 +742,7 @@ export class YylHander {
     if (yylConfig.localserver?.port) {
       const reloadPath = `http://${extOs.LOCAL_IP}:${yylConfig.localserver.port}1/changed?files=1`
       try {
-        await new Promise((resolve) => {
-          request(reloadPath, undefined, () => {
-            resolve(undefined)
-          })
-        })
+        await axios.get(reloadPath)
       } catch (er) {}
     }
   }

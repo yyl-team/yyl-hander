@@ -77,6 +77,7 @@ test('yylHander.init', async () => {
     'msg-info',
     'progress-start',
     'msg-success',
+    'msg-success',
     'progress-finished'
   ])
 })
