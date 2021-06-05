@@ -7,7 +7,7 @@ import util, { type } from 'yyl-util'
 import extFs from 'yyl-fs'
 import chalk from 'chalk'
 import { LANG, SERVER_PLUGIN_PATH, SERVER_CONFIG_LOG_PATH, SERVER_PATH } from './const'
-import request from 'request'
+import axios from 'axios'
 import { SeedEntry, SeedOptimizeResult } from 'yyl-seed-base'
 import { Runner, YServerSetting } from 'yyl-server'
 import { tsParser } from 'node-ts-parser'
@@ -736,11 +736,7 @@ export class YylHander {
     if (yylConfig.localserver?.port) {
       const reloadPath = `http://${extOs.LOCAL_IP}:${yylConfig.localserver.port}1/changed?files=1`
       try {
-        await new Promise((resolve) => {
-          request(reloadPath, undefined, () => {
-            resolve(undefined)
-          })
-        })
+        await axios.get(reloadPath)
       } catch (er) {}
     }
   }
