@@ -54,6 +54,7 @@ export const LANG = {
   RUNNER_START_FINISHED: 'server 模块启动 完成',
 
   MOMERY_USE: '内存使用情况',
+  RUN_GC: '执行 gc',
 
   MISS_NAME_OPTIONS: '缺少 --name 属性',
   NAME_OPTIONS_NOT_EXISTS: '--name 属性设置错误',
