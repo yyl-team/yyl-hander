@@ -518,9 +518,17 @@ export class YylHander {
 
                   const memoryInfo = process.memoryUsage()
 
-                  const total = Math.round((memoryInfo.rss / 1024 / 1024) * 100) / 100
+                  const total = Math.round((memoryInfo.heapTotal / 1024 / 1024) * 100) / 100
+                  const used = Math.round((memoryInfo.heapUsed / 1024 / 1024) * 100) / 100
 
-                  logger('msg', 'success', [`${LANG.MOMERY_USE}: ${chalk.green(total)} MB`])
+                  logger('msg', 'success', [
+                    `${LANG.MOMERY_USE}: ${chalk.cyan(used)} / ${chalk.green(total)} MB`
+                  ])
+
+                  if (global.gc) {
+                    logger('msg', 'info', [`${LANG.RUN_GC}`])
+                    global.gc()
+                  }
 
                   logger('msg', 'success', [`${watch ? 'watch' : 'all'} ${LANG.OPTIMIZE_FINISHED}`])
 
