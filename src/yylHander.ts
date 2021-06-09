@@ -162,6 +162,12 @@ export class YylHander {
       throw new Error(`${LANG.CONFIG_ATTR_IS_NEEDFUL}: workflow`)
     }
 
+    // 老版本兼容
+    if (yylConfig.workflow === ('webpack-vue2' as YylConfig['workflow'])) {
+      yylConfig.workflow = 'webpack'
+      yylConfig.seed = 'vue2'
+    }
+
     if (!yylConfig.name) {
       yylConfig.name = 'default'
     }

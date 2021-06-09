@@ -1,5 +1,9 @@
 # 版本变更
 
+## 1.3.20 (2021-06-09)
+
+- feat: yylHander.parseYylConfig 对老版本 `workflow='webpack-vue2'` 兼容
+
 ## 1.3.19 (2021-06-06)
 
 - feat: 每次 watch 完成后执行一次 gc

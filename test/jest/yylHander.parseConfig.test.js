@@ -84,6 +84,84 @@ test('yylHander.parseConfig(): object', async () => {
   expect(r).toEqual(expectResult)
 })
 
+test('yylHander.parseConfig(): legacy webpack-vue2', async () => {
+  const configPath = path.join(configDir, 'yyl.config-webpack-vue2.js')
+  const yylHander = new YylHander({
+    yylConfig: configPath,
+    env: {}
+  })
+  const r = yylHander.getYylConfig()
+  const expectResult = {
+    workflow: 'webpack',
+    name: '1',
+    seed: 'vue2',
+    version: '3.4.10',
+    platform: 'mobile',
+    proxy: {
+      port: 8887,
+      localRemote: {
+        'http://web.testhost.com/': 'http://127.0.0.1:5000/',
+        'http://www.testhost.com/web/1': 'http://127.0.0.1:5000/project/1/mobile/html',
+        'http://www.testhost.com/api/mock': 'http://127.0.0.1:5000/api/mock'
+      },
+      homePage: 'http://www.testhost.com/web/1/'
+    },
+    localserver: {
+      root: `${configDir}/dist`,
+      port: 5000
+    },
+    dest: {
+      basePath: '/project/1/mobile',
+      jsPath: 'js',
+      jslibPath: 'js/lib',
+      cssPath: 'css',
+      htmlPath: 'html',
+      imagesPath: 'images',
+      tplPath: 'tpl',
+      revPath: 'assets'
+    },
+    commit: {
+      type: 'gitlab-ci',
+      revAddr: 'http://web.yystatic.com/project/1/mobile/assets/rev-manifest.json',
+      hostname: '//web.yystatic.com',
+      staticHost: '//web.yystatic.com',
+      mainHost: '//www.testhost.com/web'
+    },
+    concat: {},
+    resource: {},
+    plugins: ['yyl-flexlayout'],
+    webpackConfigPath: `${configDir}/webpack.config.js`,
+    alias: {
+      'root': `${configDir}/dist/project/1/mobile`,
+      'revRoot': `${configDir}/dist/project/1/mobile`,
+      'destRoot': `${configDir}/dist`,
+      'srcRoot': `${configDir}/src`,
+      'dirname': `${configDir}`,
+      'commons': util.path.join(configDir, '../commons'),
+      'globalcomponents': util.path.join(configDir, '../commons/components'),
+      'globallib': util.path.join(configDir, '../commons/lib'),
+      'jsDest': `${configDir}/dist/project/1/mobile/js`,
+      'jslibDest': `${configDir}/dist/project/1/mobile/js/lib`,
+      'htmlDest': `${configDir}/dist/project/1/mobile/html`,
+      'cssDest': `${configDir}/dist/project/1/mobile/css`,
+      'imagesDest': `${configDir}/dist/project/1/mobile/images`,
+      'revDest': `${configDir}/dist/project/1/mobile/assets`,
+      'tplDest': `${configDir}/dist/project/1/mobile/tpl`,
+      '@': `${configDir}/src`,
+      '~@': `${configDir}/src/components`
+    },
+    resolveModule: `${SERVER_PLUGIN_PATH}/webpack/1/node_modules`
+  }
+
+  expectResult.concat[`${configDir}/dist/project/1/mobile/js/vendors.js`] = [
+    `${configDir}/src/js/lib/a.js`,
+    `${configDir}/src/js/lib/b.js`
+  ]
+
+  expectResult.resource[`${configDir}/src/pc/svga`] = `${configDir}/dist/project/1/mobile/tpl`
+  expect(r).toEqual(expectResult)
+})
+
 test('yylHander.parseConfig(): env.config', async () => {
   const configPath = path.join(configDir, 'yyl.config-env.config.js')
   const yylHander = new YylHander({
@@ -170,7 +248,8 @@ test('yylHander.parseConfig(): object no plugins', async () => {
   })
   const r = yylHander.getYylConfig()
   const expectResult = {
-    workflow: 'webpack-vue2',
+    workflow: 'webpack',
+    seed: 'vue2',
     name: '1',
     version: '3.4.10',
     platform: 'mobile',
