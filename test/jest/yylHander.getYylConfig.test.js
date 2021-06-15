@@ -20,6 +20,10 @@ test('yylHander() return default ', async () => {
     name: 'default',
     workflow: 'webpack',
     platform: 'pc',
+    localserver: {
+      port: 5000,
+      root: util.path.join(I_FRAG_PATH, 'dist')
+    },
     alias: {
       dirname: I_FRAG_PATH,
       srcRoot: util.path.join(I_FRAG_PATH, 'src'),
@@ -72,6 +76,10 @@ test('yylHander() with resource and concat ', async () => {
     name: 'default',
     workflow: 'webpack',
     platform: 'pc',
+    localserver: {
+      port: 5000,
+      root: util.path.join(I_FRAG_PATH, 'dist')
+    },
     resource: (() => {
       const r = {}
       r[util.path.join(I_FRAG_PATH, 'src/svga')] = util.path.join(I_FRAG_PATH, 'dist/tpl')

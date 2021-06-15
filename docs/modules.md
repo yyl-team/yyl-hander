@@ -41,7 +41,7 @@
 
 • `Const` **DEFAULT\_ALIAS**: YylConfigAlias
 
-Defined in: [src/yylHander.ts:54](https://github.com/yyl-team/yyl-hander/blob/e08967c/src/yylHander.ts#L54)
+Defined in: [src/yylHander.ts:54](https://github.com/yyl-team/yyl-hander/blob/e87c446/src/yylHander.ts#L54)
 
 ___
 
@@ -65,6 +65,7 @@ ___
 | `MISS_NAME_OPTIONS` | *string* |
 | `MOMERY_USE` | *string* |
 | `NAME_OPTIONS_NOT_EXISTS` | *string* |
+| `NO_HOME_PAGE` | *string* |
 | `NO_OPZER_HANDLE` | *string* |
 | `OPEN_ADDR` | *string* |
 | `OPTIMIZE_FINISHED` | *string* |
@@ -95,9 +96,10 @@ ___
 | `SEED_INIT_FINISHED` | *string* |
 | `SEED_INIT_START` | *string* |
 | `SEED_NOT_SET` | *string* |
+| `SERVET_PORT_NOT_SET` | *string* |
 | `YARN_VERSION` | *string* |
 
-Defined in: [src/const.ts:24](https://github.com/yyl-team/yyl-hander/blob/e08967c/src/const.ts#L24)
+Defined in: [src/const.ts:24](https://github.com/yyl-team/yyl-hander/blob/e87c446/src/const.ts#L24)
 
 ___
 
@@ -107,7 +109,7 @@ ___
 
 proxy 缓存目录
 
-Defined in: [src/const.ts:22](https://github.com/yyl-team/yyl-hander/blob/e08967c/src/const.ts#L22)
+Defined in: [src/const.ts:22](https://github.com/yyl-team/yyl-hander/blob/e87c446/src/const.ts#L22)
 
 ___
 
@@ -117,7 +119,7 @@ ___
 
 server 存放构建生成的 config 的缓存文件
 
-Defined in: [src/const.ts:19](https://github.com/yyl-team/yyl-hander/blob/e08967c/src/const.ts#L19)
+Defined in: [src/const.ts:19](https://github.com/yyl-team/yyl-hander/blob/e87c446/src/const.ts#L19)
 
 ___
 
@@ -127,7 +129,7 @@ ___
 
 server 数据存放目录
 
-Defined in: [src/const.ts:13](https://github.com/yyl-team/yyl-hander/blob/e08967c/src/const.ts#L13)
+Defined in: [src/const.ts:13](https://github.com/yyl-team/yyl-hander/blob/e87c446/src/const.ts#L13)
 
 ___
 
@@ -137,7 +139,7 @@ ___
 
 server 根目录
 
-Defined in: [src/const.ts:10](https://github.com/yyl-team/yyl-hander/blob/e08967c/src/const.ts#L10)
+Defined in: [src/const.ts:10](https://github.com/yyl-team/yyl-hander/blob/e87c446/src/const.ts#L10)
 
 ___
 
@@ -147,7 +149,7 @@ ___
 
 server plugins 存放目录
 
-Defined in: [src/const.ts:16](https://github.com/yyl-team/yyl-hander/blob/e08967c/src/const.ts#L16)
+Defined in: [src/const.ts:16](https://github.com/yyl-team/yyl-hander/blob/e87c446/src/const.ts#L16)
 
 ___
 
@@ -157,7 +159,7 @@ ___
 
 profile
 
-Defined in: [src/const.ts:7](https://github.com/yyl-team/yyl-hander/blob/e08967c/src/const.ts#L7)
+Defined in: [src/const.ts:7](https://github.com/yyl-team/yyl-hander/blob/e87c446/src/const.ts#L7)
 
 ## Functions
 
@@ -175,7 +177,7 @@ Defined in: [src/const.ts:7](https://github.com/yyl-team/yyl-hander/blob/e08967c
 
 **Returns:** *string*
 
-Defined in: [src/util.ts:16](https://github.com/yyl-team/yyl-hander/blob/e08967c/src/util.ts#L16)
+Defined in: [src/util.ts:16](https://github.com/yyl-team/yyl-hander/blob/e87c446/src/util.ts#L16)
 
 ___
 
@@ -194,7 +196,7 @@ sugar 替换
 
 **Returns:** *string*
 
-Defined in: [src/util.ts:25](https://github.com/yyl-team/yyl-hander/blob/e08967c/src/util.ts#L25)
+Defined in: [src/util.ts:25](https://github.com/yyl-team/yyl-hander/blob/e87c446/src/util.ts#L25)
 
 ___
 

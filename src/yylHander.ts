@@ -229,8 +229,21 @@ export class YylHander {
       yylConfig.platform = 'pc'
     }
 
+    if (!yylConfig?.localserver) {
+      yylConfig.localserver = {}
+    }
+
     if (yylConfig?.localserver?.root) {
       yylConfig.localserver.root = formatPath(path.resolve(context, yylConfig.localserver.root))
+    }
+
+    if (!yylConfig?.localserver?.entry) {
+      if (!yylConfig?.localserver?.port) {
+        yylConfig.localserver.port = 5000
+      }
+      if (!yylConfig?.localserver?.root && yylConfig.alias?.destRoot) {
+        yylConfig.localserver.root = yylConfig.alias.destRoot
+      }
     }
 
     // 配置 resolveModule (适用于 webpack)
@@ -507,9 +520,13 @@ export class YylHander {
                       })()
                     })
 
-                    logger('msg', 'success', [
-                      `${LANG.PRINT_HOME_PAGE}: ${chalk.yellow.bold(homePage)}`
-                    ])
+                    if (homePage) {
+                      logger('msg', 'success', [
+                        `${LANG.PRINT_HOME_PAGE}: ${chalk.yellow.bold(homePage)}`
+                      ])
+                    } else {
+                      logger('msg', 'info', [`${LANG.NO_HOME_PAGE}`])
+                    }
 
                     // 第一次构建 打开 对应页面
                     if (!isUpdate && !env.silent && homePage && env.open) {
@@ -594,7 +611,7 @@ export class YylHander {
 
   /** 获取 homePage */
   async getHomePage(op?: GetHomePageOption) {
-    const { yylConfig, env } = this
+    const { yylConfig, env, logger } = this
     const files = op?.files || []
     const sortHtmls = function (htmls: string[]) {
       htmls.sort((a, b) => {
@@ -620,6 +637,8 @@ export class YylHander {
     if (yylConfig?.localserver?.port) {
       localServerAddr = `http://${extOs.LOCAL_IP}:${yylConfig.localserver.port}`
       localServerAddr2 = `http://127.0.0.1:${yylConfig.localserver.port}`
+    } else {
+      logger('msg', 'info', [LANG.SERVET_PORT_NOT_SET])
     }
     const iHost = yylConfig?.commit?.hostname.replace(/\/$/, '')
 
@@ -653,8 +672,10 @@ export class YylHander {
         if (!addr) {
           if (!yylConfig.commit?.hostname || yylConfig.commit?.hostname === '/') {
             addr = localServerAddr
-          } else {
+          } else if (yylConfig.commit?.hostname) {
             addr = yylConfig.commit?.hostname
+          } else {
+            addr = localServerAddr
           }
         }
       } else {
