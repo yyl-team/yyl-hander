@@ -1,5 +1,9 @@
 # 版本变更
 
+## 1.3.21 (2021-06-15)
+
+- fix: 修复 当 `yylConfig.localserver.port` 没配置时， homePage 不能正常显示问题
+
 ## 1.3.20 (2021-06-09)
 
 - feat: yylHander.parseYylConfig 对老版本 `workflow='webpack-vue2'` 兼容

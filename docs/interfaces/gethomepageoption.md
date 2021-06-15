@@ -16,4 +16,4 @@
 
 • `Optional` **files**: *string*[]
 
-Defined in: [src/yylHander.ts:24](https://github.com/yyl-team/yyl-hander/blob/e08967c/src/yylHander.ts#L24)
+Defined in: [src/yylHander.ts:24](https://github.com/yyl-team/yyl-hander/blob/e87c446/src/yylHander.ts#L24)
