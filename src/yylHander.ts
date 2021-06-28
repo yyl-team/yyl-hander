@@ -180,7 +180,7 @@ export class YylHander {
 
     // alias format to absolute
     Object.keys(yylConfig.alias).forEach((key: keyof YylConfigAlias) => {
-      if (yylConfig.alias && yylConfig.alias[key]) {
+      if (yylConfig.alias && yylConfig.alias[key] && !path.isAbsolute(yylConfig.alias[key])) {
         yylConfig.alias[key] = formatPath(path.resolve(context, yylConfig.alias[key]))
       }
     })
