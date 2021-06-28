@@ -1,5 +1,9 @@
 # 版本变更
 
+## 1.3.22 (2021-06-28)
+
+- fix: 修复 window 下 alias.basePath 路径错误问题
+
 ## 1.3.21 (2021-06-15)
 
 - fix: 修复 当 `yylConfig.localserver.port` 没配置时， homePage 不能正常显示问题
